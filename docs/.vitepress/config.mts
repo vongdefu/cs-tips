@@ -25,6 +25,19 @@ export default defineConfig({
       ],
     },
   },
+  head: [
+    // Google adsense
+    [
+      "script",
+      {
+        async: "async",
+        // 记得替换成你的真正的 src
+        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9669365665800712",
+        crossorigin: "anonymous",
+      },
+    ],
+    // ...
+  ],
   themeConfig: {
     outline: {
       level: [2, 4],
