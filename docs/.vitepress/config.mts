@@ -10,7 +10,7 @@ export default defineConfig({
   lang: "zh-Hans",
   markdown: {
     lineNumbers: true,
-    codeCopyButtonTitle: "复制代码",
+    codeCopyButtonTitle: "复制",
   },
   themeConfig: {
     outline: {
@@ -30,10 +30,10 @@ export default defineConfig({
     },
 
     lastUpdated: {
-      text: "最后更新于",
+      text: "更新于",
       formatOptions: {
-        dateStyle: "full",
-        timeStyle: "medium",
+        dateStyle: "short",
+        timeStyle: "short",
       },
     },
 
