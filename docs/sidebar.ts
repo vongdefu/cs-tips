@@ -10,7 +10,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
         text: "计算机网络",
         base: "/01-CS基础/计算机网络",
         link: "/README",
-        collapsed: true,
+        collapsed: false,
         items: [
           { text: "应用层", link: "/应用层" },
           { text: "传输层", link: "/传输层" },
@@ -23,7 +23,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
       {
         text: "设计模式",
         base: "/01-CS基础/设计模式",
-        collapsed: true,
+        collapsed: false,
         items: [
           { text: "设计原则", link: "/设计原则" },
           { text: "单例", link: "/单例" },
@@ -40,7 +40,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     {
       base: "/02-java",
       text: "java",
-      collapsed: true,
+      collapsed: false,
       items: [
         { text: "IO", link: "/io" },
         { text: "集合", link: "/集合" },
@@ -49,7 +49,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
         {
           text: "java并发编程",
           base: "/02-java/并发编程",
-          collapsed: true,
+          collapsed: false,
           items: [
             { text: "基础知识", link: "/基础知识" },
             { text: "线程池", link: "/线程池" },
@@ -106,7 +106,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     {
       base: "/07-工程设计",
       text: "分布式",
-      collapsed: true,
+      collapsed: false,
       items: [],
     },
   ],
