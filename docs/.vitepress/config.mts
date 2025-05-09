@@ -26,8 +26,7 @@ export default defineConfig({
     },
   },
   head: [
-    // Google adsense
-
+    // https://search.google.com/search-console?resource_id=https%3A%2F%2Fvongdefu.github.io%2Fcs-tips%2F
     [
       "meta",
       {
@@ -36,15 +35,18 @@ export default defineConfig({
       },
     ],
 
-    [
-      "script",
-      {
-        async: "async",
-        // 记得替换成你的真正的 src
-        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9669365665800712",
-        crossorigin: "anonymous",
-      },
-    ],
+    // Google adsense
+    // https://www.google.com/adsense/new/u/0/pub-9669365665800712/onboarding
+    // AdSense 不会验证 https://yourusername.github.io/blog/ 这样的子路径，也不会验证你不拥有的域名（如 github.io）。
+    // [
+    //   "script",
+    //   {
+    //     async: "async",
+    //     // 记得替换成你的真正的 src
+    //     src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9669365665800712",
+    //     crossorigin: "anonymous",
+    //   },
+    // ],
     // ...
   ],
   themeConfig: {
