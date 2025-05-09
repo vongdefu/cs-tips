@@ -39,8 +39,7 @@ export default defineConfig({
       "meta",
       {
         name: "google-site-verification",
-        content:
-          '<meta name="google-site-verification" content="L_J6NdO2Lr3dLMkAm5eh-8_7lmggcG1zAzl11qXwFaE" />', // 你从 Google 获取的值
+        content: "L_J6NdO2Lr3dLMkAm5eh-8_7lmggcG1zAzl11qXwFaE", // 你从 Google 获取的值
       },
     ],
     // ...
