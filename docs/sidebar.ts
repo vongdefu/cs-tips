@@ -1,14 +1,14 @@
 import { DefaultTheme } from "vitepress";
 
 export const sidebar: DefaultTheme.Config["sidebar"] = {
-  "/CS基础/": {
+  "/01-CS基础/": {
     base: "/01-CS基础",
     items: [
-      { text: "数据结构", link: "/数据结构" },
+      { text: "前端", link: "/前端" },
       { text: "算法", link: "/算法" },
       { text: "操作系统", link: "/操作系统" },
       { text: "计算机组成原理", link: "/计算机组成原理" },
-      { text: "计算机网络", link: "/network" },
+      { text: "计算机网络", link: "/计算机网络" },
       {
         text: "设计模式",
         base: "/01-CS基础/设计模式",
@@ -18,7 +18,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     ],
   },
 
-  "/java/": [
+  "/02-java/": [
     {
       base: "/02-java",
       text: "java",
