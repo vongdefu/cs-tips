@@ -20,3 +20,8 @@ body {
   --vp-sidebar-width: 250px;
   --vp-code-line-height: none;
 }
+
+
+.DocSearch-Button {
+  height: 35px;
+}

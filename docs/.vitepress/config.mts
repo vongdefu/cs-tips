@@ -1,6 +1,7 @@
 import { defineConfig } from "vitepress";
 import { nav } from "../nav.ts";
 import { sidebar } from "../sidebar.ts";
+import { fileURLToPath, URL } from "node:url";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -11,6 +12,18 @@ export default defineConfig({
   markdown: {
     lineNumbers: true,
     codeCopyButtonTitle: "复制",
+  },
+  vite: {
+    resolve: {
+      alias: [
+        {
+          find: /^.*\/VPDocOutlineItem\.vue$/,
+          replacement: fileURLToPath(
+            new URL("./theme/components/VPDocOutlineItem.vue", import.meta.url)
+          ),
+        },
+      ],
+    },
   },
   themeConfig: {
     outline: {
