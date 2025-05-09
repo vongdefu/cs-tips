@@ -3,6 +3,8 @@ import { DefaultTheme } from "vitepress";
 export const sidebar: DefaultTheme.Config["sidebar"] = {
   "/01-CS基础/": {
     base: "/01-CS基础",
+    text: "CS基础",
+    collapsed: true,
     items: [
       { text: "前端", link: "/前端" },
       { text: "算法", link: "/算法" },
@@ -13,7 +15,14 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
         text: "设计模式",
         base: "/01-CS基础/设计模式",
         collapsed: true,
-        items: [{ text: "单例模式", link: "/单例模式" }],
+        items: [
+          { text: "设计原则", link: "/设计原则" },
+          { text: "单例", link: "/单例" },
+          { text: "建造者", link: "/建造者模式" },
+          { text: "策略模式", link: "/策略模式" },
+          { text: "模板方法", link: "/模板方法" },
+          { text: "责任链模式", link: "/责任链模式" },
+        ],
       },
     ],
   },

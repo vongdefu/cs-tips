@@ -1,0 +1,112 @@
+# 模板方法
+
+## 1. 业务场景
+
+假如一个业务流程需要几个通用的步骤，只有部分细节不一样外，其他的都一样，这种场景都适合使用模板方法模式。例如，喝红茶，喝绿茶、喝白茶等喝茶过程可以分为： 准备茶杯、挑选茶叶、煮茶。
+
+## 2. 垃圾实现
+
+垃圾的实现就是直接针对每一个场景都实现一套代码。
+
+## 3. 模板方法实现
+
+垃圾实现中会有很多重复的代码，比如都需要准备茶杯、都需要进行煮茶。
+
+1. 构造一个抽象类，抽象类中有一个通用的算法骨架，及代表算法步骤的虚方法
+
+   ```java
+
+   public abstract class DrinkTea{
+
+       // 喝茶
+       public final void drink() {
+           prepareCup();
+           pickTea();
+           cookTea();
+       }
+
+       // 准备茶杯
+       public void prepareCup(){
+           System.out.println("准备了茶杯")
+       }
+
+       // 挑选茶叶
+       public abstract void pickTea();
+
+       // 煮茶
+       public void cookTea(){
+           System.out.println("煮茶")
+       }
+   }
+
+   ```
+
+2. 根据业务需求继承 DrinkTea 抽象类，并实现抽象类中的虚方法
+
+喝红茶：
+
+```java
+public class DrinkRedTea extends DrinkTea{
+    @Override
+    public void pickTea(){
+        System.out.println("挑选了红茶")
+    }
+}
+
+```
+
+喝绿茶：
+
+```java
+public class DrinkGreenTea extends DrinkTea{
+    @Override
+    public void pickTea(){
+        System.out.println("挑选了绿茶")
+    }
+}
+
+```
+
+喝白茶：
+
+```java
+public class DrinkWhiteTea extends DrinkTea{
+    @Override
+    public void pickTea(){
+        System.out.println("挑选了白茶")
+    }
+}
+
+```
+
+## 4. 使用
+
+```java
+main(){
+
+    // 喝红茶
+    DrinkTea drinkTea = new DrinkRedTea();
+    drinkTea.drink();
+
+
+    // 喝绿茶
+    DrinkTea drinkTea = new DrinkGreenTea();
+    drinkTea.drink();
+}
+
+```
+
+## 5. 其他
+
+1. 如果新增一种茶叶，那么就只需要创建一个类，然后继承 DrinkTea 类并实现 pickTea()虚方法即可；
+2. 如果修改茶叶，只需要修改对应的茶叶的挑选方法就行，其他不需要修改。
+
+Spring 中提供了一些 template 工具类，如 RestTemplate、RedisTemplate，有兴趣可以了解一下。
+
+## 6. 思路扩展
+
+上面 DrinkTea 抽象类中：
+
+1. 提供了一个模板方法： drink()， 这个方法中把业务步骤固定下来，方便客户端调用；
+2. 定义了一个留给子类实现的抽象方法 pickTea()， 这个方法是用来留给子类来实现的，方便扩展；
+3. 实现了 prepareCup() 、cookTea() 的默认方法，因为这些方法是扩展类都有的方法；
