@@ -6,8 +6,6 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     items: [
       { text: "前端", link: "/前端" },
       { text: "数据结构与算法", link: "/数据结构与算法" },
-      { text: "操作系统", link: "/操作系统" },
-      { text: "计算机组成原理", link: "/计算机组成原理" },
       {
         text: "计算机网络",
         base: "/01-CS基础/计算机网络",
