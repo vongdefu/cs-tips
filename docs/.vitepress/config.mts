@@ -13,6 +13,7 @@ export default defineConfig({
     lineNumbers: true,
     codeCopyButtonTitle: "复制",
   },
+  // 重写内部组件： https://vitepress.dev/zh/guide/extending-default-theme#overriding-internal-components
   vite: {
     resolve: {
       alias: [
@@ -25,6 +26,8 @@ export default defineConfig({
       ],
     },
   },
+
+  // https://vitepress.dev/zh/reference/site-config#head
   head: [
     // https://search.google.com/search-console?resource_id=https%3A%2F%2Fvongdefu.github.io%2Fcs-tips%2F
     [

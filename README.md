@@ -67,7 +67,11 @@ https://site.quteam.com/technology/front-end/vitepress-comment/
 https://www.carbonads.net/join
 申请后，gmail 中说不符合要求，该广告商主要针对英语用户和程序员领域；
 
-todo: 找一些针对中文用户的；https://blog.csdn.net/u011656961/article/details/138323739
+> Your site generates a minimum of 10,000 page-views per month.
+
+todo: 找一些针对中文用户的；https://blog.forte.love/2024/04/29/vitepress%E5%B9%BF%E5%91%8A
+
+AdSense 不会验证 https://yourusername.github.io/blog/ 这样的子路径，也不会验证你不拥有的域名（如 github.io）
 
 ## 工作流
 

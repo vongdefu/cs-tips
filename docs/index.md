@@ -3,9 +3,8 @@
 layout: home
 
 hero:
-  name: "cs-tips"
-  text: "cs 面试 提示"
-  tagline: My great project tagline
+  name: "cs 面试 提示"
+  tagline: make it come true
   actions:
     - theme: brand
       text: Markdown Examples
@@ -22,4 +21,3 @@ features:
   - title: Feature C
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
-
