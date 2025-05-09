@@ -53,6 +53,7 @@ export default defineConfig({
     // ...
   ],
   themeConfig: {
+    // https://vitepress.dev/zh/reference/default-theme-config#outline
     outline: {
       level: [2, 4],
       label: "目录",
@@ -60,6 +61,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav,
     sidebar,
+
     socialLinks: [
       { icon: "github", link: "https://github.com/vongdefu/cs-tips" },
     ],

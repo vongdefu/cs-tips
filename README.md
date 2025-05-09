@@ -37,30 +37,7 @@
 
 1. 参考[这里](https://juejin.cn/post/7214805603449339963)
 
-## 大纲展示 h3
-
 ## 修改一些样式
-
-## 添加评论
-
-https://site.quteam.com/technology/front-end/vitepress-comment/
-
-  <script
-    src="https://giscus.app/client.js"
-    data-repo="vongdefu/vongdefu.github.io"
-    data-repo-id="R_kgDON_DwvQ"
-    data-category="Announcements"
-    data-category-id="DIC_kwDON_Dwvc4CnWcs"
-    data-mapping="pathname"
-    data-strict="0"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="bottom"
-    data-theme="preferred_color_scheme"
-    data-lang="zh-CN"
-    crossorigin="anonymous"
-    async
-  ></script>
 
 ## 广告联盟
 
@@ -69,10 +46,54 @@ https://www.carbonads.net/join
 
 > Your site generates a minimum of 10,000 page-views per month.
 
-todo: 找一些针对中文用户的；https://blog.forte.love/2024/04/29/vitepress%E5%B9%BF%E5%91%8A
+参考[这里](https://blog.forte.love/2024/04/29/vitepress%E5%B9%BF%E5%91%8A)配置 Google AdSense。
 
-AdSense 不会验证 https://yourusername.github.io/blog/ 这样的子路径，也不会验证你不拥有的域名（如 github.io）
+依然失败。原因是：AdSense 不会验证 https://yourusername.github.io/blog/ 这样的子路径，也不会验证你不拥有的域名（如 github.io）。
+
+后续，如果买了个人域名之后再说。
 
 ## 工作流
 
+1. 直接使用 action 部署到 gh-pages 分支上即可；
+2. 私有仓库中添加一个工作流用来把私有仓库中的文档同步到本仓库特定文件夹即可；
+
 ## 制作 logo
+
+## 修改布局
+
+> https://vitepress.dev/guide/extending-default-theme#layout-slots
+
+1. 在 theme/components 下添加 xx.vue ;
+2. 在 theme/index.ts 中：
+   1. 添加引入： import GiscusComment from "./components/GiscusComment.vue";
+   2. 添加配置： "doc-after": () => h(GiscusComment),
+
+### 添加评论
+
+参考[这里](https://site.quteam.com/technology/front-end/vitepress-comment/)。
+
+```vue
+<Giscus
+  id="comments"
+  repo="vongdefu/cs-tips"
+  repoid="R_kgDOOnFHUQ"
+  category="Announcements"
+  categoryid="DIC_kwDOOnFHUc4Cp8qg"
+  mapping="pathname"
+  term="Welcome to giscus!"
+  reactionsenabled="1"
+  emitmetadata="0"
+  inputposition="top"
+  loading="lazy"
+  :theme="isDark ? 'dark' : 'light'"
+  :key="route.path"
+></Giscus>
+```
+
+### 在目录上方添加公众号头像等引流图片
+
+TODO；
+
+## 隐藏文档用于导流到微信公众号
+
+TODO；
