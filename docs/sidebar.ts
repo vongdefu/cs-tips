@@ -42,7 +42,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     },
   ],
 
-  "/框架/": {
+  "/03-框架/": {
     base: "/03-框架",
     items: [
       { text: "Spring", link: "/Spring" },
@@ -50,7 +50,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     ],
   },
 
-  "/中间件/": {
+  "/04-中间件/": {
     base: "/04-中间件",
     items: [
       { text: "MySQL", link: "/MySQL" },
@@ -61,7 +61,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     ],
   },
 
-  "/分布式/": {
+  "/05-分布式/": {
     base: "/05-分布式",
     items: [
       { text: "接口风格", link: "/mysql" },
@@ -75,7 +75,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     ],
   },
 
-  "/软件质量管理/": {
+  "/06-软件质量管理/": {
     base: "/06-软件质量管理",
     items: [
       { text: "代码协作", link: "/mysql" },
@@ -84,7 +84,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
       { text: "服务器性能指标与基准测试", link: "/network" },
     ],
   },
-  "/工程设计/": [
+  "/07-工程设计/": [
     {
       base: "/07-工程设计",
       text: "分布式",
