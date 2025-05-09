@@ -1,0 +1,47 @@
+```txt
+== Info:   Trying 198.18.0.177:443...
+== Info: Connected to postman-echo.com (198.18.0.177) port 443
+== Info: schannel: disabled automatic use of client certificate
+== Info: using HTTP/1.x
+=> Send header, 153 bytes (0x99)
+0000: POST /post HTTP/1.1
+0015: Host: postman-echo.com
+002d: User-Agent: curl/8.4.0
+0045: Accept: */*
+0052: Content-Length: 38
+0066: Content-Type: application/x-www-form-urlencoded
+0097: 
+=> Send data, 38 bytes (0x26)
+0000: name=JohnDoe&email=johndoe@example.com
+<= Recv header, 17 bytes (0x11)
+0000: HTTP/1.1 200 OK
+<= Recv header, 37 bytes (0x25)
+0000: Date: Wed, 10 Jul 2024 20:31:45 GMT
+<= Recv header, 47 bytes (0x2f)
+0000: Content-Type: application/json; charset=utf-8
+<= Recv header, 21 bytes (0x15)
+0000: Content-Length: 601
+<= Recv header, 24 bytes (0x18)
+0000: Connection: keep-alive
+<= Recv header, 22 bytes (0x16)
+0000: Server: nginx/1.25.3
+<= Recv header, 43 bytes (0x2b)
+0000: ETag: W/"259-EBimwo87KXSp4mfcmb/q/eoIBZ4"
+<= Recv header, 124 bytes (0x7c)
+0000: set-cookie: sails.sid=s%3ApvMx8cr7sdZd5sB7Rk3V3918Q-arRI_z.fxF9D
+0040: WIG7%2FtUdwXVn9t7BI6kLH3PzfV1PgxQu41kY4Q; Path=/; HttpOnly
+<= Recv header, 2 bytes (0x2)
+0000: 
+<= Recv data, 601 bytes (0x259)
+0000: {.  "args": {},.  "data": "",.  "files": {},.  "form": {.    "na
+0040: me": "JohnDoe",.    "email": "johndoe@example.com".  },.  "heade
+0080: rs": {.    "host": "postman-echo.com",.    "x-request-start": "t
+00c0: =1720643505.940",.    "content-length": "38",.    "x-forwarded-p
+0100: roto": "https",.    "x-forwarded-port": "443",.    "x-amzn-trace
+0140: -id": "Root=1-668eefb1-464cd4653fece34f5034368f",.    "user-agen
+0180: t": "curl/8.4.0",.    "accept": "*/*",.    "content-type": "appl
+01c0: ication/x-www-form-urlencoded".  },.  "json": {.    "name": "Joh
+0200: nDoe",.    "email": "johndoe@example.com".  },.  "url": "https:/
+0240: /postman-echo.com/post".}
+== Info: Connection #0 to host postman-echo.com left intact
+```
