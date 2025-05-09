@@ -9,7 +9,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
       {
         text: "计算机网络",
         base: "/01-CS基础/计算机网络",
-        link: "/01-CS基础/计算机网络/README",
+        link: "/README",
         collapsed: true,
         items: [
           { text: "应用层", link: "/应用层" },
