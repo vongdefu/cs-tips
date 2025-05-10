@@ -27,23 +27,23 @@
 
 Thread 的构造方法： 因此，在构造时，只能传入 Runnable 类型的对象实例
 
-![image.png](./image/1712505273400.png)
+![image.png](./README/image/1712505273400.png)
 
 - 状态转化
 
 ### 线程的操作方法
 
-![image.png](./image/1701350337023.png)
+![image.png](./README/image/1701350337023.png)
 
-![image.png](./image/1701350532636.png)
+![image.png](./README/image/1701350532636.png)
 
 Object 中的方法
 
-![image.png](./image/1701350600893.png)
+![image.png](./README/image/1701350600893.png)
 
 Condition
 
-![image.png](./image/1701351163555.png)
+![image.png](./README/image/1701351163555.png)
 
 ---
 
@@ -147,18 +147,18 @@ anyOf：只要有一个任务完成
 
 ---
 
-![](./image/1680192815465.png)
-![](./image/1681096582444.png)
-![](./image/1681097139723.png)
-![](./image/1681099783399.png)
-![](./image/1681100338362.png)
-![](./image/1681102072423.png)
-![](./image/1681102113588.png)
-![](./image/1681102150000.png)
-![](./image/1681102215387.png)
-![](./image/1681102267638.png)
-![](./image/1681102318098.png)
-![](./image/1714526099071.png)
+![](./README/image/1680192815465.png)
+![](./README/image/1681096582444.png)
+![](./README/image/1681097139723.png)
+![](./README/image/1681099783399.png)
+![](./README/image/1681100338362.png)
+![](./README/image/1681102072423.png)
+![](./README/image/1681102113588.png)
+![](./README/image/1681102150000.png)
+![](./README/image/1681102215387.png)
+![](./README/image/1681102267638.png)
+![](./README/image/1681102318098.png)
+![](./README/image/1714526099071.png)
 
 ---
 
@@ -179,7 +179,7 @@ func getshebeiList(louceng) {
 线程池实现原理
 批量构建消息体后放入阻塞队列中，由线程池进行处理
 
-![image.png](./image/1680192815465.png)
+![image.png](./README/image/1680192815465.png)
 
 ```
 /**
