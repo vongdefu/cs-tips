@@ -59,7 +59,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
         { text: "背景知识", link: "/背景知识" },
         {
           text: "关键字与线程本地缓存",
-          base: "/02-java/关键字与线程本地缓存",
+          base: "/02-java/并发编程/关键字与线程本地缓存",
           items: [
             { text: "final", link: "/final" },
             { text: "synchronized", link: "/synchronized" },
@@ -69,7 +69,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
         },
         {
           text: "线程与线程池",
-          base: "/02-java/线程与线程池",
+          base: "/02-java/并发编程/线程与线程池",
           link: "/README",
           items: [
             { text: "线程", link: "/线程" },
