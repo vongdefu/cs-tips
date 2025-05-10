@@ -95,7 +95,7 @@
 
 <summary>redis</summary>
 
-<<< @./docker/snippet/redis.snippet.md
+<<< ./docker/snippet/redis.snippet.md
 
 </details>
 
@@ -103,7 +103,7 @@
 
 <summary>mysql</summary>
 
-<<< @./docker/snippet/mysql.snippet.md
+<<< ./docker/snippet/mysql.snippet.md
 
 </details>
 
@@ -111,7 +111,7 @@
 
 <summary>nexus</summary>
 
-<<< @./docker/snippet/nexus.snippet.md
+<<< ./docker/snippet/nexus.snippet.md
 
 </details>
 
@@ -119,7 +119,7 @@
 
 <summary>rocketmq</summary>
 
-<<< @./docker/snippet/rocketmq.snippet.md
+<<< ./docker/snippet/rocketmq.snippet.md
 
 </details>
 
@@ -127,7 +127,7 @@
 
 <summary>rabbitmq</summary>
 
-<<< @./docker/snippet/rabbitmq.snippet.md
+<<< ./docker/snippet/rabbitmq.snippet.md
 
 </details>
 
@@ -135,7 +135,7 @@
 
 <summary>sentinel</summary>
 
-<<< @./docker/snippet/sentinel.snippet.md
+<<< ./docker/snippet/sentinel.snippet.md
 
 </details>
 
@@ -143,7 +143,7 @@
 
 <summary>nginx</summary>
 
-<<< @./docker/snippet/nginx.snippet.md
+<<< ./docker/snippet/nginx.snippet.md
 
 </details>
 
@@ -151,7 +151,7 @@
 
 <summary>elasticsearch</summary>
 
-<<< @./docker/snippet/elasticsearch.snippet.md
+<<< ./docker/snippet/elasticsearch.snippet.md
 
 </details>
 
@@ -159,7 +159,7 @@
 
 <summary>kinaba</summary>
 
-<<< @./docker/snippet/kinaba.snippet.md
+<<< ./docker/snippet/kinaba.snippet.md
 
 </details>
 
