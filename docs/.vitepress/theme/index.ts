@@ -14,7 +14,7 @@ export default {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
       "doc-after": () => h(GiscusComment),
       "aside-top": () => h(wechat),
-      "home-features-after": () => h(heatmap),
+      // "home-features-after": () => h(heatmap),
     });
   },
   enhanceApp({ app, router, siteData }) {

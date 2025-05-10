@@ -22,7 +22,7 @@ features:
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
 
-<ClientOnly><Heatmap /></ClientOnly>
+<!-- <ClientOnly><Heatmap /></ClientOnly>
 
 <style>
 .m-home-layout .image-src:hover {
@@ -45,4 +45,4 @@ features:
     margin-bottom: 50px !important;
   }
 }
-</style>
+</style> -->
