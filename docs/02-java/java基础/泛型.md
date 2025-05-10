@@ -1,0 +1,391 @@
+# 4. 泛型
+
+1. 这种技术出现的背景
+2. 泛型的使用方式
+3. 泛型的上下限
+4. 泛型的基本原理
+
+## 1. 背景
+
+早期 Java 语言规范中要求我们在使用 Java 时只能使用某一个具体类型，也就是说无法让类型作为参数，但事实上，某些业务场景中，确实需要类型作为参数，因此就产生了泛型。
+
+比如说，某一个我们要实现一个两数之和相加的需求，Java 早期版本中我们只能这样实现：
+
+```java
+public int add(int a, int b) {
+    System.out.println(a + "+" + b + "=" + (a + b));
+    return a + b;
+}
+
+public float add(float a, float b) {
+    System.out.println(a + "+" + b + "=" + (a + b));
+    return a + b;
+}
+
+public double add(double a, double b) {
+    System.out.println(a + "+" + b + "=" + (a + b));
+    return a + b;
+}
+
+```
+
+这个时候就发现，我们的代码是冗余的，其实核心代码就一句： a+b，但是早期 Java 语言规范中要求对 a 和 b 的类型必须是具体的，所以就只能在定义方法时就规定好 a 和 b 的类型，即 int、float、double。
+
+JDK5 之后，Java 中引入了泛型的特性，完美解决了这一个问题。**也就是说 JDK5 之后，类型也可以作为参数进行传递了**。如上面求两数之和的需求就变成了这样：
+
+```java
+public <T extends Number> double add(T a, T b) {
+    System.out.println(a + "+" + b + "=" + (a.doubleValue() + b.doubleValue()));
+    return a.doubleValue() + b.doubleValue();
+}
+
+```
+
+上述代码简要说明：
+
+1. **`<T extends Number>`** 表示这个方法持有一个抽象类型 T，这个抽象类型 T 有一个限制：只能继承自 Number 类型；
+2. **`double`** 表示这个泛型方法的返回值为 double 类型；
+3. **`(T a, T b)`** 表示这个泛型方法有两个参数，这两个参数的类型都是抽象类型 T；
+
+## 2. 应用
+
+泛型特性可以应用于**类**、**接口**和**方法**上。但是具体的应用方式上有别于普通的类、接口和方法，具体体现在两个地方，**定义**和**使用**。
+泛型的特征就一个**尖括号：<>**。尖括号内部，在**定义时**持有一个表示**抽象类型的占位符**；在**使用时**需要在尖括号内部**传入具体的类型，表示使用时传入的具体的类型**。如果有多个类型参数，则使用“,”分开。
+
+- 定义时： 在类名后面添加尖括号，尖括号内部是抽象类型占位符；
+- 使用时： 构造类的某个具体实例时，在类名后面添加尖括号，尖括号内部是具体的类型；
+
+```java
+// 例1 //////////////////////////////////////////////////////
+class Point<T>{ // 定义时： 此处表示Point类为泛型类，类中持有一个抽象类型T，T是type的简称
+    private T var ;     // var的类型由T指定，即：由外部指定
+    public T getVar(){  // 返回值的类型由外部决定
+        return var ;
+    }
+    public void setVar(T var){  // 设置的类型也由外部决定
+        this.var = var ;
+    }
+}
+public class GenericsDemo06{
+    public static void main(String args[]){
+        Point<String> p = new Point<String>();// 使用时：传入的是String，表示具体使用时用String类型，而不是其它类型
+        p.setVar("it") ;
+        System.out.println(p.getVar().length()) ;
+    }
+}
+
+
+// 例2 //////////////////////////////////////////////////////
+class Notepad<K,V>{ // 定义时： 此处表示Notepad类为泛型，类中持有两个抽象类型K和V，K表示Key，V表示value
+    private K key ;
+    private V value ;
+    public K getKey(){
+        return this.key ;
+    }
+    public V getValue(){
+        return this.value ;
+    }
+    public void setKey(K key){
+        this.key = key ;
+    }
+    public void setValue(V value){
+        this.value = value ;
+    }
+}
+public class GenericsDemo09{
+    public static void main(String args[]){
+        Notepad<String,Integer> t = new Notepad<String,Integer>(); // 使用时：传入的两个类型具体为String和Integer
+        t.setKey("汤姆") ;
+        t.setValue(20) ;
+        System.out.print("姓名；" + t.getKey()) ;
+        System.out.print("，年龄；" + t.getValue()) ;
+    }
+}
+
+```
+
+```java
+interface Info<T>{ // 定义时： 表示Info接口为泛型接口，持有一个抽象类型T
+    public T getVar() ;
+}
+class InfoImpl<T> implements Info<T>{ // 定义时： 表示InfoImpl接口为泛型接口，也持有一个抽象类型T，并且实现了Info<T>
+    private T var ;
+    public InfoImpl(T var){
+        this.setVar(var) ;
+    }
+    public void setVar(T var){
+        this.var = var ;
+    }
+    public T getVar(){
+        return this.var ;
+    }
+}
+public class GenericsDemo24{
+    public static void main(String arsg[]){
+        Info<String> i = new InfoImpl<String>("汤姆") ;  // 使用时： 传入的具体类为String，而不是其它类型
+        System.out.println("内容：" + i.getVar()) ;
+    }
+}
+
+```
+
+```java
+public static <T extends Number> double add(T a, T b) {
+    System.out.println(a + "+" + b + "=" + (a.doubleValue() + b.doubleValue()));
+    return a.doubleValue() + b.doubleValue();
+}
+
+public static void main(String[] args){
+    add(1, 12);
+    add(1, 1.2f);
+    add(1, 3.0d);
+}
+
+// 说明：泛型方法与泛型类和泛型接口有些区别
+1.  <T extends Number> 表示这个方法持有一个抽象类型 T，这个抽象类型 T 有一个限制：只能继承自 Number 类型；
+2. double 表示这个泛型方法的返回值为 double 类型；
+3. (T a, T b) 表示这个泛型方法有两个参数，这两个参数的类型都是抽象类型 T；
+
+```
+
+### 2.1. 抽象类型占位符
+
+我们在定义泛型类，泛型方法，泛型接口的时候经常会碰见很多不同的占位符，比如 T，E，K，V 等等，这些占位符又都是什么意思呢？
+**本质上这些个都是占位符，没啥区别，只不过是编码时的一种约定俗成的东西**。比如上述代码中的 T ，我们可以换成 A-Z 之间的任何一个 字母都可以，并不会影响程序的正常运行，但是如果换成其他的字母代替 T ，在可读性上可能会弱一些。**通常情况下，T，E，K，V，？是这样约定的**：
+
+- ？表示不确定的 java 类型
+- T (type) 表示具体的一个 java 类型
+- K V (key value) 分别代表 java 键值中的 Key Value
+- E (element) 代表 Element
+
+## 3. 类型擦除
+
+Java 泛型这个特性是从 JDK 1.5 才开始加入的，因此为了兼容之前的版本，Java 泛型的实现采取了“**伪泛型**”的策略，即 Java 在语法上支持泛型，但是在编译阶段会进行所谓的“**类型擦除**”（Type Erasure），将所有的泛型表示（尖括号中的内容）都替换为具体的类型（其对应的原生态类型），就像完全没有泛型一样。理解类型擦除对于用好泛型是很有帮助的，尤其是一些看起来“疑难杂症”的问题，弄明白了类型擦除也就迎刃而解了。
+
+一句话：Java 源代码中使用泛型，但是编译阶段会把源代码中的泛型抽象类型转化成具体的原生数据类型，这个转化过程是自动和隐式的，这就是**类型擦除**。这样做的好处在于把对具体类型的感知延迟到编译阶段，使编码更加灵活。
+
+**类型擦除原则**：
+
+- 消除类型参数声明，即删除<>及其包围的部分。
+- 根据类型参数的上下界推断并替换所有的类型参数为原生态类型：如果类型参数是无限制通配符或没有上下界限定则替换为 Object，如果存在上下界限定则根据子类替换原则取类型参数的最左边限定类型（即父类）。
+- 为了保证类型安全，必要时插入强制类型转换代码。
+- 自动产生“桥接方法”以保证擦除类型后的代码仍然具有泛型的“多态性”。
+
+## 4. 泛型的限制
+
+有了泛型之后，意味着我们可以传入一个抽象类型的占位符，然后在使用时再传入具体的某一个类型。这是不是也意味着我们在使用时，可以使用任意的某个具体类型？当然不是。那如果我们要求，使用时只能传入某一类的类型呢，该怎么实现呢？例如，上面“求两数之和”的需求，抽象类型就只能是数字类型的，不能是字符串类型的，因为字符串相加没有意义。这个需求中就要对抽象类型进行限制，并且限制为 Number 类型。由此看来，我们在某些业务场景下，也不得不限制泛型的范围，这就是**泛型的限制**。
+
+限制的范围主要包括分为两部分：一个是**上限**，即限制泛型传入的抽象类型只能是某一具体类型子类；一个是**下限**，即限制泛型传入的抽象类型只能是某一类型的父类。
+
+- **<?>：**无限制通配符
+- **<? extends E>：** extends 关键字声明了类型的上限，表示参数化的类型可能是所指定的类型，或者是此类型的子类
+- **<? super E>：** super 关键字声明了类型的下限，表示参数化的类型可能是指定的类型，或者是此类型的父类
+
+《Effictive Java》中的使用原则：为了获得最大限度的灵活性，要**在表示 生产者或者消费者 的输入参数上使用占用符**，使用的规则就是**： 生产者有上限、消费者有下限**
+
+1. 如果抽象类型表示一个 T 的生产者，使用 <? extends T>;
+2. 如果它表示一个 T 的消费者，就使用 <? super T>；
+3. 如果既是生产又是消费，那使用通配符就没什么意义了，因为你需要的是精确的参数类型。
+
+```java
+class Info<T extends Number>{    // 此处泛型只能是数字类型
+    private T var ;        // 定义泛型变量
+    public void setVar(T var){
+        this.var = var ;
+    }
+    public T getVar(){
+        return this.var ;
+    }
+    public String toString(){    // 直接打印
+        return this.var.toString() ;
+    }
+}
+public class Demo1{
+    public static void main(String args[]){
+        Info<Integer> i1 = new Info<Integer>() ;        // 声明Integer的泛型对象
+    }
+}
+
+```
+
+```java
+class Info<T>{
+    private T var ;        // 定义泛型变量
+    public void setVar(T var){
+        this.var = var ;
+    }
+    public T getVar(){
+        return this.var ;
+    }
+    public String toString(){    // 直接打印
+        return this.var.toString() ;
+    }
+}
+public class GenericsDemo21{
+    public static void main(String args[]){
+        Info<String> i1 = new Info<String>() ;        // 声明String的泛型对象
+        Info<Object> i2 = new Info<Object>() ;        // 声明Object的泛型对象
+        i1.setVar("hello") ;
+        i2.setVar(new Object()) ;
+        fun(i1) ;
+        fun(i2) ;
+    }
+    public static void fun(Info<? super String> temp){    // 只能接收String或Object类型的泛型，String类的父类只有Object类
+        System.out.print(temp + ", ") ;
+    }
+}
+
+```
+
+```java
+public class Client {
+    public static <T extends Staff & Passenger> void discount(T t){ //工资低于2500元的上斑族并且站立的乘客车票打8折
+        if(t.getSalary()< 2500 && t.isStanding()){
+            System.out.println("恭喜你！您的车票打八折！");
+        }
+    }
+    public static void main(String[] args) {
+        discount(new Me());
+    }
+}
+
+```
+
+泛型的限制**除了在定义时进行限制**，使用时也要遵循一定的规则。
+
+1. 泛型类中的静态变量和静态方法，不能使用泛型类声明的抽象类型占位符进行定义；
+
+   ```java
+   public class Test2<T> {
+       public static T one;   //编译错误，不能使用抽象类型T定义静态变量one的类型，因为one的类型到使用时才确定下来；
+       public static T show(T one){ //编译错误，不能使用抽象类型T定义show()方法的范围值类型为T，因为T的类型要等到使用时才确定下来；
+           return null;
+       }
+   }
+
+   public class Test2<T> {
+
+       public static <T> T show(T one){ //这是正确的，这个方法是泛型方法
+           return null;
+       }
+   }
+
+   ```
+
+2. 抽象类型只能通过反射进行实例化，并且也只能通过反射来获取抽象类型的所属类型：
+3. 基本数据类型不能作为泛型，只能使用包装类型作为泛型的实参；
+
+### 4.1. ? 和 T 的区别
+
+既然 ？和 T 都可以表示不确定的类型，那它俩的区别在哪里？具体区别如下：
+
+1. T 可以确保泛型参数传入的抽象类型是一致的，？无法保证传入的抽象类型的一致性；
+
+   ```java
+   // 通过 T 来 确保 泛型参数的一致性
+   public <T extends Number> void test(List<T> dest, List<T> src)
+
+   //通配符是 不确定的，所以这个方法不能保证两个 List 具有相同的元素类型
+   public void test(List<? extends Number> dest, List<? extends Number> src)
+
+   ```
+
+2. T 可以进行多重限制，使 T 类型具有所有限定的方法和属性，但 ？ 不能进行多重限定；
+3. T 只能限制上限或下限中的一种，？则既可以有上限也可以有下限；
+
+总结来说，最佳实践经验是： **通常把 T 用在泛型类和泛型方法的定义上，而 ？用到调用和形参上，不用到定义上。**
+
+## 5. 实际的应用场景
+
+1. Java 中的 List 接口
+2. 接口的统一响应体
+
+```java
+/**
+ * 公用的响应对象
+ * @author yaolh
+ * @version 创建时间：2017/11/18 14:57
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class DeResponse implements Serializable {
+    private Long id = Instant.now().toEpochMilli();
+ private Integer statusCode = StatusCode.SUCCESS.getStatusCode();
+ private Page page;
+ private Object content;
+
+ public static DeResponse create() {
+  return new DeResponse();
+ }
+
+ public static DeResponse create(StatusCode statusCode) {
+  DeResponse response = new DeResponse();
+  response.setStatusCode(statusCode.getStatusCode());
+  return response;
+ }
+ public static DeResponse create(Integer statusCode,Object content) {
+  DeResponse response = new DeResponse();
+  response.setStatusCode(statusCode);
+  response.setContent(content);
+  return response;
+ }
+
+ public static DeResponse createEmpty() {
+  return new DeResponse().addContent(Collections.EMPTY_LIST);
+ }
+
+ @SuppressWarnings("WeakerAccess")
+ public DeResponse addContent(Object content) {
+  this.content = content;
+  return this;
+ }
+
+ public DeResponse addPage(Integer pageId, Integer pageSize, Long totalRecords) {
+  this.page = new Page(pageId, pageSize, totalRecords);
+  return this;
+ }
+
+ @Override
+ public String toString() {
+  return JSON.toJSONString(this);
+ }
+
+ @Data
+ @AllArgsConstructor
+ @NoArgsConstructor
+ private static class Page implements Serializable{
+  private Integer pageId;
+  private Integer pageSize;
+  private Long totalRecords;
+ }
+
+}
+
+
+```
+
+```java
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class KvPair<K, V> {
+    private K k;
+    private V v;
+
+    public static List<KvPair> fromJson(String json) {
+        try {
+            return JSON.parseArray(json, KvPair.class);
+        } catch (Exception e) {
+
+        }
+        return new ArrayList<KvPair>();
+    }
+}
+
+```
+
+## 6. 参考
+
+1. [Java 泛型中的通配符 T，E，K，V，？,你确定都了解吗？ - 知乎](https://zhuanlan.zhihu.com/p/82457476)
+2. [Java 基础 - 泛型机制详解 | Java 全栈知识体系](https://pdai.tech/md/java/basic/java-basic-x-generic.html)
