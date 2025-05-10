@@ -355,10 +355,10 @@ Redis 6.0 的工作原理可以通过以下步骤来解释：
 ### 哨兵模式遗留的问题
 
 Q：哨兵模式是否可以扩展？
-A：可以扩展，只需要配置多个 sentinel monitor <master-name> <ip> <redis-port> <quorum> 项即可；
+A：可以扩展，只需要配置多个 `sentinel monitor <master-name> <ip> <redis-port> <quorum>` 项即可；
 PS： Sentinel 可以监视多台主节点，而不是只能监视一台服务器。
 想要监视多台主节点，只需要在配置文件 sentinel.conf 中设置多个
-sentinel monitor <master-name> <ip> <redis-port> <quorum>
+`sentinel monitor <master-name> <ip> <redis-port> <quorum>`
 即可，我们通过 master-name 来区分不同的主节点。
 
 Q：上面这种可扩展模式存在的问题？

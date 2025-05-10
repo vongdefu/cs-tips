@@ -1,54 +1,12 @@
 # CVS 之 Git 与 Github
 
-## 常用命令
+![1745156420826](./git/image/1745156420826.png)
+
+## Git 常用命令
 
 ```bash
 # git 的帮助文档
 $ git
-usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]
-           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
-           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
-           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
-           [--config-env=<name>=<envvar>] <command> [<args>]
-
-These are common Git commands used in various situations:
-
-start a working area (see also: git help tutorial)
-   clone     Clone a repository into a new directory
-   init      Create an empty Git repository or reinitialize an existing one
-
-work on the current change (see also: git help everyday)
-   add       Add file contents to the index
-   mv        Move or rename a file, a directory, or a symlink
-   restore   Restore working tree files
-   rm        Remove files from the working tree and from the index
-
-examine the history and state (see also: git help revisions)
-   bisect    Use binary search to find the commit that introduced a bug
-   diff      Show changes between commits, commit and working tree, etc
-   grep      Print lines matching a pattern
-   log       Show commit logs
-   show      Show various types of objects
-   status    Show the working tree status
-
-grow, mark and tweak your common history
-   branch    List, create, or delete branches
-   commit    Record changes to the repository
-   merge     Join two or more development histories together
-   rebase    Reapply commits on top of another base tip
-   reset     Reset current HEAD to the specified state
-   switch    Switch branches
-   tag       Create, list, delete or verify a tag object signed with GPG
-
-collaborate (see also: git help workflows)
-   fetch     Download objects and refs from another repository
-   pull      Fetch from and integrate with another repository or a local branch
-   push      Update remote refs along with associated objects
-
-'git help -a' and 'git help -g' list available subcommands and some
-concept guides. See 'git help <command>' or 'git help <concept>'
-to read about a specific subcommand or concept.
-See 'git help git' for an overview of the system.
 
 # 生成key，在命令行里面填写文件名，
 # 多个key使用用户名进行区分， 如： id_rsa_vongdefu
@@ -66,6 +24,19 @@ git config user.email "your.email@example.com"
 git config --global user.name zeanzai
 git config --global user.email "zeanzai.me@gmail.com"
 git config --global http.proxy 127.0.0.1:7890
+
+## 全局配置
+git config --global user.name '你的名字'
+git config --global user.email '你的邮箱'
+
+## 当前仓库配置
+git config --local user.name '你的名字'
+git config --local user.email '你的邮箱'
+
+## 删除 global 配置
+git config --unset --global 要删除的配置项
+## 删除当前仓库配置
+git config --unset --local 要删除的配置项
 
 # 注意：如果是需要身份验证的，就用这种格式：
 git config --global http.proxy 用户名:密码@IP:端口
@@ -224,15 +195,15 @@ git push remote :远端分支名
 
 ```
 
-## 特殊场景
+## Github 特殊场景
 
 ### 克隆 GitHub 私有仓库
 
-1. 需要在**用户的配置页面**中配置一个 PAT（personal access token）；
+1. 需要在用户的配置页面中配置一个 PAT（personal access token）；
 2. 在 仓库的 url 中配置上这个 PAT ： 见上面
 3. 如果私有仓库需要使用 GitHubActions，则还需要
-   1. 根据 peaceiris/actions-gh-pages@v3 的[要求](https://github.com/peaceiris/actions-gh-pages)，在**仓库的 setting 中**设置 action 的权限，设置为可读写
-   2. 在**仓库的 setting 中**配置上面这个生成的 PAT ；
+   1. 根据 peaceiris/actions-gh-pages@v3 的[要求](https://github.com/peaceiris/actions-gh-pages)，在仓库的 setting 中设置 action 的权限，设置为可读写
+   2. 在仓库的 setting 中配置上面这个生成的 PAT ；
 
 ### 合并提交记录
 
@@ -260,97 +231,6 @@ git push origin master --force
 ---
 
 1. Git 架构
-
-![1745156420826](./git/image/1745156420826.png)
-
----
-
-**配置操作 **
-**全局配置 **
-git config --global user.name '你的名字'
-git config --global user.email '你的邮箱'
-
-**当前仓库配置 **
-git config --local user.name '你的名字'
-git config --local user.email '你的邮箱'
-
-**查看 global 配置 **
-git config --global --list
-
-**查看当前仓库配置 **
-git config --local --list
-
-**删除 global 配置 **
-git config --unset --global 要删除的配置项
-**删除当前仓库配置 **
-git config --unset --local 要删除的配置项
-
-**本地操作 **
-**查看变更情况 **
-git status
-
-**将当前目录及其子目录下所有变更都加入到暂存区 **
-git add .
-
-**将仓库内所有变更都加入到暂存区 **
-git add -A
-
-**将指定文件添加到暂存区 **
-git add 文件 1 文件 2 文件 3
-
-**比较工作区和暂存区的所有差异 **
-git diff
-
-**比较某文件工作区和暂存区的差异 **
-git diff 文件
-
-**比较暂存区和 HEAD 的所有差异 **
-git diff --cached
-
-**比较某文件暂存区和 HEAD 的差异 **
-git diff --cached 文件
-
-**比较某文件工作区和 HEAD 的差异 **
-git diff HEAD 文件
-
-**创建 commit **
-git commit
-
-**将工作区指定文件恢复成和暂存区一致 **
-git checkout 文件 1 文件 2 文件 3
-
-**将暂存区指定文件恢复成和 HEAD 一致 **
-git reset 文件 1 文件 2 文件 3
-
-**将暂存区和工作区所有文件恢复成和 HEAD 一样 **
-git reset --hard
-
-**用 difftool 比较任意两个 commit 的差异**
-git difftool 提交 1 提交 2
-
-**查看哪些文件没被 Git 管控 **
-git ls-files --others
-
-**将未处理完的变更先保存到 stash 中 **
-git stash
-
-**临时任务处理完后继续之前的工作 **
-pop 不保留 stash
-apply 保留 stash
-git stash pop
-git stash apply
-
-**查看所有 stash **
-git stash list
-
-**取回某次 stash 的变更 **
-git stash pop stash@{数字 n}
-
-**优雅修改最后一次 commit **
-git add.
-git commit --amend
-
-[Git 常用命令面试题 60 道.pdf](https://www.yuque.com/attachments/yuque/0/2024/pdf/29433025/1714797565446-de96130d-879d-4ece-bc88-eaa5d5c88c91.pdf?_lake_card=%7B%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2Fattachments%2Fyuque%2F0%2F2024%2Fpdf%2F29433025%2F1714797565446-de96130d-879d-4ece-bc88-eaa5d5c88c91.pdf%22%2C%22name%22%3A%22Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E9%9D%A2%E8%AF%95%E9%A2%98%2060%E9%81%93.pdf%22%2C%22size%22%3A435466%2C%22ext%22%3A%22pdf%22%2C%22source%22%3A%22%22%2C%22status%22%3A%22done%22%2C%22download%22%3Atrue%2C%22taskId%22%3A%22ud27565a0-dc6c-4734-b6b2-aa7bb836d7a%22%2C%22taskType%22%3A%22upload%22%2C%22type%22%3A%22application%2Fpdf%22%2C%22__spacing%22%3A%22both%22%2C%22id%22%3A%22uf45ecd82%22%2C%22margin%22%3A%7B%22top%22%3Atrue%2C%22bottom%22%3Atrue%7D%2C%22card%22%3A%22file%22%7D)
 
 ## 更换 main 分支为 master
 
@@ -390,375 +270,6 @@ Appendix： GitHub 已经认证过的 app
 
 ![image.png](./git/image/1714708755512.png)
 
----
-
-Git 使用
-
-# 1 概述
-
-## 1.1 Window 下面的安装
-
-下面是比较重要的安装步骤，做简单说明。
-
-![](./git/image/1683166684568.png)
-
-![](./git/image/1683166684810.png)
-
-![](./git/image/1683166685102.png)
-
-![](./git/image/1683166685392.png)
-
-![](./git/image/1683166685663.png)
-
-![](./git/image/1683166685966.png)
-
-![](./git/image/1683166686345.png)
-
-## 1.2 基本概念
-
-![](./git/image/1683166686637.jpeg)
-
-### 1.2.1 工作区
-
-### 1.2.2 暂存区
-
-### 1.2.3 版本库
-
-## 1.3 命令规律
-
-可以参考 Linux 命令的使用。
-
-# 2 Git 的基本操作
-
-## 2.1 基本设置
-
-在工作目录下面右键，打开 GitBash，执行【git config –global user.name “yourName”】和【git config –global user.email “438123371@qq.com”】命令。
-
-![](./git/image/1683166686986.png)
-执行完成之后可以发现在用户目录下面生成一个.gitconfig 文件。当然，如果以后想要修改这两个变量的值，也可以直接在这个文件中直接修改。
-在 C:\Users\SEELE 目录下面生成.gitconfig 文件
-
-![](./git/image/1683166687197.png)
-
-## 2.2 应用一
-
-假如有一个工作场景：将文件夹 learngit 下的 testGit.txt 文件【testGit.txt 文件中有一句“hello git”内容】上传到 Git 上面去。
-
-### 2.2.1 创建目录
-
-在工作目录下面建立 learngit 文件夹，有两种方式，第一种方式使用 GitBash 的 mkdir 命令进行创建；第二种方式是直接使用系统创建。
-
-![](./git/image/1683166687471.png)
-
-### 2.2.2 创建版本库
-
-在工作目录区域，执行【git init】命令，就可以初始化一个版本库。在初始化的地方，git 会生成一个.git 文件夹，默认是隐藏状态的，里面是 Git 版本库，不可以修改！
-
-![](./git/image/1683166687728.png)
-
-### 2.2.3 创建文件
-
-直接使用编辑器创建一个 testGit.txt 文件，并在里面写上“hello git”。当然，也可以使用 Linux 上面的 vi 命令进行创建。
-
-### 2.2.4 添加到暂存区
-
-使用 git add 命令进行添加，将文件添加到暂存区。
-
-### 2.2.5 上传
-
-使用 git commit 命令进行上传，将文件上传到版本库中。
-
-### 2.2.6 查看暂存区和版本库的差别
-
-使用 git status 命令查看暂存区和版本库之间的差别。
-
-### 2.2.7 总结
-
-![](./git/image/1683166687971.png)
-
-### 2.2.8 查看状态
-
-| SEELE@Shawn-PC MINGW64 /d/temp/learngit (master)
-$ git status
-On branch master
-Changes not staged for commit:
-(use "git add <file>..." to update what will be committed)
-(use "git checkout -- <file>..." to discard changes in working directory)
-modified: testGit.txt
-no changes added to commit (use "git add" and/or "git commit -a") |
-| --- |
-
-### 2.2.9 查看历史
-
-| SEELE@Shawn-PC MINGW64 /d/temp/learngit (master)
-$ git log
-commit 3e37ef0a11324568c188b513467dbe19a71761ba (HEAD -> master)
-Author: wxy <438123371@qq.com>
-Date: Sat Sep 23 20:27:06 2017 +0800
-my first commit |
-| --- |
-
-## 2.3 应用二
-
-假设另一个应用场景：对 testGit.txt 文件进行修改，添加一个行“hello git commit”，提交到版本库。
-
-### 2.3.1 添加到暂存区
-
-| SEELE@Shawn-PC MINGW64 /d/temp/learngit (master)
-$ git add testGit.txt
-SEELE@Shawn-PC MINGW64 /d/temp/learngit (master) |
-| --- |
-
-### 2.3.2 提交前查看状态
-
-| SEELE@Shawn-PC MINGW64 /d/temp/learngit (master)
-$ git status
-On branch master
-Changes to be committed:
-(use "git reset HEAD <file>..." to unstage)
-modified: testGit.txt |
-| --- |
-
-### 2.3.3 提交
-
-| SEELE@Shawn-PC MINGW64 /d/temp/learngit (master)
-$ git commit -m "my second commit"
-[master 6541d54] my second commit
-1 file changed, 3 insertions(+), 1 deletion(-) |
-| --- |
-
-### 2.3.4 提交后查看状态
-
-| SEELE@Shawn-PC MINGW64 /d/temp/learngit (master)
-$ git status
-On branch master
-nothing to commit, working tree clean |
-| --- |
-
-### 2.3.5 查看提交日志
-
-| SEELE@Shawn-PC MINGW64 /d/temp/learngit (master)
-$ git log
-commit 6541d547efc1307a656318b16af565319a18ccab (HEAD -> master)
-Author: wxy <438123371@qq.com>
-Date: Sat Sep 23 21:01:36 2017 +0800
-my second commit
-commit 3e37ef0a11324568c188b513467dbe19a71761ba
-Author: wxy <438123371@qq.com>
-Date: Sat Sep 23 20:27:06 2017 +0800
-my first commit |
-| --- |
-
-## 2.4 应用三
-
-假设在 testGit.txt 文件中再次添加一行“test git again”，然后将文件添加到暂存区，并进行提交。提交完成之后再次修改 testGit.txt 文件，再最后再添加一行“git diff”。
-
-### 2.4.1 添加到暂存区
-
-| SEELE@Shawn-PC MINGW64 /d/temp/learngit (master)
-$ git add testGit.txt |
-| --- |
-
-### 2.4.2 提交
-
-| SEELE@Shawn-PC MINGW64 /d/temp/learngit (master)
-$ git commit -m "my third commit"
-[master 34608c1] my third commit
-1 file changed, 2 insertions(+) |
-| --- |
-
-### 2.4.3 查看提交日志
-
-| SEELE@Shawn-PC MINGW64 /d/temp/learngit (master)
-$ git log
-commit 34608c1ebc20af9156d08f0336af82f1e1eb364b (HEAD -> master)
-Author: wxy <438123371@qq.com>
-Date: Sat Sep 23 21:20:10 2017 +0800
-my third commit
-commit 6541d547efc1307a656318b16af565319a18ccab
-Author: wxy <438123371@qq.com>
-Date: Sat Sep 23 21:01:36 2017 +0800
-my second commit
-commit 3e37ef0a11324568c188b513467dbe19a71761ba
-Author: wxy <438123371@qq.com>
-Date: Sat Sep 23 20:27:06 2017 +0800
-my first commit |
-| --- |
-
-### 2.4.4 工作目录与版本库差别
-
-提交完成之后再在文件末尾添加一个一行“git diff”，然后使用【git diff】命令进行查看。
-
-| SEELE@Shawn-PC MINGW64 /d/temp/learngit (master)
-$ git diff testGit.txt
-**diff --git a/testGit.txt b/testGit.txt**
-**index d1ab116..df4b2f0 100644**
-**--- a/testGit.txt**
-**+++ b/testGit.txt**
-@@ -3,3 +3,7 @@ hello git!
-hello git commit
-test git again
-
--
-- +git diff
-- |
-  | --- |
-
-也可以加参数：
-
-| SEELE@Shawn-PC MINGW64 /d/temp/learngit (master)
-$ git diff HEAD -- testGit.txt
-**diff --git a/testGit.txt b/testGit.txt**
-**index d1ab116..df4b2f0 100644**
-**--- a/testGit.txt**
-**+++ b/testGit.txt**
-@@ -3,3 +3,7 @@ hello git!
-hello git commit
-test git again
-
--
-- +git diff
-- |
-  | --- |
-
-# 3 命令总结
-
-| git config | 设置                     |
-| ---------- | ------------------------ |
-| git init   | 初始化版本库             |
-| git add    | 将文件添加到暂存区       |
-| git commit | 提交文件到版本库         |
-| git status | 查看版本库和暂存区的差别 |
-| Git log    |                          |
-| Git diff   |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-|            |                          |
-
-# 4 Git 基础
-
-## 4.1 获取 git 仓库
-
-### 4.1.1 在空目录下初始化仓库
-
-### 4.1.2 在已有目录下面初始化仓库
-
-### 4.1.3 克隆已有的远程仓库
-
-## 4.2 记录每次更新到仓库
-
-### 4.2.1 工作区、暂存区、仓库概念
-
-### 4.2.2 仓库中文件的状态
-
-| Untracked  | 未被追踪的文件。即从未添加到仓库中，只存在于工作目录的文件 |
-| ---------- | ---------------------------------------------------------- |
-| Unmodified | 跟仓库中没有差别文件。                                     |
-
-1.从仓库克隆下来还没有进行过更新的文件； 2.从仓库中克隆下来经过更新又重新提交到仓库没有更新的文件 |
-| Modified | 跟仓库有差别的还未添加到暂存区中的文件。 |
-| Staged | 暂存区上面的文件。 |
-
-### 4.2.3 检查当前文件状态
-
-### 4.2.4 忽略文件
-
-### 4.2.5 查看已暂存和未暂存的修改
-
-git diff
-git diff --cached 
-git diff --staged
-
-### 4.2.6 提交更新
-
-### 4.2.7 跳过使用暂存区直接提交
-
-### 4.2.8 移除文件
-
-#### 4.2.8.1 移除本地文件式
-
-##### 4.2.8.1.1 未添加到暂存区
-
-如果想要移除未添加到暂存区的文件时，使用 git rm，然后使用 git commit 提交即可。
-
-##### 4.2.8.1.2 已添加到暂存区
-
-如果想要移除已经添加到暂存区的文件时，使用 git rm –f，然后 git commit 提交即可。
-
-#### 4.2.8.2 不移除本地文件式
-
-$ git rm --cached README
-
-### 4.2.9 移动文件
-
-## 4.3 查看提交历史
-
-## 4.4 撤销操作
-
-### 4.4.1 合并式提交
-
-如果某次提交时漏提交或多提交一些文件，可以使用 git commit --amend
-如漏提交：git commit、git add、git commit --amend，提交->添加到暂存->再次提交
-如多提交：git commit、git rm、 git commit --amend，提交->删除暂存中多提交的文件->再次提交。
-
-### 4.4.2 取消暂存文件
-
-### 4.4.3 撤销对文件的修改
-
-## 4.5 远程仓库的使用【git remote】
-
-### 4.5.1 查看远程仓库
-
-git remote
-
-git remote -v
-
-### 4.5.2 添加远程仓库
-
-git remote add <shortname> <url>
-
-拉取别人库中有但你自己库中没有的
-$ git fetch [remote-name]
-
-### 4.5.3 推送到远程仓库
-
-git push [remote-name] [branch-name]
-
-### 4.5.4 查看远程仓库
-
-git remote show [remote-name]
-
-### 4.5.5 远程仓库的移除和重命名
-
-git remote rename
-
-## 4.6 打标签【git tag】
-
-标签它只是一个特定提交的引用。
-
-## 4.7 Git 别名
-
-[https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%AE%80%E4%BB%8B](https://git-scm.com/book/zh/v2/Git-%25E5%2588%2586%25E6%2594%25AF-%25E5%2588%2586%25E6%2594%25AF%25E7%25AE%2580%25E4%25BB%258B)
-
-[http://git.oschina.net/progit/1-%E8%B5%B7%E6%AD%A5.html](http://git.oschina.net/progit/1-%25E8%25B5%25B7%25E6%25AD%25A5.html)
-
 ## GitHub 工作流
 
 Github 为我们提供了搭建个人网站的可能性，我们可以通过 markdown+静态网站生成工具生成静态网站的源代码，然后上传到 GitHub 上，加上一些配置，就可以搭建成功。
@@ -772,9 +283,7 @@ Github 为我们提供了搭建个人网站的可能性，我们可以通过 mar
 
 下面是之前搭建网站时用到的工作流：
 
-<details>
-
-<summary>持续集成</summary>
+::: details 持续集成
 
 ```yml
 name: 🚀 持续集成
@@ -784,7 +293,7 @@ on:
     branches:
       - master
     paths:
-      - "defu/**"
+      - "defu/"
 
 jobs:
   build-and-deploy:
@@ -845,4 +354,4 @@ jobs:
           full_commit_message: ${{ github.event.head_commit.message }}
 ```
 
-</details>
+:::

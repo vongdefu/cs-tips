@@ -2,11 +2,11 @@
 
 > 容器中保存的内容就是 Bean -》 那何为 bean -》 如何描述 Bean -》 Bean 注册到容器的方式 -》 在 Bean 中使用另一个 Bean -》 Bean 的装配【何为装配、装配的分类】 -》 Bean 的生命周期
 
-```markdown
+::: tip
 单个 Bean 的构造权，通过元信息提供给 Spring 容器，并由 Spring 容器进行构造。即 Spring 容器剥夺了 Bean 的构造权。
 
 多个 Bean 之间组合使用，由此产生的依赖关系的装配权，可以由 Spring 来管理，也可以由开发人员来管理；
-```
+:::
 
 - 配置文件方式
 
@@ -108,7 +108,7 @@ public class Spring6Config {
 - 【待定】使用 Spring 官方提供的注解
   - 有哪些注解，这些注解的功能是什么
 
-# 元信息
+## 元信息
 
 ![image.png](./bean/image/1699596855081.png)
 
@@ -127,11 +127,11 @@ public class Spring6Config {
 | destruction 方法         | 当包含该 bean 的容器被销毁时，使用回调方法。它将会在 bean 的生命周期章节中进行讨论。                         |
 
 - singleton
-  - 描述：该作用域下的 Bean 在 IoC 容器中只存在一个实例：获取 Bean（即通过 applicationContext.getBean 等方法获取）及装配 Bean（即通过 [@Autowired](/Autowired) 注入）都是同一个对象；
+  - 描述：该作用域下的 Bean 在 IoC 容器中只存在一个实例：获取 Bean（即通过 applicationContext.getBean 等方法获取）及装配 Bean（即通过 @Autowired 注入）都是同一个对象；
   - 场景：通常无状态的 Bean 使用该作用域，无状态表示 Bean 对象的属性状态不需要更新；
   - 备注：Spring 默认选择该作用域，线程不安全，Spring 使用 ThreadLocal 解决线程安全问题；
 - prototype
-  - 描述：每次对该作用域下的 Bean 的请求都会创建新的实例：获取 Bean（即通过 applicationContext.getBean 等方法获取）及装配 Bean（即通过 [@Autowired](/Autowired) 注入）都是新的对象实例。
+  - 描述：每次对该作用域下的 Bean 的请求都会创建新的实例：获取 Bean（即通过 applicationContext.getBean 等方法获取）及装配 Bean（即通过 @Autowired 注入）都是新的对象实例。
   - 场景：通常有状态的 Bean 使用该作用域。
 - request
   - 描述：每次 Http 请求会创建新的 Bean 实例，且创建的 Bean 实例只对当前 Http 请求有效，Http 请求结束，改 Bean 实例也被销毁；类似于 prototype。
@@ -159,16 +159,15 @@ public class Spring6Config {
 
 ![image.png](./bean/image/1699596336868.png)
 
-```markdown
+::: tip
 bean 的状态：
 
 无状态 bean 和有状态 bean
 
 有状态就是有数据存储功能。有状态对象(Stateful Bean)，就是有实例变量的对象，可以保存数据，是非线程安全的。在不同方法调用间不保留任何状态。
 无状态就是一次操作，不能保存数据。无状态对象(Stateless Bean)，就是没有实例变量的对象 .不能保存数据，是不变类，是线程安全的。
-```
 
-参考[链接](https://www.cnblogs.com/vipstone/p/16641846.html)
+:::
 
 ## 作用域
 
@@ -254,6 +253,8 @@ public void test1() {
 }
 
 ```
+
+ddddddd
 
 ```
 // 配置文件beans.properties中进行配置
@@ -621,12 +622,13 @@ Spring 容器能够自动装配 bean。也就是说，可以通过检查 BeanFac
 - **constructor**：与 byType 类似， 只不过它是针对构造函数注入而言的。如果 Boss 有一个构造函数，构造函数包含一个 Car 类型的入参，如果容器中有一个 Car 类型的 Bean，则 Spring 将自动把这个 Bean 作为 Boss 构造函数的入参；如果容器中没有找到和构造函数入参匹配类型的 Bean，则 Spring 将抛出异常。
 - **autodetect**：根据 Bean 的自省机制决定采用 byType 还是 constructor 进行自动装配，如果 Bean 提供了默认的构造函数，则采用 byType，否则采用 constructor。
 
-```markdown
+::: tip
 no - 这是默认设置，表示没有自动装配。应使用显式 bean 引用进行装配。
 byName - 它根据 bean 的名称注入对象依赖项。它匹配并装配其属性与 XML 文件中由相同名称定义的 bean。
 byType - 它根据类型注入对象依赖项。如果属性的类型与 XML 文件中的一个 bean 名称匹配，则匹配并装配属性。
 构造函数 - 它通过调用类的构造函数来注入依赖项。它有大量的参数。
 autodetect - 首先容器尝试通过构造函数使用 autowire 装配，如果不能，则尝试通过 byType 自动装配。
+
 ```
 
 自动装配的局限性：
@@ -642,6 +644,7 @@ lazy-initialization
 在 bean 定义的时候通过 lazy-init 属性来配置 bean 是否是延迟加载，true：延迟初始化，false：实时初始化
 
 ```
+
 <bean lazy-init="是否是延迟初始化" />
 
 @Lazy 注解
@@ -664,6 +667,7 @@ lazy-initialization
 ![image.png](./bean/image/1699596521888.png)
 
 ```
+
 <bean id="book02" class="com.spring.beans.Book" scope="singleton"></bean>
 
 ```
@@ -746,13 +750,14 @@ lazy-initialization
 @Resource 注解属于 JDK 扩展包，所以不在 JDK 当中，需要额外引入以下依赖：【**如果是 JDK8 的话不需要额外引入依赖。高于 JDK11 或低于 JDK8 需要引入以下依赖。**】
 
 ```
+
 <dependency>
     <groupId>jakarta.annotation</groupId>
     <artifactId>jakarta.annotation-api</artifactId>
     <version>2.1.1</version>
 </dependency>
 
-```
+````
 
 # 问题
 
@@ -952,7 +957,7 @@ public class PersonBean implements InitializingBean, BeanFactoryAware, BeanNameA
 
 }
 
-```
+````
 
 - 定义一个 MyBeanPostProcessor 实现 BeanPostProcessor 接口
 
