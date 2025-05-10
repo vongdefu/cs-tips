@@ -68,6 +68,8 @@ https://www.carbonads.net/join
    1. 添加引入： import GiscusComment from "./components/GiscusComment.vue";
    2. 添加配置： "doc-after": () => h(GiscusComment),
 
+扩展阅读 [本篇文章](https://blog.charles7c.top/admin/backend/extra/dynamic-datasource.html) 的布局。
+
 ### 添加评论
 
 参考[这里](https://site.quteam.com/technology/front-end/vitepress-comment/)。
@@ -97,3 +99,17 @@ TODO；
 ## 隐藏文档用于导流到微信公众号
 
 TODO；
+
+## 添加热力图
+
+https://yqqy.top/blog/2024/vitepress-blog-2
+
+做到 数据来源 部分了，思考一下是否可以把 数据来源直接替换掉文件。
+
+https://vitepress.dev/zh/guide/data-loading
+
+## 有没有其它炫酷的组件？
+
+## 比较好看的博客
+
+https://ti.bi/
