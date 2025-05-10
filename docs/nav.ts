@@ -11,8 +11,8 @@ export const nav: DefaultTheme.Config["nav"] = [
       { text: "框架", link: "/03-工具和框架/框架/mybatis" },
     ],
   },
-  { text: "中间件", link: "/04-中间件" },
-  { text: "分布式", link: "/05-分布式" },
-  { text: "软件质量管理", link: "/06-软件质量管理" },
-  { text: "工程设计", link: "/07-工程设计" },
+  { text: "中间件", link: "/04-中间件/redis/README" },
+  { text: "分布式", link: "/05-分布式/README" },
+  { text: "软件质量管理", link: "/06-软件质量管理/README" },
+  { text: "工程设计", link: "/07-工程设计/README" },
 ];
