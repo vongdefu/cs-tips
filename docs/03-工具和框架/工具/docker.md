@@ -13,7 +13,7 @@
 
 **Docker** 使用 Google 公司推出的 [Go 语言](https://golang.google.cn/) 进行开发实现，基于 Linux 内核的 [cgroup](https://zh.wikipedia.org/wiki/Cgroups)，[namespace](https://en.wikipedia.org/wiki/Linux_namespaces)，以及 [OverlayFS](https://docs.docker.com/storage/storagedriver/overlayfs-driver/) 类的 [Union FS](https://en.wikipedia.org/wiki/Union_mount) 等技术，对进程进行封装隔离，属于 [操作系统层面的虚拟化技术](https://en.wikipedia.org/wiki/Operating-system-level_virtualization)。由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。最初实现是基于 [LXC](https://linuxcontainers.org/lxc/introduction/)，从 0.7 版本以后开始去除 LXC，转而使用自行开发的 [libcontainer](https://github.com/docker/libcontainer)，从 1.11 版本开始，则进一步演进为使用 [runC](https://github.com/opencontainers/runc) 和 [containerd](https://github.com/containerd/containerd)。
 
-> runc 是一个 Linux 命令行工具，用于根据 [OCI容器运行时规范](https://github.com/opencontainers/runtime-spec) 创建和运行容器。
+> runc 是一个 Linux 命令行工具，用于根据 [OCI 容器运行时规范](https://github.com/opencontainers/runtime-spec) 创建和运行容器。
 > containerd 是一个守护程序，它管理容器生命周期，提供了在一个节点上执行容器和管理镜像的最小功能集。
 
 **Docker** 在容器的基础上，进行了进一步的封装，从文件系统、网络互联到进程隔离等等，极大的简化了容器的创建和维护。使得 Docker 技术比虚拟机技术更为轻便、快捷。
@@ -25,7 +25,6 @@
 ### 2.2. Docker Client
 
 ### 2.3. todo
-
 
 ## 3. 概念
 
@@ -90,15 +89,13 @@
 
 - centos 平台上的安装过程
 
-
 ## 5. 常用软件的安装
-
 
 <details>
 
 <summary>redis</summary>
 
-{{#include ./docker/snippet/redis.snippet.md}}
+<<< @./docker/snippet/redis.snippet.md
 
 </details>
 
@@ -106,7 +103,7 @@
 
 <summary>mysql</summary>
 
-{{#include ./docker/snippet/mysql.snippet.md}}
+<<< @./docker/snippet/mysql.snippet.md
 
 </details>
 
@@ -114,7 +111,7 @@
 
 <summary>nexus</summary>
 
-{{#include ./docker/snippet/nexus.snippet.md}}
+<<< @./docker/snippet/nexus.snippet.md
 
 </details>
 
@@ -122,25 +119,23 @@
 
 <summary>rocketmq</summary>
 
-{{#include ./docker/snippet/rocketmq.snippet.md}}
+<<< @./docker/snippet/rocketmq.snippet.md
 
 </details>
-
 
 <details>
 
 <summary>rabbitmq</summary>
 
-{{#include ./docker/snippet/rabbitmq.snippet.md}}
+<<< @./docker/snippet/rabbitmq.snippet.md
 
 </details>
-
 
 <details>
 
 <summary>sentinel</summary>
 
-{{#include ./docker/snippet/sentinel.snippet.md}}
+<<< @./docker/snippet/sentinel.snippet.md
 
 </details>
 
@@ -148,7 +143,7 @@
 
 <summary>nginx</summary>
 
-{{#include ./docker/snippet/nginx.snippet.md}}
+<<< @./docker/snippet/nginx.snippet.md
 
 </details>
 
@@ -156,20 +151,17 @@
 
 <summary>elasticsearch</summary>
 
-{{#include ./docker/snippet/elasticsearch.snippet.md}}
+<<< @./docker/snippet/elasticsearch.snippet.md
 
 </details>
-
 
 <details>
 
 <summary>kinaba</summary>
 
-{{#include ./docker/snippet/kinaba.snippet.md}}
+<<< @./docker/snippet/kinaba.snippet.md
 
 </details>
-
-
 
 ## 6. 参考
 
