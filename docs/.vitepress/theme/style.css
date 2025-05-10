@@ -16,16 +16,10 @@ body {
 }
 
 :root {
-  --vp-nav-height: 50px;
   --vp-sidebar-width: 250px;
   --vp-code-line-height: none;
-
-  --vp-home-heatmap-legend-text: #585a5a;
 }
 
-.dark {
-  --vp-home-heatmap-legend-text: #ffffff;
-}
 
 .DocSearch-Button {
   height: 35px;
