@@ -605,7 +605,7 @@ for (String beanName : context.getBeanDefinitionNames()) {
 Spring 容器在用到 Bean 的位置构造出 Bean 的过程就是装配，比如类 A 中有依赖了类 B，那么 Spring 容器把类 B 的一个对象给到 A 的过程，就是装配。
 
 Spring IOC 容器知道所有 Bean 的配置信息，此外，通过 Java 反射机制还可以获知实现类的结构信息，如构造方法的结构、属性等信息。掌握所有 Bean 的这些信息后，Spring IOC 容器就可以按照某种规则对容器中的 Bean 进行自动装配，而无须通过显式的方式进行依赖配置。
-Spring 提供的这种方式，可以按照某些规则进行 Bean 的自动装配，元素提供了一个指定自动装配类型的属性：autowire="<自动装配类型>"
+Spring 提供的这种方式，可以按照某些规则进行 Bean 的自动装配，元素提供了一个指定自动装配类型的属性：autowire="自动装配类型"
 
 当 bean 在 Spring 容器中组合在一起时，它被称为装配或 bean 装配。 Spring 容器需要知道需要什么 bean 以及容器应该如何使用依赖注入来将 bean 绑定在一起，同时装配 bean。
 Spring 容器能够自动装配 bean。也就是说，可以通过检查 BeanFactory 的内容让 Spring 自动解析 bean 的协作者。
