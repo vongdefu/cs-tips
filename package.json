@@ -4,11 +4,14 @@
     "vitepress": "^1.6.3"
   },
   "scripts": {
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
+    "docs:dev": "vitepress dev docs && node ./docs/.vitepress/encrypt-md.js",
+    "docs:build": "vitepress build docs && node ./docs/.vitepress/encrypt-md.js",
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
-    "@giscus/vue": "^3.1.1"
+    "@giscus/vue": "^3.1.1",
+    "crypto-js": "^4.2.0",
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^14.1.0"
   }
 }
