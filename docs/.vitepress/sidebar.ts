@@ -4,6 +4,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
   "/00-面试/": [
     {
       text: "CS 基础",
+      base: "/00-面试",
       items: [
         { text: "操作系统", link: "/os" },
         { text: "计算机网络", link: "/network" },
@@ -13,6 +14,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     },
     {
       text: "Java",
+      base: "/00-面试",
       items: [
         { text: "java 基础", link: "/01-javase" },
         { text: "java 集合", link: "/02-collection" },
@@ -22,6 +24,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     },
     {
       text: "框架",
+      base: "/00-面试",
       items: [
         { text: "微服务", link: "/weifuwu" },
         { text: "spring", link: "/spring" },
@@ -31,6 +34,7 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     },
     {
       text: "中间件",
+      base: "/00-面试",
       items: [
         { text: "MySQL", link: "/mysql" },
         { text: "Mybatis", link: "/mybatis" },
@@ -40,14 +44,17 @@ export const sidebar: DefaultTheme.Config["sidebar"] = {
     },
     {
       text: "分布式",
+      base: "/00-面试",
       items: [{ text: "分布式", link: "/fenbushi" }],
     },
     {
       text: "软件质量管理",
+      base: "/00-面试",
       items: [],
     },
     {
       text: "工程设计",
+      base: "/00-面试",
       items: [{ text: "nixi", link: "/nixi" }],
     },
   ],
