@@ -1,6 +1,56 @@
 import { DefaultTheme } from "vitepress";
 
 export const sidebar: DefaultTheme.Config["sidebar"] = {
+  "/00-面试/": [
+    {
+      text: "CS 基础",
+      items: [
+        { text: "操作系统", link: "/os" },
+        { text: "计算机网络", link: "/network" },
+        { text: "Linux", link: "/linux" },
+        { text: "设计模式", link: "/shejimoshi" },
+      ],
+    },
+    {
+      text: "Java",
+      items: [
+        { text: "java 基础", link: "/01-javase" },
+        { text: "java 集合", link: "/02-collection" },
+        { text: "java 线程", link: "/03-javathread" },
+        { text: "jvm", link: "/jvm" },
+      ],
+    },
+    {
+      text: "框架",
+      items: [
+        { text: "微服务", link: "/weifuwu" },
+        { text: "spring", link: "/spring" },
+        { text: "protobuff", link: "/protobuff" },
+        { text: "Netty", link: "/netty" },
+      ],
+    },
+    {
+      text: "中间件",
+      items: [
+        { text: "MySQL", link: "/mysql" },
+        { text: "Mybatis", link: "/mybatis" },
+        { text: "redis", link: "/redis" },
+        { text: "rocketmq", link: "/rocketmq" },
+      ],
+    },
+    {
+      text: "分布式",
+      items: [{ text: "分布式", link: "/fenbushi" }],
+    },
+    {
+      text: "软件质量管理",
+      items: [],
+    },
+    {
+      text: "工程设计",
+      items: [{ text: "nixi", link: "/nixi" }],
+    },
+  ],
   "/01-CS基础/": {
     base: "/01-CS基础",
     items: [
