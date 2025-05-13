@@ -12,7 +12,6 @@ export https_proxy=http://127.0.0.1:7897 http_proxy=http://127.0.0.1:7897 all_pr
 ### 2. Homebrew
 
 ::: details 安装日志
-添加日志
 @[code](./mac/include/homebrew.log)
 :::
 

@@ -1,0 +1,308 @@
+--------[ 鲁大师 ]--------------------------------------------------------------------------------
+
+  软件:             鲁大师 5.15.17.1075
+  时间:             2018-05-21 23:05:31
+  网站:             http://www.ludashi.com
+
+--------[ 概览 ]----------------------------------------------------------------------------------
+
+  电脑型号            技嘉 B85M-D3H 台式电脑
+  操作系统            Windows 10 专业版 64位 ( DirectX 12 )
+
+  处理器              英特尔 第四代酷睿 i7-4790 @ 3.60GHz 四核
+  主板                技嘉 B85M-D3H ( 英特尔 Haswell - Lynx Point )
+  显卡                Nvidia GeForce GTX 960 ( 4 GB / 技嘉 )
+  内存                16 GB ( 金士顿 DDR3 1600MHz )
+  主硬盘              东芝 Q300. ( 120 GB / 固态硬盘 )
+  显示器              飞利浦 PHLC0FA PHL 276E6 ( 27.2 英寸  )
+  声卡                英特尔 英特尔 显示器音频 @ 英特尔 Haswell  高保真音频
+  网卡                瑞昱 RTL8168/8111/8112 Gigabit Ethernet Controller / 技嘉
+
+--------[ 主板 ]----------------------------------------------------------------------------------
+
+  主板型号            技嘉 B85M-D3H
+  芯片组              英特尔 Haswell - Lynx Point
+  主板版本            To be filled by O.E.M.
+  BIOS                American Megatrends Inc. F15  /  制造日期: 2015年08月20日
+  BIOS的大小          8192 KB
+  BIOS的序列号        63-0100-000001-00101111-041312-Chipset
+
+  板载设备            视频设备 (启用)
+
+--------[ 处理器 ]--------------------------------------------------------------------------------
+
+  处理器              英特尔 第四代酷睿 i7-4790 @ 3.60GHz 四核
+  步进                C0
+  速度                3.80 GHz (109 MHz x 35.0)
+  处理器数量          核心数: 4 / 线程数: 8
+  核心代号            Haswell
+  生产工艺            22 纳米
+  插槽/插座           Socket H3 (LGA 1150)
+  一级数据缓存        4 x 32 KB, 8-Way, 64 byte lines
+  一级代码缓存        4 x 32 KB, 8-Way, 64 byte lines
+  二级缓存            4 x 256 KB, 8-Way, 64 byte lines
+  三级缓存            8 MB, 16-Way, 64 byte lines
+  特征                MMX, SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.2, HTT, EM64T, EIST, Turbo Boost
+
+--------[ 硬盘 ]----------------------------------------------------------------------------------
+
+  产品                东芝  Q300. (固态硬盘)
+  大小                120 GB
+  硬盘已使用          共 1095 次，累计 2486 小时
+  固件                SAFM12.3
+  接口                SATA III
+  数据传输率          600.00 MB/秒
+  特征                S.M.A.R.T,  APM,  48-bit LBA,  NCQ
+
+  产品                希捷  BUP
+  大小                1 TB
+  固件                SLIM
+  特征                S.M.A.R.T
+
+--------[ 内存 ]----------------------------------------------------------------------------------
+
+  ChannelA-DIMM0      金士顿 DDR3 1600MHz 8GB
+  制造日期            2016 年 09月
+  型号                7F98 KHX1600C10D3/8G
+  序列号              0C3E9C97
+  厂商                Kingston
+  模块位宽:           64 Bits
+  模块电压:           SSTL 1.5V
+
+  ChannelB-DIMM0      金士顿 DDR3 1600MHz 8GB
+  制造日期            2015 年 11月
+  型号                7F98 KHX1600C10D3/8G
+  序列号              780E9EB6
+  厂商                Kingston
+  模块位宽:           64 Bits
+  模块电压:           SSTL 1.5V
+
+--------[ 显卡 ]----------------------------------------------------------------------------------
+
+  显卡                英特尔 HD Graphics 4600
+  显存                112 MB
+  制造商              技嘉
+  制造商              Intel
+  BIOS日期            2015年07月02日
+  驱动版本            20.19.15.4835
+  驱动日期            2017年01月01日
+
+  主显卡              Nvidia GeForce GTX 960
+  显存                4 GB
+  制造商              技嘉
+  制造商              Nvidia
+  BIOS日期            2015年07月02日
+  驱动版本            23.21.13.8813
+  驱动日期            2017年02月01日
+
+--------[ 显示器 ]--------------------------------------------------------------------------------
+
+  产品                飞利浦 PHLC0FA PHL 276E6
+  厂商                飞利浦
+  固件日期            2016 年 05月
+  屏幕尺寸            27.2 英寸 (60 厘米 x 34 厘米)
+  显示比例            宽屏 16 : 9
+  分辨率              1920 x 1080 32 位真彩色
+  Gamma               2.20
+  电源管理            Active-Off
+
+--------[ 其他设备 ]------------------------------------------------------------------------------
+
+
+  网卡                瑞昱 RTL8168/8111/8112 Gigabit Ethernet Controller
+  制造商              技嘉
+
+  声卡                英特尔 英特尔 显示器音频 @ 英特尔 Haswell HD Audio Controller
+
+  声卡                英特尔 Lynx Point HD Audio Controller
+
+  声卡                Nvidia High Definition Audio Controller
+
+  键盘                HID 标准键盘
+  鼠标                HID-compliant 鼠标
+
+
+--------[ PCI设备 ]-------------------------------------------------------------------------------
+
+  设备                Haswell DRAM Controller
+  设备ID              0C00
+  制造商              Intel
+  制造商ID            8086
+  类别                Bridge / PCI to HOST
+  子系统制造商        Gigabyte
+  子系统ID            50001458
+
+  设备                Haswell PCI Express x16 Controller
+  设备ID              0C01
+  制造商              Intel
+  制造商ID            8086
+  类别                Bridge / PCI to PCI
+  子系统ID            00000000
+
+  设备                HD Graphics 4600
+  设备ID              0412
+  制造商              Intel
+  制造商ID            8086
+  类别                Display / VGA
+  子系统制造商        Gigabyte
+  子系统ID            D0001458
+
+  设备                Haswell HD Audio Controller
+  设备ID              0C0C
+  制造商              Intel
+  制造商ID            8086
+  类别                Multimedia / Hi-definition Audio
+  子系统制造商        Intel
+  子系统ID            20108086
+
+  设备                Lynx Point USB xHCI Host Controller
+  设备ID              8C31
+  制造商              Intel
+  制造商ID            8086
+  类别                Serial / USB (UHCI)
+  子系统制造商        Gigabyte
+  子系统ID            50071458
+
+  设备                Lynx Point MEI Controller #1
+  设备ID              8C3A
+  制造商              Intel
+  制造商ID            8086
+  类别                Simple Communication / Other
+  子系统制造商        Gigabyte
+  子系统ID            1C3A1458
+
+  设备                Lynx Point KT Controller
+  设备ID              8C3D
+  制造商              Intel
+  制造商ID            8086
+  类别                Simple Communication / Serial - 16550
+  子系统制造商        Gigabyte
+  子系统ID            1C3A1458
+
+  设备                Lynx Point USB Enhanced Host Controller #2
+  设备ID              8C2D
+  制造商              Intel
+  制造商ID            8086
+  类别                Serial / USB 2.0 (EHCI)
+  子系统制造商        Gigabyte
+  子系统ID            50061458
+
+  设备                Lynx Point HD Audio Controller
+  设备ID              8C20
+  制造商              Intel
+  制造商ID            8086
+  类别                Multimedia / Hi-definition Audio
+  子系统制造商        Gigabyte
+  子系统ID            A0021458
+
+  设备                Lynx Point PCI Express Root Port 1
+  设备ID              8C10
+  制造商              Intel
+  制造商ID            8086
+  类别                Bridge / PCI to PCI
+  子系统ID            00000000
+
+  设备                Lynx Point PCI Express Root Port 3
+  设备ID              8C14
+  制造商              Intel
+  制造商ID            8086
+  类别                Bridge / PCI to PCI
+  子系统ID            00000000
+
+  设备                Lynx Point PCI Express Root Port 4
+  设备ID              8C16
+  制造商              Intel
+  制造商ID            8086
+  类别                Bridge / PCI to PCI
+  子系统ID            00000000
+
+  设备                Lynx Point USB Enhanced Host Controller #1
+  设备ID              8C26
+  制造商              Intel
+  制造商ID            8086
+  类别                Serial / USB 2.0 (EHCI)
+  子系统制造商        Gigabyte
+  子系统ID            50061458
+
+  设备                Lynx Point LPC Controller
+  设备ID              8C50
+  制造商              Intel
+  制造商ID            8086
+  类别                Bridge / PCI to ISA
+  子系统制造商        Gigabyte
+  子系统ID            50011458
+
+  设备                Lynx Point 6-Port SATA AHCI Controller
+  设备ID              8C02
+  制造商              Intel
+  制造商ID            8086
+  类别                Storage / Serial ATA (AHCI 1.0)
+  子系统制造商        Gigabyte
+  子系统ID            B0051458
+
+  设备                Lynx Point SMBus Controller
+  设备ID              8C22
+  制造商              Intel
+  制造商ID            8086
+  类别                Serial / SMBus Controller
+  子系统制造商        Gigabyte
+  子系统ID            50011458
+
+  设备                Lynx Point Thermal Management Controller
+  设备ID              8C24
+  制造商              Intel
+  制造商ID            8086
+  类别                Data Aquisition & Signal Processing / Other
+  子系统制造商        Gigabyte
+  子系统ID            50001458
+
+  设备                GeForce GTX 960
+  设备ID              1401
+  制造商              Nvidia
+  制造商ID            10DE
+  类别                Display / VGA
+  子系统制造商        Gigabyte
+  子系统ID            36C11458
+
+  设备                High Definition Audio Controller
+  设备ID              0FBA
+  制造商              Nvidia
+  制造商ID            10DE
+  类别                Multimedia / Hi-definition Audio
+  子系统制造商        Gigabyte
+  子系统ID            36C11458
+
+  设备                RTL8168/8111/8112 Gigabit Ethernet Controller
+  设备ID              8168
+  制造商              Realtek
+  制造商ID            10EC
+  类别                Network / Ethernet
+  子系统制造商        Gigabyte
+  子系统ID            E0001458
+
+--------[ USB设备 ]-------------------------------------------------------------------------------
+
+  制造商ID            046D
+  产品ID              C534
+  类别                0 / 0 / 0
+  设备                Logitech USB Receiver
+  Serial              ?
+  版本                USB 2.0
+
+  制造商ID            0BC2
+  产品ID              AB24
+  类别                0 / 0 / 0
+  设备                Seagate BUP Slim RD
+  Serial              NA7LP571
+  版本                USB 3.0
+
+--------[ 传感器 ]--------------------------------------------------------------------------------
+
+  名称                ITE IT8728
+  CPU温度             31℃
+  CPU核心             36℃
+  CPU封装             40℃
+  主板                34℃
+  显卡                47℃
+  硬盘温度            31℃
+  风扇                841转

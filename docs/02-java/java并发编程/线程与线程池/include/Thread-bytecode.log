@@ -1,0 +1,2277 @@
+
+
+// class version 52.0 (52)
+// access flags 0x21
+public class java/lang/Thread implements java/lang/Runnable {
+
+  // compiled from: Thread.java
+  // access flags 0x8
+  static INNERCLASS java/lang/Thread$1 null null
+  // access flags 0xA
+  private static INNERCLASS java/lang/Thread$Caches java/lang/Thread Caches
+  // access flags 0x4019
+  public final static enum INNERCLASS java/lang/Thread$State java/lang/Thread State
+  // access flags 0x609
+  public static abstract INNERCLASS java/lang/Thread$UncaughtExceptionHandler java/lang/Thread UncaughtExceptionHandler
+  // access flags 0x8
+  static INNERCLASS java/lang/Thread$WeakClassKey java/lang/Thread WeakClassKey
+  // access flags 0x8
+  static INNERCLASS java/lang/ThreadLocal$ThreadLocalMap java/lang/ThreadLocal ThreadLocalMap
+
+  // access flags 0x42
+  private volatile Ljava/lang/String; name
+
+  // access flags 0x2
+  private I priority
+
+  // access flags 0x2
+  private Ljava/lang/Thread; threadQ
+
+  // access flags 0x2
+  private J eetop
+
+  // access flags 0x2
+  private Z single_step
+
+  // access flags 0x2
+  private Z daemon
+
+  // access flags 0x2
+  private Z stillborn
+
+  // access flags 0x2
+  private Ljava/lang/Runnable; target
+
+  // access flags 0x2
+  private Ljava/lang/ThreadGroup; group
+
+  // access flags 0x2
+  private Ljava/lang/ClassLoader; contextClassLoader
+
+  // access flags 0x2
+  private Ljava/security/AccessControlContext; inheritedAccessControlContext
+
+  // access flags 0xA
+  private static I threadInitNumber
+
+  // access flags 0x0
+  Ljava/lang/ThreadLocal$ThreadLocalMap; threadLocals
+
+  // access flags 0x0
+  Ljava/lang/ThreadLocal$ThreadLocalMap; inheritableThreadLocals
+
+  // access flags 0x2
+  private J stackSize
+
+  // access flags 0x2
+  private J nativeParkEventPointer
+
+  // access flags 0x2
+  private J tid
+
+  // access flags 0xA
+  private static J threadSeqNumber
+
+  // access flags 0x42
+  private volatile I threadStatus
+
+  // access flags 0x40
+  volatile Ljava/lang/Object; parkBlocker
+
+  // access flags 0x42
+  private volatile Lsun/nio/ch/Interruptible; blocker
+
+  // access flags 0x12
+  private final Ljava/lang/Object; blockerLock
+
+  // access flags 0x19
+  public final static I MIN_PRIORITY = 1
+
+  // access flags 0x19
+  public final static I NORM_PRIORITY = 5
+
+  // access flags 0x19
+  public final static I MAX_PRIORITY = 10
+
+  // access flags 0x1A
+  private final static [Ljava/lang/StackTraceElement; EMPTY_STACK_TRACE
+
+  // access flags 0x1A
+  private final static Ljava/lang/RuntimePermission; SUBCLASS_IMPLEMENTATION_PERMISSION
+
+  // access flags 0x42
+  private volatile Ljava/lang/Thread$UncaughtExceptionHandler; uncaughtExceptionHandler
+
+  // access flags 0x4A
+  private static volatile Ljava/lang/Thread$UncaughtExceptionHandler; defaultUncaughtExceptionHandler
+
+  // access flags 0x0
+  J threadLocalRandomSeed
+  @Lsun/misc/Contended;(value="tlr")
+
+  // access flags 0x0
+  I threadLocalRandomProbe
+  @Lsun/misc/Contended;(value="tlr")
+
+  // access flags 0x0
+  I threadLocalRandomSecondarySeed
+  @Lsun/misc/Contended;(value="tlr")
+
+  // access flags 0x10A
+  private static native registerNatives()V
+
+  // access flags 0x2A
+  private static synchronized nextThreadNum()I
+   L0
+    LINENUMBER 177 L0
+    GETSTATIC java/lang/Thread.threadInitNumber : I
+    DUP
+    ICONST_1
+    IADD
+    PUTSTATIC java/lang/Thread.threadInitNumber : I
+    IRETURN
+    MAXSTACK = 3
+    MAXLOCALS = 0
+
+  // access flags 0x2A
+  private static synchronized nextThreadID()J
+   L0
+    LINENUMBER 218 L0
+    GETSTATIC java/lang/Thread.threadSeqNumber : J
+    LCONST_1
+    LADD
+    DUP2
+    PUTSTATIC java/lang/Thread.threadSeqNumber : J
+    LRETURN
+    MAXSTACK = 4
+    MAXLOCALS = 0
+
+  // access flags 0x0
+  blockedOn(Lsun/nio/ch/Interruptible;)V
+    TRYCATCHBLOCK L0 L1 L2 null
+    TRYCATCHBLOCK L2 L3 L2 null
+   L4
+    LINENUMBER 239 L4
+    ALOAD 0
+    GETFIELD java/lang/Thread.blockerLock : Ljava/lang/Object;
+    DUP
+    ASTORE 2
+    MONITORENTER
+   L0
+    LINENUMBER 240 L0
+    ALOAD 0
+    ALOAD 1
+    PUTFIELD java/lang/Thread.blocker : Lsun/nio/ch/Interruptible;
+   L5
+    LINENUMBER 241 L5
+    ALOAD 2
+    MONITOREXIT
+   L1
+    GOTO L6
+   L2
+   FRAME FULL [java/lang/Thread sun/nio/ch/Interruptible java/lang/Object] [java/lang/Throwable]
+    ASTORE 3
+    ALOAD 2
+    MONITOREXIT
+   L3
+    ALOAD 3
+    ATHROW
+   L6
+    LINENUMBER 242 L6
+   FRAME CHOP 1
+    RETURN
+    MAXSTACK = 2
+    MAXLOCALS = 4
+
+  // access flags 0x109
+  public static native currentThread()Ljava/lang/Thread;
+
+  // access flags 0x109
+  public static native yield()V
+
+  // access flags 0x109
+  public static native sleep(J)V throws java/lang/InterruptedException 
+
+  // access flags 0x9
+  public static sleep(JI)V throws java/lang/InterruptedException 
+   L0
+    LINENUMBER 327 L0
+    LLOAD 0
+    LCONST_0
+    LCMP
+    IFGE L1
+   L2
+    LINENUMBER 328 L2
+    NEW java/lang/IllegalArgumentException
+    DUP
+    LDC "timeout value is negative"
+    INVOKESPECIAL java/lang/IllegalArgumentException.<init> (Ljava/lang/String;)V
+    ATHROW
+   L1
+    LINENUMBER 331 L1
+   FRAME SAME
+    ILOAD 2
+    IFLT L3
+    ILOAD 2
+    LDC 999999
+    IF_ICMPLE L4
+   L3
+    LINENUMBER 332 L3
+   FRAME SAME
+    NEW java/lang/IllegalArgumentException
+    DUP
+    LDC "nanosecond timeout value out of range"
+    INVOKESPECIAL java/lang/IllegalArgumentException.<init> (Ljava/lang/String;)V
+    ATHROW
+   L4
+    LINENUMBER 336 L4
+   FRAME SAME
+    ILOAD 2
+    LDC 500000
+    IF_ICMPGE L5
+    ILOAD 2
+    IFEQ L6
+    LLOAD 0
+    LCONST_0
+    LCMP
+    IFNE L6
+   L5
+    LINENUMBER 337 L5
+   FRAME SAME
+    LLOAD 0
+    LCONST_1
+    LADD
+    LSTORE 0
+   L6
+    LINENUMBER 340 L6
+   FRAME SAME
+    LLOAD 0
+    INVOKESTATIC java/lang/Thread.sleep (J)V
+   L7
+    LINENUMBER 341 L7
+    RETURN
+    MAXSTACK = 4
+    MAXLOCALS = 3
+
+  // access flags 0x2
+  private init(Ljava/lang/ThreadGroup;Ljava/lang/Runnable;Ljava/lang/String;J)V
+   L0
+    LINENUMBER 349 L0
+    ALOAD 0
+    ALOAD 1
+    ALOAD 2
+    ALOAD 3
+    LLOAD 4
+    ACONST_NULL
+    ICONST_1
+    INVOKESPECIAL java/lang/Thread.init (Ljava/lang/ThreadGroup;Ljava/lang/Runnable;Ljava/lang/String;JLjava/security/AccessControlContext;Z)V
+   L1
+    LINENUMBER 350 L1
+    RETURN
+    MAXSTACK = 8
+    MAXLOCALS = 6
+
+  // access flags 0x2
+  private init(Ljava/lang/ThreadGroup;Ljava/lang/Runnable;Ljava/lang/String;JLjava/security/AccessControlContext;Z)V
+   L0
+    LINENUMBER 368 L0
+    ALOAD 3
+    IFNONNULL L1
+   L2
+    LINENUMBER 369 L2
+    NEW java/lang/NullPointerException
+    DUP
+    LDC "name cannot be null"
+    INVOKESPECIAL java/lang/NullPointerException.<init> (Ljava/lang/String;)V
+    ATHROW
+   L1
+    LINENUMBER 372 L1
+   FRAME SAME
+    ALOAD 0
+    ALOAD 3
+    PUTFIELD java/lang/Thread.name : Ljava/lang/String;
+   L3
+    LINENUMBER 374 L3
+    INVOKESTATIC java/lang/Thread.currentThread ()Ljava/lang/Thread;
+    ASTORE 8
+   L4
+    LINENUMBER 375 L4
+    INVOKESTATIC java/lang/System.getSecurityManager ()Ljava/lang/SecurityManager;
+    ASTORE 9
+   L5
+    LINENUMBER 376 L5
+    ALOAD 1
+    IFNONNULL L6
+   L7
+    LINENUMBER 381 L7
+    ALOAD 9
+    IFNULL L8
+   L9
+    LINENUMBER 382 L9
+    ALOAD 9
+    INVOKEVIRTUAL java/lang/SecurityManager.getThreadGroup ()Ljava/lang/ThreadGroup;
+    ASTORE 1
+   L8
+    LINENUMBER 387 L8
+   FRAME APPEND [java/lang/Thread java/lang/SecurityManager]
+    ALOAD 1
+    IFNONNULL L6
+   L10
+    LINENUMBER 388 L10
+    ALOAD 8
+    INVOKEVIRTUAL java/lang/Thread.getThreadGroup ()Ljava/lang/ThreadGroup;
+    ASTORE 1
+   L6
+    LINENUMBER 394 L6
+   FRAME SAME
+    ALOAD 1
+    INVOKEVIRTUAL java/lang/ThreadGroup.checkAccess ()V
+   L11
+    LINENUMBER 399 L11
+    ALOAD 9
+    IFNULL L12
+   L13
+    LINENUMBER 400 L13
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Object.getClass ()Ljava/lang/Class;
+    INVOKESTATIC java/lang/Thread.isCCLOverridden (Ljava/lang/Class;)Z
+    IFEQ L12
+   L14
+    LINENUMBER 401 L14
+    ALOAD 9
+    GETSTATIC java/lang/Thread.SUBCLASS_IMPLEMENTATION_PERMISSION : Ljava/lang/RuntimePermission;
+    INVOKEVIRTUAL java/lang/SecurityManager.checkPermission (Ljava/security/Permission;)V
+   L12
+    LINENUMBER 405 L12
+   FRAME SAME
+    ALOAD 1
+    INVOKEVIRTUAL java/lang/ThreadGroup.addUnstarted ()V
+   L15
+    LINENUMBER 407 L15
+    ALOAD 0
+    ALOAD 1
+    PUTFIELD java/lang/Thread.group : Ljava/lang/ThreadGroup;
+   L16
+    LINENUMBER 408 L16
+    ALOAD 0
+    ALOAD 8
+    INVOKEVIRTUAL java/lang/Thread.isDaemon ()Z
+    PUTFIELD java/lang/Thread.daemon : Z
+   L17
+    LINENUMBER 409 L17
+    ALOAD 0
+    ALOAD 8
+    INVOKEVIRTUAL java/lang/Thread.getPriority ()I
+    PUTFIELD java/lang/Thread.priority : I
+   L18
+    LINENUMBER 410 L18
+    ALOAD 9
+    IFNULL L19
+    ALOAD 8
+    INVOKEVIRTUAL java/lang/Object.getClass ()Ljava/lang/Class;
+    INVOKESTATIC java/lang/Thread.isCCLOverridden (Ljava/lang/Class;)Z
+    IFEQ L20
+   L19
+    LINENUMBER 411 L19
+   FRAME SAME
+    ALOAD 0
+    ALOAD 8
+    INVOKEVIRTUAL java/lang/Thread.getContextClassLoader ()Ljava/lang/ClassLoader;
+    PUTFIELD java/lang/Thread.contextClassLoader : Ljava/lang/ClassLoader;
+    GOTO L21
+   L20
+    LINENUMBER 413 L20
+   FRAME SAME
+    ALOAD 0
+    ALOAD 8
+    GETFIELD java/lang/Thread.contextClassLoader : Ljava/lang/ClassLoader;
+    PUTFIELD java/lang/Thread.contextClassLoader : Ljava/lang/ClassLoader;
+   L21
+    LINENUMBER 414 L21
+   FRAME SAME
+    ALOAD 0
+    ALOAD 6
+    IFNULL L22
+    ALOAD 6
+    GOTO L23
+   L22
+    LINENUMBER 415 L22
+   FRAME SAME1 java/lang/Thread
+    INVOKESTATIC java/security/AccessController.getContext ()Ljava/security/AccessControlContext;
+   L23
+   FRAME FULL [java/lang/Thread java/lang/ThreadGroup java/lang/Runnable java/lang/String J java/security/AccessControlContext I java/lang/Thread java/lang/SecurityManager] [java/lang/Thread java/security/AccessControlContext]
+    PUTFIELD java/lang/Thread.inheritedAccessControlContext : Ljava/security/AccessControlContext;
+   L24
+    LINENUMBER 416 L24
+    ALOAD 0
+    ALOAD 2
+    PUTFIELD java/lang/Thread.target : Ljava/lang/Runnable;
+   L25
+    LINENUMBER 417 L25
+    ALOAD 0
+    ALOAD 0
+    GETFIELD java/lang/Thread.priority : I
+    INVOKEVIRTUAL java/lang/Thread.setPriority (I)V
+   L26
+    LINENUMBER 418 L26
+    ILOAD 7
+    IFEQ L27
+    ALOAD 8
+    GETFIELD java/lang/Thread.inheritableThreadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+    IFNULL L27
+   L28
+    LINENUMBER 419 L28
+    ALOAD 0
+    ALOAD 8
+    GETFIELD java/lang/Thread.inheritableThreadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L29
+    LINENUMBER 420 L29
+    INVOKESTATIC java/lang/ThreadLocal.createInheritedMap (Ljava/lang/ThreadLocal$ThreadLocalMap;)Ljava/lang/ThreadLocal$ThreadLocalMap;
+    PUTFIELD java/lang/Thread.inheritableThreadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L27
+    LINENUMBER 422 L27
+   FRAME SAME
+    ALOAD 0
+    LLOAD 4
+    PUTFIELD java/lang/Thread.stackSize : J
+   L30
+    LINENUMBER 425 L30
+    ALOAD 0
+    INVOKESTATIC java/lang/Thread.nextThreadID ()J
+    PUTFIELD java/lang/Thread.tid : J
+   L31
+    LINENUMBER 426 L31
+    RETURN
+    MAXSTACK = 3
+    MAXLOCALS = 10
+
+  // access flags 0x4
+  protected clone()Ljava/lang/Object; throws java/lang/CloneNotSupportedException 
+   L0
+    LINENUMBER 437 L0
+    NEW java/lang/CloneNotSupportedException
+    DUP
+    INVOKESPECIAL java/lang/CloneNotSupportedException.<init> ()V
+    ATHROW
+    MAXSTACK = 2
+    MAXLOCALS = 1
+
+  // access flags 0x1
+  public <init>()V
+   L0
+    LINENUMBER 447 L0
+    ALOAD 0
+    INVOKESPECIAL java/lang/Object.<init> ()V
+   L1
+    LINENUMBER 157 L1
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.daemon : Z
+   L2
+    LINENUMBER 160 L2
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.stillborn : Z
+   L3
+    LINENUMBER 182 L3
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.threadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L4
+    LINENUMBER 188 L4
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.inheritableThreadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L5
+    LINENUMBER 214 L5
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.threadStatus : I
+   L6
+    LINENUMBER 234 L6
+    ALOAD 0
+    NEW java/lang/Object
+    DUP
+    INVOKESPECIAL java/lang/Object.<init> ()V
+    PUTFIELD java/lang/Thread.blockerLock : Ljava/lang/Object;
+   L7
+    LINENUMBER 448 L7
+    ALOAD 0
+    ACONST_NULL
+    ACONST_NULL
+    NEW java/lang/StringBuilder
+    DUP
+    INVOKESPECIAL java/lang/StringBuilder.<init> ()V
+    LDC "Thread-"
+    INVOKEVIRTUAL java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;
+    INVOKESTATIC java/lang/Thread.nextThreadNum ()I
+    INVOKEVIRTUAL java/lang/StringBuilder.append (I)Ljava/lang/StringBuilder;
+    INVOKEVIRTUAL java/lang/StringBuilder.toString ()Ljava/lang/String;
+    LCONST_0
+    INVOKESPECIAL java/lang/Thread.init (Ljava/lang/ThreadGroup;Ljava/lang/Runnable;Ljava/lang/String;J)V
+   L8
+    LINENUMBER 449 L8
+    RETURN
+    MAXSTACK = 6
+    MAXLOCALS = 1
+
+  // access flags 0x1
+  public <init>(Ljava/lang/Runnable;)V
+   L0
+    LINENUMBER 463 L0
+    ALOAD 0
+    INVOKESPECIAL java/lang/Object.<init> ()V
+   L1
+    LINENUMBER 157 L1
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.daemon : Z
+   L2
+    LINENUMBER 160 L2
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.stillborn : Z
+   L3
+    LINENUMBER 182 L3
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.threadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L4
+    LINENUMBER 188 L4
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.inheritableThreadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L5
+    LINENUMBER 214 L5
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.threadStatus : I
+   L6
+    LINENUMBER 234 L6
+    ALOAD 0
+    NEW java/lang/Object
+    DUP
+    INVOKESPECIAL java/lang/Object.<init> ()V
+    PUTFIELD java/lang/Thread.blockerLock : Ljava/lang/Object;
+   L7
+    LINENUMBER 464 L7
+    ALOAD 0
+    ACONST_NULL
+    ALOAD 1
+    NEW java/lang/StringBuilder
+    DUP
+    INVOKESPECIAL java/lang/StringBuilder.<init> ()V
+    LDC "Thread-"
+    INVOKEVIRTUAL java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;
+    INVOKESTATIC java/lang/Thread.nextThreadNum ()I
+    INVOKEVIRTUAL java/lang/StringBuilder.append (I)Ljava/lang/StringBuilder;
+    INVOKEVIRTUAL java/lang/StringBuilder.toString ()Ljava/lang/String;
+    LCONST_0
+    INVOKESPECIAL java/lang/Thread.init (Ljava/lang/ThreadGroup;Ljava/lang/Runnable;Ljava/lang/String;J)V
+   L8
+    LINENUMBER 465 L8
+    RETURN
+    MAXSTACK = 6
+    MAXLOCALS = 2
+
+  // access flags 0x0
+  <init>(Ljava/lang/Runnable;Ljava/security/AccessControlContext;)V
+   L0
+    LINENUMBER 471 L0
+    ALOAD 0
+    INVOKESPECIAL java/lang/Object.<init> ()V
+   L1
+    LINENUMBER 157 L1
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.daemon : Z
+   L2
+    LINENUMBER 160 L2
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.stillborn : Z
+   L3
+    LINENUMBER 182 L3
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.threadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L4
+    LINENUMBER 188 L4
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.inheritableThreadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L5
+    LINENUMBER 214 L5
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.threadStatus : I
+   L6
+    LINENUMBER 234 L6
+    ALOAD 0
+    NEW java/lang/Object
+    DUP
+    INVOKESPECIAL java/lang/Object.<init> ()V
+    PUTFIELD java/lang/Thread.blockerLock : Ljava/lang/Object;
+   L7
+    LINENUMBER 472 L7
+    ALOAD 0
+    ACONST_NULL
+    ALOAD 1
+    NEW java/lang/StringBuilder
+    DUP
+    INVOKESPECIAL java/lang/StringBuilder.<init> ()V
+    LDC "Thread-"
+    INVOKEVIRTUAL java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;
+    INVOKESTATIC java/lang/Thread.nextThreadNum ()I
+    INVOKEVIRTUAL java/lang/StringBuilder.append (I)Ljava/lang/StringBuilder;
+    INVOKEVIRTUAL java/lang/StringBuilder.toString ()Ljava/lang/String;
+    LCONST_0
+    ALOAD 2
+    ICONST_0
+    INVOKESPECIAL java/lang/Thread.init (Ljava/lang/ThreadGroup;Ljava/lang/Runnable;Ljava/lang/String;JLjava/security/AccessControlContext;Z)V
+   L8
+    LINENUMBER 473 L8
+    RETURN
+    MAXSTACK = 8
+    MAXLOCALS = 3
+
+  // access flags 0x1
+  public <init>(Ljava/lang/ThreadGroup;Ljava/lang/Runnable;)V
+   L0
+    LINENUMBER 498 L0
+    ALOAD 0
+    INVOKESPECIAL java/lang/Object.<init> ()V
+   L1
+    LINENUMBER 157 L1
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.daemon : Z
+   L2
+    LINENUMBER 160 L2
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.stillborn : Z
+   L3
+    LINENUMBER 182 L3
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.threadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L4
+    LINENUMBER 188 L4
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.inheritableThreadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L5
+    LINENUMBER 214 L5
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.threadStatus : I
+   L6
+    LINENUMBER 234 L6
+    ALOAD 0
+    NEW java/lang/Object
+    DUP
+    INVOKESPECIAL java/lang/Object.<init> ()V
+    PUTFIELD java/lang/Thread.blockerLock : Ljava/lang/Object;
+   L7
+    LINENUMBER 499 L7
+    ALOAD 0
+    ALOAD 1
+    ALOAD 2
+    NEW java/lang/StringBuilder
+    DUP
+    INVOKESPECIAL java/lang/StringBuilder.<init> ()V
+    LDC "Thread-"
+    INVOKEVIRTUAL java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;
+    INVOKESTATIC java/lang/Thread.nextThreadNum ()I
+    INVOKEVIRTUAL java/lang/StringBuilder.append (I)Ljava/lang/StringBuilder;
+    INVOKEVIRTUAL java/lang/StringBuilder.toString ()Ljava/lang/String;
+    LCONST_0
+    INVOKESPECIAL java/lang/Thread.init (Ljava/lang/ThreadGroup;Ljava/lang/Runnable;Ljava/lang/String;J)V
+   L8
+    LINENUMBER 500 L8
+    RETURN
+    MAXSTACK = 6
+    MAXLOCALS = 3
+
+  // access flags 0x1
+  public <init>(Ljava/lang/String;)V
+   L0
+    LINENUMBER 510 L0
+    ALOAD 0
+    INVOKESPECIAL java/lang/Object.<init> ()V
+   L1
+    LINENUMBER 157 L1
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.daemon : Z
+   L2
+    LINENUMBER 160 L2
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.stillborn : Z
+   L3
+    LINENUMBER 182 L3
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.threadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L4
+    LINENUMBER 188 L4
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.inheritableThreadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L5
+    LINENUMBER 214 L5
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.threadStatus : I
+   L6
+    LINENUMBER 234 L6
+    ALOAD 0
+    NEW java/lang/Object
+    DUP
+    INVOKESPECIAL java/lang/Object.<init> ()V
+    PUTFIELD java/lang/Thread.blockerLock : Ljava/lang/Object;
+   L7
+    LINENUMBER 511 L7
+    ALOAD 0
+    ACONST_NULL
+    ACONST_NULL
+    ALOAD 1
+    LCONST_0
+    INVOKESPECIAL java/lang/Thread.init (Ljava/lang/ThreadGroup;Ljava/lang/Runnable;Ljava/lang/String;J)V
+   L8
+    LINENUMBER 512 L8
+    RETURN
+    MAXSTACK = 6
+    MAXLOCALS = 2
+
+  // access flags 0x1
+  public <init>(Ljava/lang/ThreadGroup;Ljava/lang/String;)V
+   L0
+    LINENUMBER 534 L0
+    ALOAD 0
+    INVOKESPECIAL java/lang/Object.<init> ()V
+   L1
+    LINENUMBER 157 L1
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.daemon : Z
+   L2
+    LINENUMBER 160 L2
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.stillborn : Z
+   L3
+    LINENUMBER 182 L3
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.threadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L4
+    LINENUMBER 188 L4
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.inheritableThreadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L5
+    LINENUMBER 214 L5
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.threadStatus : I
+   L6
+    LINENUMBER 234 L6
+    ALOAD 0
+    NEW java/lang/Object
+    DUP
+    INVOKESPECIAL java/lang/Object.<init> ()V
+    PUTFIELD java/lang/Thread.blockerLock : Ljava/lang/Object;
+   L7
+    LINENUMBER 535 L7
+    ALOAD 0
+    ALOAD 1
+    ACONST_NULL
+    ALOAD 2
+    LCONST_0
+    INVOKESPECIAL java/lang/Thread.init (Ljava/lang/ThreadGroup;Ljava/lang/Runnable;Ljava/lang/String;J)V
+   L8
+    LINENUMBER 536 L8
+    RETURN
+    MAXSTACK = 6
+    MAXLOCALS = 3
+
+  // access flags 0x1
+  public <init>(Ljava/lang/Runnable;Ljava/lang/String;)V
+   L0
+    LINENUMBER 550 L0
+    ALOAD 0
+    INVOKESPECIAL java/lang/Object.<init> ()V
+   L1
+    LINENUMBER 157 L1
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.daemon : Z
+   L2
+    LINENUMBER 160 L2
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.stillborn : Z
+   L3
+    LINENUMBER 182 L3
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.threadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L4
+    LINENUMBER 188 L4
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.inheritableThreadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L5
+    LINENUMBER 214 L5
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.threadStatus : I
+   L6
+    LINENUMBER 234 L6
+    ALOAD 0
+    NEW java/lang/Object
+    DUP
+    INVOKESPECIAL java/lang/Object.<init> ()V
+    PUTFIELD java/lang/Thread.blockerLock : Ljava/lang/Object;
+   L7
+    LINENUMBER 551 L7
+    ALOAD 0
+    ACONST_NULL
+    ALOAD 1
+    ALOAD 2
+    LCONST_0
+    INVOKESPECIAL java/lang/Thread.init (Ljava/lang/ThreadGroup;Ljava/lang/Runnable;Ljava/lang/String;J)V
+   L8
+    LINENUMBER 552 L8
+    RETURN
+    MAXSTACK = 6
+    MAXLOCALS = 3
+
+  // access flags 0x1
+  public <init>(Ljava/lang/ThreadGroup;Ljava/lang/Runnable;Ljava/lang/String;)V
+   L0
+    LINENUMBER 598 L0
+    ALOAD 0
+    INVOKESPECIAL java/lang/Object.<init> ()V
+   L1
+    LINENUMBER 157 L1
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.daemon : Z
+   L2
+    LINENUMBER 160 L2
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.stillborn : Z
+   L3
+    LINENUMBER 182 L3
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.threadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L4
+    LINENUMBER 188 L4
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.inheritableThreadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L5
+    LINENUMBER 214 L5
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.threadStatus : I
+   L6
+    LINENUMBER 234 L6
+    ALOAD 0
+    NEW java/lang/Object
+    DUP
+    INVOKESPECIAL java/lang/Object.<init> ()V
+    PUTFIELD java/lang/Thread.blockerLock : Ljava/lang/Object;
+   L7
+    LINENUMBER 599 L7
+    ALOAD 0
+    ALOAD 1
+    ALOAD 2
+    ALOAD 3
+    LCONST_0
+    INVOKESPECIAL java/lang/Thread.init (Ljava/lang/ThreadGroup;Ljava/lang/Runnable;Ljava/lang/String;J)V
+   L8
+    LINENUMBER 600 L8
+    RETURN
+    MAXSTACK = 6
+    MAXLOCALS = 4
+
+  // access flags 0x1
+  public <init>(Ljava/lang/ThreadGroup;Ljava/lang/Runnable;Ljava/lang/String;J)V
+   L0
+    LINENUMBER 677 L0
+    ALOAD 0
+    INVOKESPECIAL java/lang/Object.<init> ()V
+   L1
+    LINENUMBER 157 L1
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.daemon : Z
+   L2
+    LINENUMBER 160 L2
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.stillborn : Z
+   L3
+    LINENUMBER 182 L3
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.threadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L4
+    LINENUMBER 188 L4
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.inheritableThreadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L5
+    LINENUMBER 214 L5
+    ALOAD 0
+    ICONST_0
+    PUTFIELD java/lang/Thread.threadStatus : I
+   L6
+    LINENUMBER 234 L6
+    ALOAD 0
+    NEW java/lang/Object
+    DUP
+    INVOKESPECIAL java/lang/Object.<init> ()V
+    PUTFIELD java/lang/Thread.blockerLock : Ljava/lang/Object;
+   L7
+    LINENUMBER 678 L7
+    ALOAD 0
+    ALOAD 1
+    ALOAD 2
+    ALOAD 3
+    LLOAD 4
+    INVOKESPECIAL java/lang/Thread.init (Ljava/lang/ThreadGroup;Ljava/lang/Runnable;Ljava/lang/String;J)V
+   L8
+    LINENUMBER 679 L8
+    RETURN
+    MAXSTACK = 6
+    MAXLOCALS = 6
+
+  // access flags 0x21
+  public synchronized start()V
+    TRYCATCHBLOCK L0 L1 L2 java/lang/Throwable
+    TRYCATCHBLOCK L3 L0 L4 null
+    TRYCATCHBLOCK L5 L6 L7 java/lang/Throwable
+   L8
+    LINENUMBER 707 L8
+    ALOAD 0
+    GETFIELD java/lang/Thread.threadStatus : I
+    IFEQ L9
+   L10
+    LINENUMBER 708 L10
+    NEW java/lang/IllegalThreadStateException
+    DUP
+    INVOKESPECIAL java/lang/IllegalThreadStateException.<init> ()V
+    ATHROW
+   L9
+    LINENUMBER 713 L9
+   FRAME SAME
+    ALOAD 0
+    GETFIELD java/lang/Thread.group : Ljava/lang/ThreadGroup;
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/ThreadGroup.add (Ljava/lang/Thread;)V
+   L11
+    LINENUMBER 715 L11
+    ICONST_0
+    ISTORE 1
+   L3
+    LINENUMBER 717 L3
+    ALOAD 0
+    INVOKESPECIAL java/lang/Thread.start0 ()V
+   L12
+    LINENUMBER 718 L12
+    ICONST_1
+    ISTORE 1
+   L0
+    LINENUMBER 721 L0
+    ILOAD 1
+    IFNE L1
+   L13
+    LINENUMBER 722 L13
+    ALOAD 0
+    GETFIELD java/lang/Thread.group : Ljava/lang/ThreadGroup;
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/ThreadGroup.threadStartFailed (Ljava/lang/Thread;)V
+   L1
+    LINENUMBER 727 L1
+   FRAME APPEND [I]
+    GOTO L14
+   L2
+    LINENUMBER 724 L2
+   FRAME SAME1 java/lang/Throwable
+    ASTORE 2
+   L15
+    LINENUMBER 728 L15
+    GOTO L14
+   L4
+    LINENUMBER 720 L4
+   FRAME SAME1 java/lang/Throwable
+    ASTORE 3
+   L5
+    LINENUMBER 721 L5
+    ILOAD 1
+    IFNE L6
+   L16
+    LINENUMBER 722 L16
+    ALOAD 0
+    GETFIELD java/lang/Thread.group : Ljava/lang/ThreadGroup;
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/ThreadGroup.threadStartFailed (Ljava/lang/Thread;)V
+   L6
+    LINENUMBER 727 L6
+   FRAME APPEND [T java/lang/Throwable]
+    GOTO L17
+   L7
+    LINENUMBER 724 L7
+   FRAME SAME1 java/lang/Throwable
+    ASTORE 4
+   L17
+    LINENUMBER 728 L17
+   FRAME SAME
+    ALOAD 3
+    ATHROW
+   L14
+    LINENUMBER 729 L14
+   FRAME CHOP 2
+    RETURN
+    MAXSTACK = 2
+    MAXLOCALS = 5
+
+  // access flags 0x102
+  private native start0()V
+
+  // access flags 0x1
+  public run()V
+   L0
+    LINENUMBER 747 L0
+    ALOAD 0
+    GETFIELD java/lang/Thread.target : Ljava/lang/Runnable;
+    IFNULL L1
+   L2
+    LINENUMBER 748 L2
+    ALOAD 0
+    GETFIELD java/lang/Thread.target : Ljava/lang/Runnable;
+    INVOKEINTERFACE java/lang/Runnable.run ()V (itf)
+   L1
+    LINENUMBER 750 L1
+   FRAME SAME
+    RETURN
+    MAXSTACK = 1
+    MAXLOCALS = 1
+
+  // access flags 0x2
+  private exit()V
+   L0
+    LINENUMBER 757 L0
+    ALOAD 0
+    GETFIELD java/lang/Thread.group : Ljava/lang/ThreadGroup;
+    IFNULL L1
+   L2
+    LINENUMBER 758 L2
+    ALOAD 0
+    GETFIELD java/lang/Thread.group : Ljava/lang/ThreadGroup;
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/ThreadGroup.threadTerminated (Ljava/lang/Thread;)V
+   L3
+    LINENUMBER 759 L3
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.group : Ljava/lang/ThreadGroup;
+   L1
+    LINENUMBER 762 L1
+   FRAME SAME
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.target : Ljava/lang/Runnable;
+   L4
+    LINENUMBER 764 L4
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.threadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L5
+    LINENUMBER 765 L5
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.inheritableThreadLocals : Ljava/lang/ThreadLocal$ThreadLocalMap;
+   L6
+    LINENUMBER 766 L6
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.inheritedAccessControlContext : Ljava/security/AccessControlContext;
+   L7
+    LINENUMBER 767 L7
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.blocker : Lsun/nio/ch/Interruptible;
+   L8
+    LINENUMBER 768 L8
+    ALOAD 0
+    ACONST_NULL
+    PUTFIELD java/lang/Thread.uncaughtExceptionHandler : Ljava/lang/Thread$UncaughtExceptionHandler;
+   L9
+    LINENUMBER 769 L9
+    RETURN
+    MAXSTACK = 2
+    MAXLOCALS = 1
+
+  // DEPRECATED
+  // access flags 0x20011
+  public final stop()V
+  @Ljava/lang/Deprecated;()
+   L0
+    LINENUMBER 839 L0
+    INVOKESTATIC java/lang/System.getSecurityManager ()Ljava/lang/SecurityManager;
+    ASTORE 1
+   L1
+    LINENUMBER 840 L1
+    ALOAD 1
+    IFNULL L2
+   L3
+    LINENUMBER 841 L3
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.checkAccess ()V
+   L4
+    LINENUMBER 842 L4
+    ALOAD 0
+    INVOKESTATIC java/lang/Thread.currentThread ()Ljava/lang/Thread;
+    IF_ACMPEQ L2
+   L5
+    LINENUMBER 843 L5
+    ALOAD 1
+    GETSTATIC sun/security/util/SecurityConstants.STOP_THREAD_PERMISSION : Ljava/lang/RuntimePermission;
+    INVOKEVIRTUAL java/lang/SecurityManager.checkPermission (Ljava/security/Permission;)V
+   L2
+    LINENUMBER 848 L2
+   FRAME APPEND [java/lang/SecurityManager]
+    ALOAD 0
+    GETFIELD java/lang/Thread.threadStatus : I
+    IFEQ L6
+   L7
+    LINENUMBER 849 L7
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.resume ()V
+   L6
+    LINENUMBER 853 L6
+   FRAME SAME
+    ALOAD 0
+    NEW java/lang/ThreadDeath
+    DUP
+    INVOKESPECIAL java/lang/ThreadDeath.<init> ()V
+    INVOKESPECIAL java/lang/Thread.stop0 (Ljava/lang/Object;)V
+   L8
+    LINENUMBER 854 L8
+    RETURN
+    MAXSTACK = 3
+    MAXLOCALS = 2
+
+  // DEPRECATED
+  // access flags 0x20031
+  public final synchronized stop(Ljava/lang/Throwable;)V
+  @Ljava/lang/Deprecated;()
+   L0
+    LINENUMBER 872 L0
+    NEW java/lang/UnsupportedOperationException
+    DUP
+    INVOKESPECIAL java/lang/UnsupportedOperationException.<init> ()V
+    ATHROW
+    MAXSTACK = 2
+    MAXLOCALS = 2
+
+  // access flags 0x1
+  public interrupt()V
+    TRYCATCHBLOCK L0 L1 L2 null
+    TRYCATCHBLOCK L3 L4 L2 null
+    TRYCATCHBLOCK L2 L5 L2 null
+   L6
+    LINENUMBER 915 L6
+    ALOAD 0
+    INVOKESTATIC java/lang/Thread.currentThread ()Ljava/lang/Thread;
+    IF_ACMPEQ L7
+   L8
+    LINENUMBER 916 L8
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.checkAccess ()V
+   L7
+    LINENUMBER 918 L7
+   FRAME SAME
+    ALOAD 0
+    GETFIELD java/lang/Thread.blockerLock : Ljava/lang/Object;
+    DUP
+    ASTORE 1
+    MONITORENTER
+   L0
+    LINENUMBER 919 L0
+    ALOAD 0
+    GETFIELD java/lang/Thread.blocker : Lsun/nio/ch/Interruptible;
+    ASTORE 2
+   L9
+    LINENUMBER 920 L9
+    ALOAD 2
+    IFNULL L3
+   L10
+    LINENUMBER 921 L10
+    ALOAD 0
+    INVOKESPECIAL java/lang/Thread.interrupt0 ()V
+   L11
+    LINENUMBER 922 L11
+    ALOAD 2
+    ALOAD 0
+    INVOKEINTERFACE sun/nio/ch/Interruptible.interrupt (Ljava/lang/Thread;)V (itf)
+   L12
+    LINENUMBER 923 L12
+    ALOAD 1
+    MONITOREXIT
+   L1
+    RETURN
+   L3
+    LINENUMBER 925 L3
+   FRAME APPEND [java/lang/Object]
+    ALOAD 1
+    MONITOREXIT
+   L4
+    GOTO L13
+   L2
+   FRAME SAME1 java/lang/Throwable
+    ASTORE 3
+    ALOAD 1
+    MONITOREXIT
+   L5
+    ALOAD 3
+    ATHROW
+   L13
+    LINENUMBER 926 L13
+   FRAME CHOP 1
+    ALOAD 0
+    INVOKESPECIAL java/lang/Thread.interrupt0 ()V
+   L14
+    LINENUMBER 927 L14
+    RETURN
+    MAXSTACK = 2
+    MAXLOCALS = 4
+
+  // access flags 0x9
+  public static interrupted()Z
+   L0
+    LINENUMBER 947 L0
+    INVOKESTATIC java/lang/Thread.currentThread ()Ljava/lang/Thread;
+    ICONST_1
+    INVOKESPECIAL java/lang/Thread.isInterrupted (Z)Z
+    IRETURN
+    MAXSTACK = 2
+    MAXLOCALS = 0
+
+  // access flags 0x1
+  public isInterrupted()Z
+   L0
+    LINENUMBER 964 L0
+    ALOAD 0
+    ICONST_0
+    INVOKESPECIAL java/lang/Thread.isInterrupted (Z)Z
+    IRETURN
+    MAXSTACK = 2
+    MAXLOCALS = 1
+
+  // access flags 0x102
+  private native isInterrupted(Z)Z
+
+  // DEPRECATED
+  // access flags 0x20001
+  public destroy()V
+  @Ljava/lang/Deprecated;()
+   L0
+    LINENUMBER 993 L0
+    NEW java/lang/NoSuchMethodError
+    DUP
+    INVOKESPECIAL java/lang/NoSuchMethodError.<init> ()V
+    ATHROW
+    MAXSTACK = 2
+    MAXLOCALS = 1
+
+  // access flags 0x111
+  public final native isAlive()Z
+
+  // DEPRECATED
+  // access flags 0x20011
+  public final suspend()V
+  @Ljava/lang/Deprecated;()
+   L0
+    LINENUMBER 1031 L0
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.checkAccess ()V
+   L1
+    LINENUMBER 1032 L1
+    ALOAD 0
+    INVOKESPECIAL java/lang/Thread.suspend0 ()V
+   L2
+    LINENUMBER 1033 L2
+    RETURN
+    MAXSTACK = 1
+    MAXLOCALS = 1
+
+  // DEPRECATED
+  // access flags 0x20011
+  public final resume()V
+  @Ljava/lang/Deprecated;()
+   L0
+    LINENUMBER 1057 L0
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.checkAccess ()V
+   L1
+    LINENUMBER 1058 L1
+    ALOAD 0
+    INVOKESPECIAL java/lang/Thread.resume0 ()V
+   L2
+    LINENUMBER 1059 L2
+    RETURN
+    MAXSTACK = 1
+    MAXLOCALS = 1
+
+  // access flags 0x11
+  public final setPriority(I)V
+   L0
+    LINENUMBER 1087 L0
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.checkAccess ()V
+   L1
+    LINENUMBER 1088 L1
+    ILOAD 1
+    BIPUSH 10
+    IF_ICMPGT L2
+    ILOAD 1
+    ICONST_1
+    IF_ICMPGE L3
+   L2
+    LINENUMBER 1089 L2
+   FRAME SAME
+    NEW java/lang/IllegalArgumentException
+    DUP
+    INVOKESPECIAL java/lang/IllegalArgumentException.<init> ()V
+    ATHROW
+   L3
+    LINENUMBER 1091 L3
+   FRAME SAME
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.getThreadGroup ()Ljava/lang/ThreadGroup;
+    DUP
+    ASTORE 2
+    IFNULL L4
+   L5
+    LINENUMBER 1092 L5
+    ILOAD 1
+    ALOAD 2
+    INVOKEVIRTUAL java/lang/ThreadGroup.getMaxPriority ()I
+    IF_ICMPLE L6
+   L7
+    LINENUMBER 1093 L7
+    ALOAD 2
+    INVOKEVIRTUAL java/lang/ThreadGroup.getMaxPriority ()I
+    ISTORE 1
+   L6
+    LINENUMBER 1095 L6
+   FRAME APPEND [java/lang/ThreadGroup]
+    ALOAD 0
+    ALOAD 0
+    ILOAD 1
+    DUP_X1
+    PUTFIELD java/lang/Thread.priority : I
+    INVOKESPECIAL java/lang/Thread.setPriority0 (I)V
+   L4
+    LINENUMBER 1097 L4
+   FRAME SAME
+    RETURN
+    MAXSTACK = 4
+    MAXLOCALS = 3
+
+  // access flags 0x11
+  public final getPriority()I
+   L0
+    LINENUMBER 1106 L0
+    ALOAD 0
+    GETFIELD java/lang/Thread.priority : I
+    IRETURN
+    MAXSTACK = 1
+    MAXLOCALS = 1
+
+  // access flags 0x31
+  public final synchronized setName(Ljava/lang/String;)V
+   L0
+    LINENUMBER 1124 L0
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.checkAccess ()V
+   L1
+    LINENUMBER 1125 L1
+    ALOAD 1
+    IFNONNULL L2
+   L3
+    LINENUMBER 1126 L3
+    NEW java/lang/NullPointerException
+    DUP
+    LDC "name cannot be null"
+    INVOKESPECIAL java/lang/NullPointerException.<init> (Ljava/lang/String;)V
+    ATHROW
+   L2
+    LINENUMBER 1129 L2
+   FRAME SAME
+    ALOAD 0
+    ALOAD 1
+    PUTFIELD java/lang/Thread.name : Ljava/lang/String;
+   L4
+    LINENUMBER 1130 L4
+    ALOAD 0
+    GETFIELD java/lang/Thread.threadStatus : I
+    IFEQ L5
+   L6
+    LINENUMBER 1131 L6
+    ALOAD 0
+    ALOAD 1
+    INVOKESPECIAL java/lang/Thread.setNativeName (Ljava/lang/String;)V
+   L5
+    LINENUMBER 1133 L5
+   FRAME SAME
+    RETURN
+    MAXSTACK = 3
+    MAXLOCALS = 2
+
+  // access flags 0x11
+  public final getName()Ljava/lang/String;
+   L0
+    LINENUMBER 1142 L0
+    ALOAD 0
+    GETFIELD java/lang/Thread.name : Ljava/lang/String;
+    ARETURN
+    MAXSTACK = 1
+    MAXLOCALS = 1
+
+  // access flags 0x11
+  public final getThreadGroup()Ljava/lang/ThreadGroup;
+   L0
+    LINENUMBER 1153 L0
+    ALOAD 0
+    GETFIELD java/lang/Thread.group : Ljava/lang/ThreadGroup;
+    ARETURN
+    MAXSTACK = 1
+    MAXLOCALS = 1
+
+  // access flags 0x9
+  public static activeCount()I
+   L0
+    LINENUMBER 1173 L0
+    INVOKESTATIC java/lang/Thread.currentThread ()Ljava/lang/Thread;
+    INVOKEVIRTUAL java/lang/Thread.getThreadGroup ()Ljava/lang/ThreadGroup;
+    INVOKEVIRTUAL java/lang/ThreadGroup.activeCount ()I
+    IRETURN
+    MAXSTACK = 1
+    MAXLOCALS = 0
+
+  // access flags 0x9
+  public static enumerate([Ljava/lang/Thread;)I
+   L0
+    LINENUMBER 1203 L0
+    INVOKESTATIC java/lang/Thread.currentThread ()Ljava/lang/Thread;
+    INVOKEVIRTUAL java/lang/Thread.getThreadGroup ()Ljava/lang/ThreadGroup;
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/ThreadGroup.enumerate ([Ljava/lang/Thread;)I
+    IRETURN
+    MAXSTACK = 2
+    MAXLOCALS = 1
+
+  // DEPRECATED
+  // access flags 0x20101
+  public native countStackFrames()I
+  @Ljava/lang/Deprecated;()
+
+  // access flags 0x31
+  public final synchronized join(J)V throws java/lang/InterruptedException 
+   L0
+    LINENUMBER 1243 L0
+    INVOKESTATIC java/lang/System.currentTimeMillis ()J
+    LSTORE 3
+   L1
+    LINENUMBER 1244 L1
+    LCONST_0
+    LSTORE 5
+   L2
+    LINENUMBER 1246 L2
+    LLOAD 1
+    LCONST_0
+    LCMP
+    IFGE L3
+   L4
+    LINENUMBER 1247 L4
+    NEW java/lang/IllegalArgumentException
+    DUP
+    LDC "timeout value is negative"
+    INVOKESPECIAL java/lang/IllegalArgumentException.<init> (Ljava/lang/String;)V
+    ATHROW
+   L3
+    LINENUMBER 1250 L3
+   FRAME APPEND [J J]
+    LLOAD 1
+    LCONST_0
+    LCMP
+    IFNE L5
+   L6
+    LINENUMBER 1251 L6
+   FRAME SAME
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.isAlive ()Z
+    IFEQ L7
+   L8
+    LINENUMBER 1252 L8
+    ALOAD 0
+    LCONST_0
+    INVOKEVIRTUAL java/lang/Object.wait (J)V
+    GOTO L6
+   L5
+    LINENUMBER 1255 L5
+   FRAME SAME
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.isAlive ()Z
+    IFEQ L7
+   L9
+    LINENUMBER 1256 L9
+    LLOAD 1
+    LLOAD 5
+    LSUB
+    LSTORE 7
+   L10
+    LINENUMBER 1257 L10
+    LLOAD 7
+    LCONST_0
+    LCMP
+    IFGT L11
+   L12
+    LINENUMBER 1258 L12
+    GOTO L7
+   L11
+    LINENUMBER 1260 L11
+   FRAME APPEND [J]
+    ALOAD 0
+    LLOAD 7
+    INVOKEVIRTUAL java/lang/Object.wait (J)V
+   L13
+    LINENUMBER 1261 L13
+    INVOKESTATIC java/lang/System.currentTimeMillis ()J
+    LLOAD 3
+    LSUB
+    LSTORE 5
+   L14
+    LINENUMBER 1262 L14
+    GOTO L5
+   L7
+    LINENUMBER 1264 L7
+   FRAME CHOP 1
+    RETURN
+    MAXSTACK = 4
+    MAXLOCALS = 9
+
+  // access flags 0x31
+  public final synchronized join(JI)V throws java/lang/InterruptedException 
+   L0
+    LINENUMBER 1294 L0
+    LLOAD 1
+    LCONST_0
+    LCMP
+    IFGE L1
+   L2
+    LINENUMBER 1295 L2
+    NEW java/lang/IllegalArgumentException
+    DUP
+    LDC "timeout value is negative"
+    INVOKESPECIAL java/lang/IllegalArgumentException.<init> (Ljava/lang/String;)V
+    ATHROW
+   L1
+    LINENUMBER 1298 L1
+   FRAME SAME
+    ILOAD 3
+    IFLT L3
+    ILOAD 3
+    LDC 999999
+    IF_ICMPLE L4
+   L3
+    LINENUMBER 1299 L3
+   FRAME SAME
+    NEW java/lang/IllegalArgumentException
+    DUP
+    LDC "nanosecond timeout value out of range"
+    INVOKESPECIAL java/lang/IllegalArgumentException.<init> (Ljava/lang/String;)V
+    ATHROW
+   L4
+    LINENUMBER 1303 L4
+   FRAME SAME
+    ILOAD 3
+    LDC 500000
+    IF_ICMPGE L5
+    ILOAD 3
+    IFEQ L6
+    LLOAD 1
+    LCONST_0
+    LCMP
+    IFNE L6
+   L5
+    LINENUMBER 1304 L5
+   FRAME SAME
+    LLOAD 1
+    LCONST_1
+    LADD
+    LSTORE 1
+   L6
+    LINENUMBER 1307 L6
+   FRAME SAME
+    ALOAD 0
+    LLOAD 1
+    INVOKEVIRTUAL java/lang/Thread.join (J)V
+   L7
+    LINENUMBER 1308 L7
+    RETURN
+    MAXSTACK = 4
+    MAXLOCALS = 4
+
+  // access flags 0x11
+  public final join()V throws java/lang/InterruptedException 
+   L0
+    LINENUMBER 1326 L0
+    ALOAD 0
+    LCONST_0
+    INVOKEVIRTUAL java/lang/Thread.join (J)V
+   L1
+    LINENUMBER 1327 L1
+    RETURN
+    MAXSTACK = 3
+    MAXLOCALS = 1
+
+  // access flags 0x9
+  public static dumpStack()V
+   L0
+    LINENUMBER 1336 L0
+    NEW java/lang/Exception
+    DUP
+    LDC "Stack trace"
+    INVOKESPECIAL java/lang/Exception.<init> (Ljava/lang/String;)V
+    INVOKEVIRTUAL java/lang/Exception.printStackTrace ()V
+   L1
+    LINENUMBER 1337 L1
+    RETURN
+    MAXSTACK = 3
+    MAXLOCALS = 0
+
+  // access flags 0x11
+  public final setDaemon(Z)V
+   L0
+    LINENUMBER 1357 L0
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.checkAccess ()V
+   L1
+    LINENUMBER 1358 L1
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.isAlive ()Z
+    IFEQ L2
+   L3
+    LINENUMBER 1359 L3
+    NEW java/lang/IllegalThreadStateException
+    DUP
+    INVOKESPECIAL java/lang/IllegalThreadStateException.<init> ()V
+    ATHROW
+   L2
+    LINENUMBER 1361 L2
+   FRAME SAME
+    ALOAD 0
+    ILOAD 1
+    PUTFIELD java/lang/Thread.daemon : Z
+   L4
+    LINENUMBER 1362 L4
+    RETURN
+    MAXSTACK = 2
+    MAXLOCALS = 2
+
+  // access flags 0x11
+  public final isDaemon()Z
+   L0
+    LINENUMBER 1372 L0
+    ALOAD 0
+    GETFIELD java/lang/Thread.daemon : Z
+    IRETURN
+    MAXSTACK = 1
+    MAXLOCALS = 1
+
+  // access flags 0x11
+  public final checkAccess()V
+   L0
+    LINENUMBER 1388 L0
+    INVOKESTATIC java/lang/System.getSecurityManager ()Ljava/lang/SecurityManager;
+    ASTORE 1
+   L1
+    LINENUMBER 1389 L1
+    ALOAD 1
+    IFNULL L2
+   L3
+    LINENUMBER 1390 L3
+    ALOAD 1
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/SecurityManager.checkAccess (Ljava/lang/Thread;)V
+   L2
+    LINENUMBER 1392 L2
+   FRAME APPEND [java/lang/SecurityManager]
+    RETURN
+    MAXSTACK = 2
+    MAXLOCALS = 2
+
+  // access flags 0x1
+  public toString()Ljava/lang/String;
+   L0
+    LINENUMBER 1401 L0
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.getThreadGroup ()Ljava/lang/ThreadGroup;
+    ASTORE 1
+   L1
+    LINENUMBER 1402 L1
+    ALOAD 1
+    IFNULL L2
+   L3
+    LINENUMBER 1403 L3
+    NEW java/lang/StringBuilder
+    DUP
+    INVOKESPECIAL java/lang/StringBuilder.<init> ()V
+    LDC "Thread["
+    INVOKEVIRTUAL java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.getName ()Ljava/lang/String;
+    INVOKEVIRTUAL java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;
+    LDC ","
+    INVOKEVIRTUAL java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.getPriority ()I
+    INVOKEVIRTUAL java/lang/StringBuilder.append (I)Ljava/lang/StringBuilder;
+    LDC ","
+    INVOKEVIRTUAL java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;
+    ALOAD 1
+   L4
+    LINENUMBER 1404 L4
+    INVOKEVIRTUAL java/lang/ThreadGroup.getName ()Ljava/lang/String;
+    INVOKEVIRTUAL java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;
+    LDC "]"
+    INVOKEVIRTUAL java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;
+    INVOKEVIRTUAL java/lang/StringBuilder.toString ()Ljava/lang/String;
+   L5
+    LINENUMBER 1403 L5
+    ARETURN
+   L2
+    LINENUMBER 1406 L2
+   FRAME APPEND [java/lang/ThreadGroup]
+    NEW java/lang/StringBuilder
+    DUP
+    INVOKESPECIAL java/lang/StringBuilder.<init> ()V
+    LDC "Thread["
+    INVOKEVIRTUAL java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.getName ()Ljava/lang/String;
+    INVOKEVIRTUAL java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;
+    LDC ","
+    INVOKEVIRTUAL java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.getPriority ()I
+    INVOKEVIRTUAL java/lang/StringBuilder.append (I)Ljava/lang/StringBuilder;
+    LDC ",]"
+    INVOKEVIRTUAL java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;
+    INVOKEVIRTUAL java/lang/StringBuilder.toString ()Ljava/lang/String;
+    ARETURN
+    MAXSTACK = 2
+    MAXLOCALS = 2
+
+  // access flags 0x1
+  public getContextClassLoader()Ljava/lang/ClassLoader;
+  @Lsun/reflect/CallerSensitive;()
+   L0
+    LINENUMBER 1439 L0
+    ALOAD 0
+    GETFIELD java/lang/Thread.contextClassLoader : Ljava/lang/ClassLoader;
+    IFNONNULL L1
+   L2
+    LINENUMBER 1440 L2
+    ACONST_NULL
+    ARETURN
+   L1
+    LINENUMBER 1441 L1
+   FRAME SAME
+    INVOKESTATIC java/lang/System.getSecurityManager ()Ljava/lang/SecurityManager;
+    ASTORE 1
+   L3
+    LINENUMBER 1442 L3
+    ALOAD 1
+    IFNULL L4
+   L5
+    LINENUMBER 1443 L5
+    ALOAD 0
+    GETFIELD java/lang/Thread.contextClassLoader : Ljava/lang/ClassLoader;
+   L6
+    LINENUMBER 1444 L6
+    INVOKESTATIC sun/reflect/Reflection.getCallerClass ()Ljava/lang/Class;
+   L7
+    LINENUMBER 1443 L7
+    INVOKESTATIC java/lang/ClassLoader.checkClassLoaderPermission (Ljava/lang/ClassLoader;Ljava/lang/Class;)V
+   L4
+    LINENUMBER 1446 L4
+   FRAME APPEND [java/lang/SecurityManager]
+    ALOAD 0
+    GETFIELD java/lang/Thread.contextClassLoader : Ljava/lang/ClassLoader;
+    ARETURN
+    MAXSTACK = 2
+    MAXLOCALS = 2
+
+  // access flags 0x1
+  public setContextClassLoader(Ljava/lang/ClassLoader;)V
+   L0
+    LINENUMBER 1472 L0
+    INVOKESTATIC java/lang/System.getSecurityManager ()Ljava/lang/SecurityManager;
+    ASTORE 2
+   L1
+    LINENUMBER 1473 L1
+    ALOAD 2
+    IFNULL L2
+   L3
+    LINENUMBER 1474 L3
+    ALOAD 2
+    NEW java/lang/RuntimePermission
+    DUP
+    LDC "setContextClassLoader"
+    INVOKESPECIAL java/lang/RuntimePermission.<init> (Ljava/lang/String;)V
+    INVOKEVIRTUAL java/lang/SecurityManager.checkPermission (Ljava/security/Permission;)V
+   L2
+    LINENUMBER 1476 L2
+   FRAME APPEND [java/lang/SecurityManager]
+    ALOAD 0
+    ALOAD 1
+    PUTFIELD java/lang/Thread.contextClassLoader : Ljava/lang/ClassLoader;
+   L4
+    LINENUMBER 1477 L4
+    RETURN
+    MAXSTACK = 4
+    MAXLOCALS = 3
+
+  // access flags 0x109
+  public static native holdsLock(Ljava/lang/Object;)Z
+
+  // access flags 0x1
+  public getStackTrace()[Ljava/lang/StackTraceElement;
+   L0
+    LINENUMBER 1537 L0
+    ALOAD 0
+    INVOKESTATIC java/lang/Thread.currentThread ()Ljava/lang/Thread;
+    IF_ACMPEQ L1
+   L2
+    LINENUMBER 1539 L2
+    INVOKESTATIC java/lang/System.getSecurityManager ()Ljava/lang/SecurityManager;
+    ASTORE 1
+   L3
+    LINENUMBER 1540 L3
+    ALOAD 1
+    IFNULL L4
+   L5
+    LINENUMBER 1541 L5
+    ALOAD 1
+    GETSTATIC sun/security/util/SecurityConstants.GET_STACK_TRACE_PERMISSION : Ljava/lang/RuntimePermission;
+    INVOKEVIRTUAL java/lang/SecurityManager.checkPermission (Ljava/security/Permission;)V
+   L4
+    LINENUMBER 1546 L4
+   FRAME APPEND [java/lang/SecurityManager]
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.isAlive ()Z
+    IFNE L6
+   L7
+    LINENUMBER 1547 L7
+    GETSTATIC java/lang/Thread.EMPTY_STACK_TRACE : [Ljava/lang/StackTraceElement;
+    ARETURN
+   L6
+    LINENUMBER 1549 L6
+   FRAME SAME
+    ICONST_1
+    ANEWARRAY java/lang/Thread
+    DUP
+    ICONST_0
+    ALOAD 0
+    AASTORE
+    INVOKESTATIC java/lang/Thread.dumpThreads ([Ljava/lang/Thread;)[[Ljava/lang/StackTraceElement;
+    ASTORE 2
+   L8
+    LINENUMBER 1550 L8
+    ALOAD 2
+    ICONST_0
+    AALOAD
+    ASTORE 3
+   L9
+    LINENUMBER 1553 L9
+    ALOAD 3
+    IFNONNULL L10
+   L11
+    LINENUMBER 1554 L11
+    GETSTATIC java/lang/Thread.EMPTY_STACK_TRACE : [Ljava/lang/StackTraceElement;
+    ASTORE 3
+   L10
+    LINENUMBER 1556 L10
+   FRAME APPEND [[[Ljava/lang/StackTraceElement; [Ljava/lang/StackTraceElement;]
+    ALOAD 3
+    ARETURN
+   L1
+    LINENUMBER 1559 L1
+   FRAME CHOP 3
+    NEW java/lang/Exception
+    DUP
+    INVOKESPECIAL java/lang/Exception.<init> ()V
+    INVOKEVIRTUAL java/lang/Exception.getStackTrace ()[Ljava/lang/StackTraceElement;
+    ARETURN
+    MAXSTACK = 4
+    MAXLOCALS = 4
+
+  // access flags 0x9
+  // signature ()Ljava/util/Map<Ljava/lang/Thread;[Ljava/lang/StackTraceElement;>;
+  // declaration: java.util.Map<java.lang.Thread, java.lang.StackTraceElement[]> getAllStackTraces()
+  public static getAllStackTraces()Ljava/util/Map;
+   L0
+    LINENUMBER 1600 L0
+    INVOKESTATIC java/lang/System.getSecurityManager ()Ljava/lang/SecurityManager;
+    ASTORE 0
+   L1
+    LINENUMBER 1601 L1
+    ALOAD 0
+    IFNULL L2
+   L3
+    LINENUMBER 1602 L3
+    ALOAD 0
+    GETSTATIC sun/security/util/SecurityConstants.GET_STACK_TRACE_PERMISSION : Ljava/lang/RuntimePermission;
+    INVOKEVIRTUAL java/lang/SecurityManager.checkPermission (Ljava/security/Permission;)V
+   L4
+    LINENUMBER 1604 L4
+    ALOAD 0
+    GETSTATIC sun/security/util/SecurityConstants.MODIFY_THREADGROUP_PERMISSION : Ljava/lang/RuntimePermission;
+    INVOKEVIRTUAL java/lang/SecurityManager.checkPermission (Ljava/security/Permission;)V
+   L2
+    LINENUMBER 1609 L2
+   FRAME APPEND [java/lang/SecurityManager]
+    INVOKESTATIC java/lang/Thread.getThreads ()[Ljava/lang/Thread;
+    ASTORE 1
+   L5
+    LINENUMBER 1610 L5
+    ALOAD 1
+    INVOKESTATIC java/lang/Thread.dumpThreads ([Ljava/lang/Thread;)[[Ljava/lang/StackTraceElement;
+    ASTORE 2
+   L6
+    LINENUMBER 1611 L6
+    NEW java/util/HashMap
+    DUP
+    ALOAD 1
+    ARRAYLENGTH
+    INVOKESPECIAL java/util/HashMap.<init> (I)V
+    ASTORE 3
+   L7
+    LINENUMBER 1612 L7
+    ICONST_0
+    ISTORE 4
+   L8
+   FRAME FULL [java/lang/SecurityManager [Ljava/lang/Thread; [[Ljava/lang/StackTraceElement; java/util/Map I] []
+    ILOAD 4
+    ALOAD 1
+    ARRAYLENGTH
+    IF_ICMPGE L9
+   L10
+    LINENUMBER 1613 L10
+    ALOAD 2
+    ILOAD 4
+    AALOAD
+    ASTORE 5
+   L11
+    LINENUMBER 1614 L11
+    ALOAD 5
+    IFNULL L12
+   L13
+    LINENUMBER 1615 L13
+    ALOAD 3
+    ALOAD 1
+    ILOAD 4
+    AALOAD
+    ALOAD 5
+    INVOKEINTERFACE java/util/Map.put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object; (itf)
+    POP
+   L12
+    LINENUMBER 1612 L12
+   FRAME SAME
+    IINC 4 1
+    GOTO L8
+   L9
+    LINENUMBER 1619 L9
+   FRAME CHOP 1
+    ALOAD 3
+    ARETURN
+    MAXSTACK = 3
+    MAXLOCALS = 6
+
+  // access flags 0xA
+  // signature (Ljava/lang/Class<*>;)Z
+  // declaration: boolean isCCLOverridden(java.lang.Class<?>)
+  private static isCCLOverridden(Ljava/lang/Class;)Z
+   L0
+    LINENUMBER 1646 L0
+    ALOAD 0
+    LDC Ljava/lang/Thread;.class
+    IF_ACMPNE L1
+   L2
+    LINENUMBER 1647 L2
+    ICONST_0
+    IRETURN
+   L1
+    LINENUMBER 1649 L1
+   FRAME SAME
+    GETSTATIC java/lang/Thread$Caches.subclassAuditsQueue : Ljava/lang/ref/ReferenceQueue;
+    GETSTATIC java/lang/Thread$Caches.subclassAudits : Ljava/util/concurrent/ConcurrentMap;
+    INVOKESTATIC java/lang/Thread.processQueue (Ljava/lang/ref/ReferenceQueue;Ljava/util/concurrent/ConcurrentMap;)V
+   L3
+    LINENUMBER 1650 L3
+    NEW java/lang/Thread$WeakClassKey
+    DUP
+    ALOAD 0
+    GETSTATIC java/lang/Thread$Caches.subclassAuditsQueue : Ljava/lang/ref/ReferenceQueue;
+    INVOKESPECIAL java/lang/Thread$WeakClassKey.<init> (Ljava/lang/Class;Ljava/lang/ref/ReferenceQueue;)V
+    ASTORE 1
+   L4
+    LINENUMBER 1651 L4
+    GETSTATIC java/lang/Thread$Caches.subclassAudits : Ljava/util/concurrent/ConcurrentMap;
+    ALOAD 1
+    INVOKEINTERFACE java/util/concurrent/ConcurrentMap.get (Ljava/lang/Object;)Ljava/lang/Object; (itf)
+    CHECKCAST java/lang/Boolean
+    ASTORE 2
+   L5
+    LINENUMBER 1652 L5
+    ALOAD 2
+    IFNONNULL L6
+   L7
+    LINENUMBER 1653 L7
+    ALOAD 0
+    INVOKESTATIC java/lang/Thread.auditSubclass (Ljava/lang/Class;)Z
+    INVOKESTATIC java/lang/Boolean.valueOf (Z)Ljava/lang/Boolean;
+    ASTORE 2
+   L8
+    LINENUMBER 1654 L8
+    GETSTATIC java/lang/Thread$Caches.subclassAudits : Ljava/util/concurrent/ConcurrentMap;
+    ALOAD 1
+    ALOAD 2
+    INVOKEINTERFACE java/util/concurrent/ConcurrentMap.putIfAbsent (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object; (itf)
+    POP
+   L6
+    LINENUMBER 1657 L6
+   FRAME APPEND [java/lang/Thread$WeakClassKey java/lang/Boolean]
+    ALOAD 2
+    INVOKEVIRTUAL java/lang/Boolean.booleanValue ()Z
+    IRETURN
+    MAXSTACK = 4
+    MAXLOCALS = 3
+
+  // access flags 0xA
+  // signature (Ljava/lang/Class<*>;)Z
+  // declaration: boolean auditSubclass(java.lang.Class<?>)
+  private static auditSubclass(Ljava/lang/Class;)Z
+   L0
+    LINENUMBER 1666 L0
+    NEW java/lang/Thread$1
+    DUP
+    ALOAD 0
+    INVOKESPECIAL java/lang/Thread$1.<init> (Ljava/lang/Class;)V
+    INVOKESTATIC java/security/AccessController.doPrivileged (Ljava/security/PrivilegedAction;)Ljava/lang/Object;
+    CHECKCAST java/lang/Boolean
+    ASTORE 1
+   L1
+    LINENUMBER 1689 L1
+    ALOAD 1
+    INVOKEVIRTUAL java/lang/Boolean.booleanValue ()Z
+    IRETURN
+    MAXSTACK = 3
+    MAXLOCALS = 2
+
+  // access flags 0x10A
+  private static native dumpThreads([Ljava/lang/Thread;)[[Ljava/lang/StackTraceElement;
+
+  // access flags 0x10A
+  private static native getThreads()[Ljava/lang/Thread;
+
+  // access flags 0x1
+  public getId()J
+   L0
+    LINENUMBER 1705 L0
+    ALOAD 0
+    GETFIELD java/lang/Thread.tid : J
+    LRETURN
+    MAXSTACK = 2
+    MAXLOCALS = 1
+
+  // access flags 0x1
+  public getState()Ljava/lang/Thread$State;
+   L0
+    LINENUMBER 1817 L0
+    ALOAD 0
+    GETFIELD java/lang/Thread.threadStatus : I
+    INVOKESTATIC sun/misc/VM.toThreadState (I)Ljava/lang/Thread$State;
+    ARETURN
+    MAXSTACK = 1
+    MAXLOCALS = 1
+
+  // access flags 0x9
+  public static setDefaultUncaughtExceptionHandler(Ljava/lang/Thread$UncaughtExceptionHandler;)V
+   L0
+    LINENUMBER 1898 L0
+    INVOKESTATIC java/lang/System.getSecurityManager ()Ljava/lang/SecurityManager;
+    ASTORE 1
+   L1
+    LINENUMBER 1899 L1
+    ALOAD 1
+    IFNULL L2
+   L3
+    LINENUMBER 1900 L3
+    ALOAD 1
+    NEW java/lang/RuntimePermission
+    DUP
+    LDC "setDefaultUncaughtExceptionHandler"
+    INVOKESPECIAL java/lang/RuntimePermission.<init> (Ljava/lang/String;)V
+    INVOKEVIRTUAL java/lang/SecurityManager.checkPermission (Ljava/security/Permission;)V
+   L2
+    LINENUMBER 1905 L2
+   FRAME APPEND [java/lang/SecurityManager]
+    ALOAD 0
+    PUTSTATIC java/lang/Thread.defaultUncaughtExceptionHandler : Ljava/lang/Thread$UncaughtExceptionHandler;
+   L4
+    LINENUMBER 1906 L4
+    RETURN
+    MAXSTACK = 4
+    MAXLOCALS = 2
+
+  // access flags 0x9
+  public static getDefaultUncaughtExceptionHandler()Ljava/lang/Thread$UncaughtExceptionHandler;
+   L0
+    LINENUMBER 1917 L0
+    GETSTATIC java/lang/Thread.defaultUncaughtExceptionHandler : Ljava/lang/Thread$UncaughtExceptionHandler;
+    ARETURN
+    MAXSTACK = 1
+    MAXLOCALS = 0
+
+  // access flags 0x1
+  public getUncaughtExceptionHandler()Ljava/lang/Thread$UncaughtExceptionHandler;
+   L0
+    LINENUMBER 1930 L0
+    ALOAD 0
+    GETFIELD java/lang/Thread.uncaughtExceptionHandler : Ljava/lang/Thread$UncaughtExceptionHandler;
+    IFNULL L1
+    ALOAD 0
+    GETFIELD java/lang/Thread.uncaughtExceptionHandler : Ljava/lang/Thread$UncaughtExceptionHandler;
+    GOTO L2
+   L1
+   FRAME SAME
+    ALOAD 0
+    GETFIELD java/lang/Thread.group : Ljava/lang/ThreadGroup;
+   L2
+   FRAME SAME1 java/lang/Thread$UncaughtExceptionHandler
+    ARETURN
+    MAXSTACK = 1
+    MAXLOCALS = 1
+
+  // access flags 0x1
+  public setUncaughtExceptionHandler(Ljava/lang/Thread$UncaughtExceptionHandler;)V
+   L0
+    LINENUMBER 1950 L0
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.checkAccess ()V
+   L1
+    LINENUMBER 1951 L1
+    ALOAD 0
+    ALOAD 1
+    PUTFIELD java/lang/Thread.uncaughtExceptionHandler : Ljava/lang/Thread$UncaughtExceptionHandler;
+   L2
+    LINENUMBER 1952 L2
+    RETURN
+    MAXSTACK = 2
+    MAXLOCALS = 2
+
+  // access flags 0x2
+  private dispatchUncaughtException(Ljava/lang/Throwable;)V
+   L0
+    LINENUMBER 1959 L0
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/Thread.getUncaughtExceptionHandler ()Ljava/lang/Thread$UncaughtExceptionHandler;
+    ALOAD 0
+    ALOAD 1
+    INVOKEINTERFACE java/lang/Thread$UncaughtExceptionHandler.uncaughtException (Ljava/lang/Thread;Ljava/lang/Throwable;)V (itf)
+   L1
+    LINENUMBER 1960 L1
+    RETURN
+    MAXSTACK = 3
+    MAXLOCALS = 2
+
+  // access flags 0x8
+  // signature (Ljava/lang/ref/ReferenceQueue<Ljava/lang/Class<*>;>;Ljava/util/concurrent/ConcurrentMap<+Ljava/lang/ref/WeakReference<Ljava/lang/Class<*>;>;*>;)V
+  // declaration: void processQueue(java.lang.ref.ReferenceQueue<java.lang.Class<?>>, java.util.concurrent.ConcurrentMap<? extends java.lang.ref.WeakReference<java.lang.Class<?>>, ?>)
+  static processQueue(Ljava/lang/ref/ReferenceQueue;Ljava/util/concurrent/ConcurrentMap;)V
+   L0
+    LINENUMBER 1971 L0
+   FRAME SAME
+    ALOAD 0
+    INVOKEVIRTUAL java/lang/ref/ReferenceQueue.poll ()Ljava/lang/ref/Reference;
+    DUP
+    ASTORE 2
+    IFNULL L1
+   L2
+    LINENUMBER 1972 L2
+    ALOAD 1
+    ALOAD 2
+    INVOKEINTERFACE java/util/concurrent/ConcurrentMap.remove (Ljava/lang/Object;)Ljava/lang/Object; (itf)
+    POP
+    GOTO L0
+   L1
+    LINENUMBER 1974 L1
+   FRAME APPEND [java/lang/ref/Reference]
+    RETURN
+    MAXSTACK = 2
+    MAXLOCALS = 3
+
+  // access flags 0x102
+  private native setPriority0(I)V
+
+  // access flags 0x102
+  private native stop0(Ljava/lang/Object;)V
+
+  // access flags 0x102
+  private native suspend0()V
+
+  // access flags 0x102
+  private native resume0()V
+
+  // access flags 0x102
+  private native interrupt0()V
+
+  // access flags 0x102
+  private native setNativeName(Ljava/lang/String;)V
+
+  // access flags 0x8
+  static <clinit>()V
+   L0
+    LINENUMBER 145 L0
+    INVOKESTATIC java/lang/Thread.registerNatives ()V
+   L1
+    LINENUMBER 1497 L1
+    ICONST_0
+    ANEWARRAY java/lang/StackTraceElement
+    PUTSTATIC java/lang/Thread.EMPTY_STACK_TRACE : [Ljava/lang/StackTraceElement;
+   L2
+    LINENUMBER 1623 L2
+    NEW java/lang/RuntimePermission
+    DUP
+    LDC "enableContextClassLoaderOverride"
+    INVOKESPECIAL java/lang/RuntimePermission.<init> (Ljava/lang/String;)V
+    PUTSTATIC java/lang/Thread.SUBCLASS_IMPLEMENTATION_PERMISSION : Ljava/lang/RuntimePermission;
+    RETURN
+    MAXSTACK = 3
+    MAXLOCALS = 0
+}
+
