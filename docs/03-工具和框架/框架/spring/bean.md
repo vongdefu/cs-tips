@@ -2,106 +2,104 @@
 
 > 容器中保存的内容就是 Bean -》 那何为 bean -》 如何描述 Bean -》 Bean 注册到容器的方式 -》 在 Bean 中使用另一个 Bean -》 Bean 的装配【何为装配、装配的分类】 -》 Bean 的生命周期
 
-::: tip
 单个 Bean 的构造权，通过元信息提供给 Spring 容器，并由 Spring 容器进行构造。即 Spring 容器剥夺了 Bean 的构造权。
 
 多个 Bean 之间组合使用，由此产生的依赖关系的装配权，可以由 Spring 来管理，也可以由开发人员来管理；
-:::
 
 - 配置文件方式
 
-```log
-// 在bean.xml中进行描述
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
-    <import resource="其他配置文件的位置" />
-    <bean id="bean名称" class="bean完整类名"/>
-</beans>
+  ```log
+  // 在bean.xml中进行描述
+  <?xml version="1.0" encoding="UTF-8"?>
+  <beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+      <import resource="其他配置文件的位置" />
+      <bean id="bean名称" class="bean完整类名"/>
+  </beans>
 
-// 使用
-@Test
-public void test1() {
-    //1. bean配置文件位置
-    String beanXml = "classpath:beans.xml";
-    //2. 创建ClassPathXmlApplicationContext容器，给容器指定需要加载的bean配置文件
-    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(beanXml);
-    //3. getBeanDefinitionNames用于获取容器中所有bean的名称
-    for (String beanName : context.getBeanDefinitionNames()) {
-        //获取bean的别名
-        String[] aliases = context.getAliases(beanName);
-        System.out.println(String.format("beanName:%s,别名:[%s]", beanName, String.join(",", aliases)));
-    }
-}
+  // 使用
+  @Test
+  public void test1() {
+      //1. bean配置文件位置
+      String beanXml = "classpath:beans.xml";
+      //2. 创建ClassPathXmlApplicationContext容器，给容器指定需要加载的bean配置文件
+      ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(beanXml);
+      //3. getBeanDefinitionNames用于获取容器中所有bean的名称
+      for (String beanName : context.getBeanDefinitionNames()) {
+          //获取bean的别名
+          String[] aliases = context.getAliases(beanName);
+          System.out.println(String.format("beanName:%s,别名:[%s]", beanName, String.join(",", aliases)));
+      }
+  }
 
-```
+  ```
 
-```
-// 配置文件beans.properties中进行配置
-car.(class)=com.javacode2018.lesson002.demo1.Car
-car.name=奥迪
+  ```java
+  // 配置文件beans.properties中进行配置
+  car.(class)=com.javacode2018.lesson002.demo1.Car
+  car.name=奥迪
 
-car1.(class)=com.javacode2018.lesson002.demo1.Car
-car1.name=保时捷
+  car1.(class)=com.javacode2018.lesson002.demo1.Car
+  car1.name=保时捷
 
-car2.(parent)=car1
+  car2.(parent)=car1
 
-user.(class)=com.javacode2018.lesson002.demo1.User
-user.name=路人甲Java
-user.car(ref)=car
+  user.(class)=com.javacode2018.lesson002.demo1.User
+  user.name=路人甲Java
+  user.car(ref)=car
 
-// 使用
-@Test
-public void test2() {
-    //定义一个spring容器，这个容器默认实现了BeanDefinitionRegistry，所以本身就是一个bean注册器
-    DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+  // 使用
+  @Test
+  public void test2() {
+      //定义一个spring容器，这个容器默认实现了BeanDefinitionRegistry，所以本身就是一个bean注册器
+      DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
 
-    //定义一个properties的BeanDefinition读取器，需要传递一个BeanDefinitionRegistry（bean注册器）对象
-    PropertiesBeanDefinitionReader propertiesBeanDefinitionReader = new PropertiesBeanDefinitionReader(factory);
+      //定义一个properties的BeanDefinition读取器，需要传递一个BeanDefinitionRegistry（bean注册器）对象
+      PropertiesBeanDefinitionReader propertiesBeanDefinitionReader = new PropertiesBeanDefinitionReader(factory);
 
-    //指定bean xml配置文件的位置
-    String location = "classpath:/com/javacode2018/lesson002/demo2/beans.properties";
-    //通过PropertiesBeanDefinitionReader加载bean properties文件，然后将解析产生的BeanDefinition注册到容器容器中
-    int countBean = propertiesBeanDefinitionReader.loadBeanDefinitions(location);
-    System.out.println(String.format("共注册了 %s 个bean", countBean));
+      //指定bean xml配置文件的位置
+      String location = "classpath:/com/javacode2018/lesson002/demo2/beans.properties";
+      //通过PropertiesBeanDefinitionReader加载bean properties文件，然后将解析产生的BeanDefinition注册到容器容器中
+      int countBean = propertiesBeanDefinitionReader.loadBeanDefinitions(location);
+      System.out.println(String.format("共注册了 %s 个bean", countBean));
 
-    //打印出注册的bean的配置信息
-    for (String beanName : factory.getBeanDefinitionNames()) {
-        //通过名称从容器中获取对应的BeanDefinition信息
-        BeanDefinition beanDefinition = factory.getBeanDefinition(beanName);
-        //获取BeanDefinition具体使用的是哪个类
-        String beanDefinitionClassName = beanDefinition.getClass().getName();
-        //通过名称获取bean对象
-        Object bean = factory.getBean(beanName);
-        //打印输出
-        System.out.println(beanName + ":");
-        System.out.println("    beanDefinitionClassName：" + beanDefinitionClassName);
-        System.out.println("    beanDefinition：" + beanDefinition);
-        System.out.println("    bean：" + bean);
-    }
-}
+      //打印出注册的bean的配置信息
+      for (String beanName : factory.getBeanDefinitionNames()) {
+          //通过名称从容器中获取对应的BeanDefinition信息
+          BeanDefinition beanDefinition = factory.getBeanDefinition(beanName);
+          //获取BeanDefinition具体使用的是哪个类
+          String beanDefinitionClassName = beanDefinition.getClass().getName();
+          //通过名称获取bean对象
+          Object bean = factory.getBean(beanName);
+          //打印输出
+          System.out.println(beanName + ":");
+          System.out.println("    beanDefinitionClassName：" + beanDefinitionClassName);
+          System.out.println("    beanDefinition：" + beanDefinition);
+          System.out.println("    bean：" + bean);
+      }
+  }
 
-```
+  ```
 
 - Java 直接编码方式之一： 基于注解（JSR+Spring 注解）
 
-```
-<context:component-scan base-package="com.atguigu.spring6">
-</context:component-scan>
+  ```xml
+  <context:component-scan base-package="com.atguigu.spring6">
+  </context:component-scan>
 
-或
+  或
 
-@Configuration
-//@ComponentScan({"com.atguigu.spring6.controller", "com.atguigu.spring6.service","com.atguigu.spring6.dao"})
-@ComponentScan("com.atguigu.spring6")
-public class Spring6Config {
-}
+  @Configuration
+  //@ComponentScan({"com.atguigu.spring6.controller", "com.atguigu.spring6.service","com.atguigu.spring6.dao"})
+  @ComponentScan("com.atguigu.spring6")
+  public class Spring6Config {
+  }
 
-// 之后使用
+  // 之后使用
 
-```
+  ```
 
 - Java 直接编码方式之二： 基于 SpringAPI 方式
 - GroovyDSL 方式
@@ -148,7 +146,7 @@ public class Spring6Config {
 
 设置 Bean 的 Scope 属性的方法：
 
-```
+```xml
 <bean id="book02" class="com.spring.beans.Book" scope="singleton"></bean>
 <bean id="book02" class="com.spring.beans.Book" scope="prototype"></bean>
 <bean id="book02" class="com.spring.beans.Book" scope="request"></bean>
@@ -182,149 +180,147 @@ bean 的状态：
 - **session** : 同一个 HTTP Session 共享一个 Bean，不同的 HTTP Session 使用不同的 Bean。
 - **globalSession**：同一个全局 Session 共享一个 Bean，只用于基于 Protlet 的 Web 应用，Spring5 中已经不存在了。
 
-# Bean 定义和配置依赖的方式
+## Bean 定义和配置依赖的方式
 
 ![image.png](./bean/image/1699278317631.png)
 
 - 直接编码方式：我们一般接触不到直接编码的方式，但其实其它的方式最终都要通过直接编码来实现。
 
-```
-public class Car {
-    private String name;
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    @Override
-    public String toString() {
-        return "Car{" +
-                "name='" + name + '\'' +
-                '}';
-    }
-}
+  ```java
+  public class Car {
+      private String name;
+      public String getName() {
+          return name;
+      }
+      public void setName(String name) {
+          this.name = name;
+      }
+      @Override
+      public String toString() {
+          return "Car{" +
+                  "name='" + name + '\'' +
+                  '}';
+      }
+  }
 
-@Test
-public void test2() {
-    //指定class
-    BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.rootBeanDefinition(Car.class.getName());
-    //设置普通类型属性
-    beanDefinitionBuilder.addPropertyValue("name", "奥迪"); //@1
-    //获取BeanDefinition
-    BeanDefinition carBeanDefinition = beanDefinitionBuilder.getBeanDefinition();
-    System.out.println(carBeanDefinition);
-    //创建spring容器
-    DefaultListableBeanFactory factory = new DefaultListableBeanFactory(); //@2
-    //调用registerBeanDefinition向容器中注册bean
-    factory.registerBeanDefinition("car", carBeanDefinition); //@3
-    Car bean = factory.getBean("car", Car.class); //@4
-    System.out.println(bean);
-}
+  @Test
+  public void test2() {
+      //指定class
+      BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.rootBeanDefinition(Car.class.getName());
+      //设置普通类型属性
+      beanDefinitionBuilder.addPropertyValue("name", "奥迪"); //@1
+      //获取BeanDefinition
+      BeanDefinition carBeanDefinition = beanDefinitionBuilder.getBeanDefinition();
+      System.out.println(carBeanDefinition);
+      //创建spring容器
+      DefaultListableBeanFactory factory = new DefaultListableBeanFactory(); //@2
+      //调用registerBeanDefinition向容器中注册bean
+      factory.registerBeanDefinition("car", carBeanDefinition); //@3
+      Car bean = factory.getBean("car", Car.class); //@4
+      System.out.println(bean);
+  }
 
-```
+  ```
 
 - 配置文件方式：通过 xml、propreties 类型的配置文件，配置相应的依赖关系，Spring 读取配置文件，完成依赖关系的注入。
 
-```
-// 在bean.xml中进行描述
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
-    <import resource="其他配置文件的位置" />
-    <bean id="bean名称" class="bean完整类名"/>
-</beans>
+  ```xml
+  // 在bean.xml中进行描述
+  <?xml version="1.0" encoding="UTF-8"?>
+  <beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+      <import resource="其他配置文件的位置" />
+      <bean id="bean名称" class="bean完整类名"/>
+  </beans>
 
-// 使用
-@Test
-public void test1() {
-    //1. bean配置文件位置
-    String beanXml = "classpath:beans.xml";
-    //2. 创建ClassPathXmlApplicationContext容器，给容器指定需要加载的bean配置文件
-    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(beanXml);
-    //3. getBeanDefinitionNames用于获取容器中所有bean的名称
-    for (String beanName : context.getBeanDefinitionNames()) {
-        //获取bean的别名
-        String[] aliases = context.getAliases(beanName);
-        System.out.println(String.format("beanName:%s,别名:[%s]", beanName, String.join(",", aliases)));
-    }
-}
+  // 使用
+  @Test
+  public void test1() {
+      //1. bean配置文件位置
+      String beanXml = "classpath:beans.xml";
+      //2. 创建ClassPathXmlApplicationContext容器，给容器指定需要加载的bean配置文件
+      ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(beanXml);
+      //3. getBeanDefinitionNames用于获取容器中所有bean的名称
+      for (String beanName : context.getBeanDefinitionNames()) {
+          //获取bean的别名
+          String[] aliases = context.getAliases(beanName);
+          System.out.println(String.format("beanName:%s,别名:[%s]", beanName, String.join(",", aliases)));
+      }
+  }
 
-```
+  ```
 
-ddddddd
+  ```java
+  // 配置文件beans.properties中进行配置
+  car.(class)=com.javacode2018.lesson002.demo1.Car
+  car.name=奥迪
 
-```
-// 配置文件beans.properties中进行配置
-car.(class)=com.javacode2018.lesson002.demo1.Car
-car.name=奥迪
+  car1.(class)=com.javacode2018.lesson002.demo1.Car
+  car1.name=保时捷
 
-car1.(class)=com.javacode2018.lesson002.demo1.Car
-car1.name=保时捷
+  car2.(parent)=car1
 
-car2.(parent)=car1
+  user.(class)=com.javacode2018.lesson002.demo1.User
+  user.name=路人甲Java
+  user.car(ref)=car
 
-user.(class)=com.javacode2018.lesson002.demo1.User
-user.name=路人甲Java
-user.car(ref)=car
+  // 使用
+  @Test
+  public void test2() {
+      //定义一个spring容器，这个容器默认实现了BeanDefinitionRegistry，所以本身就是一个bean注册器
+      DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
 
-// 使用
-@Test
-public void test2() {
-    //定义一个spring容器，这个容器默认实现了BeanDefinitionRegistry，所以本身就是一个bean注册器
-    DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+      //定义一个properties的BeanDefinition读取器，需要传递一个BeanDefinitionRegistry（bean注册器）对象
+      PropertiesBeanDefinitionReader propertiesBeanDefinitionReader = new PropertiesBeanDefinitionReader(factory);
 
-    //定义一个properties的BeanDefinition读取器，需要传递一个BeanDefinitionRegistry（bean注册器）对象
-    PropertiesBeanDefinitionReader propertiesBeanDefinitionReader = new PropertiesBeanDefinitionReader(factory);
+      //指定bean xml配置文件的位置
+      String location = "classpath:/com/javacode2018/lesson002/demo2/beans.properties";
+      //通过PropertiesBeanDefinitionReader加载bean properties文件，然后将解析产生的BeanDefinition注册到容器容器中
+      int countBean = propertiesBeanDefinitionReader.loadBeanDefinitions(location);
+      System.out.println(String.format("共注册了 %s 个bean", countBean));
 
-    //指定bean xml配置文件的位置
-    String location = "classpath:/com/javacode2018/lesson002/demo2/beans.properties";
-    //通过PropertiesBeanDefinitionReader加载bean properties文件，然后将解析产生的BeanDefinition注册到容器容器中
-    int countBean = propertiesBeanDefinitionReader.loadBeanDefinitions(location);
-    System.out.println(String.format("共注册了 %s 个bean", countBean));
+      //打印出注册的bean的配置信息
+      for (String beanName : factory.getBeanDefinitionNames()) {
+          //通过名称从容器中获取对应的BeanDefinition信息
+          BeanDefinition beanDefinition = factory.getBeanDefinition(beanName);
+          //获取BeanDefinition具体使用的是哪个类
+          String beanDefinitionClassName = beanDefinition.getClass().getName();
+          //通过名称获取bean对象
+          Object bean = factory.getBean(beanName);
+          //打印输出
+          System.out.println(beanName + ":");
+          System.out.println("    beanDefinitionClassName：" + beanDefinitionClassName);
+          System.out.println("    beanDefinition：" + beanDefinition);
+          System.out.println("    bean：" + bean);
+      }
+  }
 
-    //打印出注册的bean的配置信息
-    for (String beanName : factory.getBeanDefinitionNames()) {
-        //通过名称从容器中获取对应的BeanDefinition信息
-        BeanDefinition beanDefinition = factory.getBeanDefinition(beanName);
-        //获取BeanDefinition具体使用的是哪个类
-        String beanDefinitionClassName = beanDefinition.getClass().getName();
-        //通过名称获取bean对象
-        Object bean = factory.getBean(beanName);
-        //打印输出
-        System.out.println(beanName + ":");
-        System.out.println("    beanDefinitionClassName：" + beanDefinitionClassName);
-        System.out.println("    beanDefinition：" + beanDefinition);
-        System.out.println("    bean：" + bean);
-    }
-}
-
-```
+  ```
 
 - 注解方式：注解方式应该是我们用的最多的一种方式了，在相应的地方使用注解修饰，Spring 会扫描注解，完成依赖关系的注入。
 
-```
-// 1. 开启注解扫描   start ---------
-<context:component-scan base-package="com.atguigu.spring6">
-</context:component-scan>
+  ```log
+  // 1. 开启注解扫描   start ---------
+  <context:component-scan base-package="com.atguigu.spring6">
+  </context:component-scan>
 
-或
+  或
 
-@Configuration
-//@ComponentScan({"com.atguigu.spring6.controller", "com.atguigu.spring6.service","com.atguigu.spring6.dao"})
-@ComponentScan("com.atguigu.spring6")
-public class Spring6Config {
-}
-// ---------- end
+  @Configuration
+  //@ComponentScan({"com.atguigu.spring6.controller", "com.atguigu.spring6.service","com.atguigu.spring6.dao"})
+  @ComponentScan("com.atguigu.spring6")
+  public class Spring6Config {
+  }
+  // ---------- end
 
-// 2. 之后使用
-@Bean 、 @Controller 、 @Service ...
+  // 2. 之后使用
+  @Bean 、 @Controller 、 @Service ...
 
-```
+  ```
 
-# 依赖注入的方式
+## 依赖注入的方式
 
 ![image.png](./bean/image/1699278365370.png)
 
@@ -332,137 +328,140 @@ public class Spring6Config {
 
 - **构造方法注入**通过调用类的构造方法，将接口实现类通过构造方法变量传入复制代码
 
-```java
-public CatDaoImpl(String message){
-   this. message = message;
- }
+  ```java
+  public CatDaoImpl(String message){
+    this. message = message;
+  }
 
-<bean id="CatDaoImpl" class="com.CatDaoImpl">
-  <constructor-arg value=" message "></constructor-arg>
-</bean>
+  <bean id="CatDaoImpl" class="com.CatDaoImpl">
+    <constructor-arg value=" message "></constructor-arg>
+  </bean>
 
-```
+  ```
 
 - **属性注入**通过 Setter 方法完成调用类所需依赖的注入复制代码
 
-```java
-public class Id {
-    private int id;
+  ```java
+  public class Id {
+      private int id;
 
-    public int getId() { return id; }
+      public int getId() { return id; }
 
-    public void setId(int id) { this.id = id; }
-}
+      public void setId(int id) { this.id = id; }
+  }
 
-<bean id="id" class="com.id ">
-  <property name="id" value="123"></property>
-</bean>
+  <bean id="id" class="com.id ">
+    <property name="id" value="123"></property>
+  </bean>
 
-```
+  ```
 
 - **工厂方法注入**
+
   - **静态工厂注入**静态工厂顾名思义，就是通过调用静态工厂的方法来获取自己需要的对象，为了让 Spring 管理所有对象，我们不能直接通过"工程类.静态方法()"来获取对象，而是依然通过 Spring 注入的形式获取：复制代码
-  - **非静态工厂注入**非静态工厂，也叫实例工厂，意思是工厂方法不是静态的，所以我们需要首先 new 一个工厂实例，再调用普通的实例方法。复制代码
 
-```java
-public class DaoFactory { //静态工厂
+  ```java
+  //静态工厂
+  public class DaoFactory {
 
-   public static final FactoryDao getStaticFactoryDaoImpl(){
-      return new StaticFacotryDaoImpl();
-   }
-}
-
-public class SpringAction {
-
- //注入对象
- private FactoryDao staticFactoryDao;
-
- //注入对象的 set 方法
- public void setStaticFactoryDao(FactoryDao staticFactoryDao) {
-     this.staticFactoryDao = staticFactoryDao;
- }
-
-}
-
-//factory-method="getStaticFactoryDaoImpl"指定调用哪个工厂方法
- <bean name="springAction" class=" SpringAction" >
-   <!--使用静态工厂的方法注入对象,对应下面的配置文件-->
-   <property name="staticFactoryDao" ref="staticFactoryDao"></property>
- </bean>
-
- <!--此处获取对象的方式是从工厂类中获取静态方法-->
-<bean name="staticFactoryDao" class="DaoFactory"
-  factory-method="getStaticFactoryDaoImpl"></bean>
-
-```
-
-```java
-//非静态工厂
-public class DaoFactory {
-   public FactoryDao getFactoryDaoImpl(){
-     return new FactoryDaoImpl();
-   }
- }
-
-public class SpringAction {
-  //注入对象
-  private FactoryDao factoryDao;
-
-  public void setFactoryDao(FactoryDao factoryDao) {
-    this.factoryDao = factoryDao;
+    public static final FactoryDao getStaticFactoryDaoImpl(){
+        return new StaticFacotryDaoImpl();
+    }
   }
-}
 
-<bean name="springAction" class="SpringAction">
-   <!--使用非静态工厂的方法注入对象,对应下面的配置文件-->
-   <property name="factoryDao" ref="factoryDao"></property>
- </bean>
+  public class SpringAction {
 
- <!--此处获取对象的方式是从工厂类中获取实例方法-->
- <bean name="daoFactory" class="com.DaoFactory"></bean>
+  //注入对象
+  private FactoryDao staticFactoryDao;
 
-<bean name="factoryDao" factory-bean="daoFactory" factory-method="getFactoryDaoImpl"></bean>
+  //注入对象的 set 方法
+  public void setStaticFactoryDao(FactoryDao staticFactoryDao) {
+      this.staticFactoryDao = staticFactoryDao;
+  }
 
-```
+  }
+
+  //factory-method="getStaticFactoryDaoImpl"指定调用哪个工厂方法
+  <bean name="springAction" class=" SpringAction" >
+    <!--使用静态工厂的方法注入对象,对应下面的配置文件-->
+    <property name="staticFactoryDao" ref="staticFactoryDao"></property>
+  </bean>
+
+  <!--此处获取对象的方式是从工厂类中获取静态方法-->
+  <bean name="staticFactoryDao" class="DaoFactory"
+    factory-method="getStaticFactoryDaoImpl"></bean>
+
+  ```
+
+  - **非静态工厂注入**非静态工厂，也叫实例工厂，意思是工厂方法不是静态的，所以我们需要首先 new 一个工厂实例，再调用普通的实例方法。
+
+  ```java
+  //非静态工厂
+  public class DaoFactory {
+    public FactoryDao getFactoryDaoImpl(){
+      return new FactoryDaoImpl();
+    }
+  }
+
+  public class SpringAction {
+    //注入对象
+    private FactoryDao factoryDao;
+
+    public void setFactoryDao(FactoryDao factoryDao) {
+      this.factoryDao = factoryDao;
+    }
+  }
+
+  <bean name="springAction" class="SpringAction">
+    <!--使用非静态工厂的方法注入对象,对应下面的配置文件-->
+    <property name="factoryDao" ref="factoryDao"></property>
+  </bean>
+
+  <!--此处获取对象的方式是从工厂类中获取实例方法-->
+  <bean name="daoFactory" class="com.DaoFactory"></bean>
+
+  <bean name="factoryDao" factory-bean="daoFactory" factory-method="getFactoryDaoImpl"></bean>
+
+  ```
 
 - FactoryBean 创建 bean 对象
 
-```
-public class UserFactoryBean implements FactoryBean<UserModel> {
-    int count = 1;
-    @Nullable
-    @Override
-    public UserModel getObject() throws Exception { //@1
-        UserModel userModel = new UserModel();
-        userModel.setName("我是通过FactoryBean创建的第"+count+++ "对象");//@4
-        return userModel;
-    }
-    @Nullable
-    @Override
-    public Class<?> getObjectType() {
-        return UserModel.class; //@2
-    }
-    @Override
-    public boolean isSingleton() {
-        return true; //@3
-    }
-}
+  ```java
+  public class UserFactoryBean implements FactoryBean<UserModel> {
+      int count = 1;
+      @Nullable
+      @Override
+      public UserModel getObject() throws Exception { //@1
+          UserModel userModel = new UserModel();
+          userModel.setName("我是通过FactoryBean创建的第"+count+++ "对象");//@4
+          return userModel;
+      }
+      @Nullable
+      @Override
+      public Class<?> getObjectType() {
+          return UserModel.class; //@2
+      }
+      @Override
+      public boolean isSingleton() {
+          return true; //@3
+      }
+  }
 
-<!-- 通过FactoryBean 创建UserModel对象 -->
-<bean id="createByFactoryBean" class="com.javacode2018.lesson001.demo3.UserFactoryBean"/>
+  <!-- 通过FactoryBean 创建UserModel对象 -->
+  <bean id="createByFactoryBean" class="com.javacode2018.lesson001.demo3.UserFactoryBean"/>
 
-//1.bean配置文件位置
-String beanXml = "classpath:/com/javacode2018/lesson001/demo3/beans.xml";
-//2.创建ClassPathXmlApplicationContext容器，给容器指定需要加载的bean配置文件
-ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(beanXml);
-UserModel userModel = context.getBean("userModel",UserModel.class);
-System.out.println("spring容器中所有bean如下：");
-//getBeanDefinitionNames用于获取容器中所有bean的名称
-for (String beanName : context.getBeanDefinitionNames()) {
-    System.out.println(beanName + ":" + context.getBean(beanName));
-}
+  //1.bean配置文件位置
+  String beanXml = "classpath:/com/javacode2018/lesson001/demo3/beans.xml";
+  //2.创建ClassPathXmlApplicationContext容器，给容器指定需要加载的bean配置文件
+  ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(beanXml);
+  UserModel userModel = context.getBean("userModel",UserModel.class);
+  System.out.println("spring容器中所有bean如下：");
+  //getBeanDefinitionNames用于获取容器中所有bean的名称
+  for (String beanName : context.getBeanDefinitionNames()) {
+      System.out.println(beanName + ":" + context.getBean(beanName));
+  }
 
-```
+  ```
 
 ### 依赖注入的实现方式
 
@@ -470,138 +469,138 @@ for (String beanName : context.getBeanDefinitionNames()) {
 
 - 构造方法
 
-```
-public CatDaoImpl(String message){
-  this. message = message;
-}
+  ```java
+  public CatDaoImpl(String message){
+    this. message = message;
+  }
 
-<bean id="CatDaoImpl" class="com.CatDaoImpl">
-  <constructor-arg value=" message "></constructor-arg>
-</bean>
+  <bean id="CatDaoImpl" class="com.CatDaoImpl">
+    <constructor-arg value=" message "></constructor-arg>
+  </bean>
 
-```
+  ```
 
-- setter
+  - setter
 
-```
-public class Id {
-  private int id;
+  ```
+  public class Id {
+    private int id;
 
-  public int getId() { return id; }
+    public int getId() { return id; }
 
-  public void setId(int id) { this.id = id; }
-}
+    public void setId(int id) { this.id = id; }
+  }
 
-<bean id="id" class="com.id ">
-  <property name="id" value="123"></property>
-</bean>
+  <bean id="id" class="com.id ">
+    <property name="id" value="123"></property>
+  </bean>
 
-```
+  ```
 
 - 实例工厂方式
 
-```
-//非静态工厂
-public class DaoFactory {
-   public FactoryDao getFactoryDaoImpl(){
-     return new FactoryDaoImpl();
-   }
- }
-
-public class SpringAction {
-  //注入对象
-  private FactoryDao factoryDao;
-
-  public void setFactoryDao(FactoryDao factoryDao) {
-    this.factoryDao = factoryDao;
+  ```java
+  //非静态工厂
+  public class DaoFactory {
+    public FactoryDao getFactoryDaoImpl(){
+      return new FactoryDaoImpl();
+    }
   }
-}
 
-<bean name="springAction" class="SpringAction">
-   <!--使用非静态工厂的方法注入对象,对应下面的配置文件-->
-   <property name="factoryDao" ref="factoryDao"></property>
- </bean>
+  public class SpringAction {
+    //注入对象
+    private FactoryDao factoryDao;
 
- <!--此处获取对象的方式是从工厂类中获取实例方法-->
- <bean name="daoFactory" class="com.DaoFactory"></bean>
+    public void setFactoryDao(FactoryDao factoryDao) {
+      this.factoryDao = factoryDao;
+    }
+  }
 
-<bean name="factoryDao" factory-bean="daoFactory" factory-method="getFactoryDaoImpl"></bean>
+  <bean name="springAction" class="SpringAction">
+    <!--使用非静态工厂的方法注入对象,对应下面的配置文件-->
+    <property name="factoryDao" ref="factoryDao"></property>
+  </bean>
 
-```
+  <!--此处获取对象的方式是从工厂类中获取实例方法-->
+  <bean name="daoFactory" class="com.DaoFactory"></bean>
+
+  <bean name="factoryDao" factory-bean="daoFactory" factory-method="getFactoryDaoImpl"></bean>
+
+  ```
 
 - 静态工厂方式
 
-```
-public class DaoFactory { //静态工厂
+  ```java
+  public class DaoFactory { //静态工厂
 
-   public static final FactoryDao getStaticFactoryDaoImpl(){
-      return new StaticFacotryDaoImpl();
-   }
-}
+    public static final FactoryDao getStaticFactoryDaoImpl(){
+        return new StaticFacotryDaoImpl();
+    }
+  }
 
-public class SpringAction {
+  public class SpringAction {
 
- //注入对象
- private FactoryDao staticFactoryDao;
+  //注入对象
+  private FactoryDao staticFactoryDao;
 
- //注入对象的 set 方法
- public void setStaticFactoryDao(FactoryDao staticFactoryDao) {
-     this.staticFactoryDao = staticFactoryDao;
- }
+  //注入对象的 set 方法
+  public void setStaticFactoryDao(FactoryDao staticFactoryDao) {
+      this.staticFactoryDao = staticFactoryDao;
+  }
 
-}
+  }
 
-//factory-method="getStaticFactoryDaoImpl"指定调用哪个工厂方法
- <bean name="springAction" class=" SpringAction" >
-   <!--使用静态工厂的方法注入对象,对应下面的配置文件-->
-   <property name="staticFactoryDao" ref="staticFactoryDao"></property>
- </bean>
+  //factory-method="getStaticFactoryDaoImpl"指定调用哪个工厂方法
+  <bean name="springAction" class=" SpringAction" >
+    <!--使用静态工厂的方法注入对象,对应下面的配置文件-->
+    <property name="staticFactoryDao" ref="staticFactoryDao"></property>
+  </bean>
 
- <!--此处获取对象的方式是从工厂类中获取静态方法-->
-<bean name="staticFactoryDao" class="DaoFactory"
-  factory-method="getStaticFactoryDaoImpl"></bean>
+  <!--此处获取对象的方式是从工厂类中获取静态方法-->
+  <bean name="staticFactoryDao" class="DaoFactory"
+    factory-method="getStaticFactoryDaoImpl"></bean>
 
-```
+  ```
 
 - FactoryBean 创建 bean 对象
 
-```
-public class UserFactoryBean implements FactoryBean<UserModel> {
-    int count = 1;
-    @Nullable
-    @Override
-    public UserModel getObject() throws Exception { //@1
-        UserModel userModel = new UserModel();
-        userModel.setName("我是通过FactoryBean创建的第"+count+++ "对象");//@4
-        return userModel;
-    }
-    @Nullable
-    @Override
-    public Class<?> getObjectType() {
-        return UserModel.class; //@2
-    }
-    @Override
-    public boolean isSingleton() {
-        return true; //@3
-    }
-}
+  ```java
+  public class UserFactoryBean implements FactoryBean<UserModel> {
+      int count = 1;
+      @Nullable
+      @Override
+      public UserModel getObject() throws Exception { //@1
+          UserModel userModel = new UserModel();
+          userModel.setName("我是通过FactoryBean创建的第"+count+++ "对象");//@4
+          return userModel;
+      }
+      @Nullable
+      @Override
+      public Class<?> getObjectType() {
+          return UserModel.class; //@2
+      }
+      @Override
+      public boolean isSingleton() {
+          return true; //@3
+      }
+  }
 
-<!-- 通过FactoryBean 创建UserModel对象 -->
-<bean id="createByFactoryBean" class="com.javacode2018.lesson001.demo3.UserFactoryBean"/>
+  <!-- 通过FactoryBean 创建UserModel对象 -->
+  <bean id="createByFactoryBean" class="com.javacode2018.lesson001.demo3.UserFactoryBean"/>
 
-//1.bean配置文件位置
-String beanXml = "classpath:/com/javacode2018/lesson001/demo3/beans.xml";
-//2.创建ClassPathXmlApplicationContext容器，给容器指定需要加载的bean配置文件
-ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(beanXml);
-System.out.println("spring容器中所有bean如下：");
-//getBeanDefinitionNames用于获取容器中所有bean的名称
-for (String beanName : context.getBeanDefinitionNames()) {
-    System.out.println(beanName + ":" + context.getBean(beanName));
-}
+  //1.bean配置文件位置
+  String beanXml = "classpath:/com/javacode2018/lesson001/demo3/beans.xml";
+  //2.创建ClassPathXmlApplicationContext容器，给容器指定需要加载的bean配置文件
+  ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(beanXml);
+  System.out.println("spring容器中所有bean如下：");
+  //getBeanDefinitionNames用于获取容器中所有bean的名称
+  for (String beanName : context.getBeanDefinitionNames()) {
+      System.out.println(beanName + ":" + context.getBean(beanName));
+  }
 
-```
+  ```
 
-# 装配
+## 装配
 
 Spring 容器在用到 Bean 的位置构造出 Bean 的过程就是装配，比如类 A 中有依赖了类 B，那么 Spring 容器把类 B 的一个对象给到 A 的过程，就是装配。
 
@@ -613,7 +612,7 @@ Spring 容器能够自动装配 bean。也就是说，可以通过检查 BeanFac
 
 根据指定的策略，在 IOC 容器中匹配某一个 bean，自动为指定的 bean 中所依赖的类类型或接口类型属性赋值
 
-## 自动装配
+### 自动装配
 
 ![image.png](./bean/image/1699278510884.png)
 
@@ -629,11 +628,11 @@ byType - 它根据类型注入对象依赖项。如果属性的类型与 XML 文
 构造函数 - 它通过调用类的构造函数来注入依赖项。它有大量的参数。
 autodetect - 首先容器尝试通过构造函数使用 autowire 装配，如果不能，则尝试通过 byType 自动装配。
 
-```
+:::
 
 自动装配的局限性：
 
-- 覆盖的可能性 - 您始终可以使用 <constructor-arg> 和 <property> 设置指定依赖项，这将覆盖自动装配。
+- 覆盖的可能性 - 您始终可以使用 `<constructor-arg>` 和 `<property>` 设置指定依赖项，这将覆盖自动装配。
 - 基本元数据类型 - 简单属性（如原数据类型，字符串和类）无法自动装配。
 - 令人困惑的性质 - 总是喜欢使用明确的装配，因为自动装配不太精确。
 
@@ -643,7 +642,7 @@ lazy-initialization
 
 在 bean 定义的时候通过 lazy-init 属性来配置 bean 是否是延迟加载，true：延迟初始化，false：实时初始化
 
-```
+```log
 
 <bean lazy-init="是否是延迟初始化" />
 
@@ -666,7 +665,7 @@ lazy-initialization
 
 ![image.png](./bean/image/1699596521888.png)
 
-```
+```xml
 
 <bean id="book02" class="com.spring.beans.Book" scope="singleton"></bean>
 
@@ -679,13 +678,13 @@ lazy-initialization
 - SpringAPI 方式
 - properties 方式
 
-# 生命周期
+## 生命周期
 
-# 注解
+## 注解
 
 ![image.png](./bean/image/1699277162040.png)
 
-**Web**:
+### **Web**:
 
 - @Controller：组合注解（组合了@Component 注解），应用在 MVC 层（控制层）。
 - @RestController：该注解为一个组合注解，相当于@Controller 和@ResponseBody 的组合，注解在类上，意味着，该 Controller 的所有方法都默认加上了@ResponseBody。
@@ -699,7 +698,7 @@ lazy-initialization
 - @PathVariable：用于接收路径参数，比如@RequestMapping(“/hello/{name}”)申明的路径，将注解放在参数中前，即可获取该值，通常作为 Restful 的接口实现方法。
 - @RestController：该注解为一个组合注解，相当于@Controller 和@ResponseBody 的组合，注解在类上，意味着，该 Controller 的所有方法都默认加上了@ResponseBody。
 
-**容器**:
+### **容器**:
 
 - @Component：表示一个带注释的类是一个“组件”，成为 Spring 管理的 Bean。当使用基于注解的配置和类路径扫描时，这些类被视为自动检测的候选对象。同时@Component 还是一个元注解。
 - @Service：组合注解（组合了@Component 注解），应用在 service 层（业务逻辑层）。
@@ -722,7 +721,7 @@ lazy-initialization
 - @Bean：注解在方法上，声明当前方法的返回值为一个 Bean。返回的 Bean 对应的类中可以定义 init()方法和 destroy()方法，然后在@Bean(initMethod=”init”,destroyMethod=”destroy”)定义，在构造之后执行 init，在销毁之前执行 destroy。
 - @Scope:定义我们采用什么模式去创建 Bean（方法上，得有@Bean） 其设置类型包括：Singleton 、Prototype、Request 、 Session、GlobalSession。
 
-**AOP**:
+### **AOP**:
 
 - @Aspect:声明一个切面（类上） 使用@After、@Before、@Around 定义建言（advice），可直接将拦截规则（切点）作为参数。
   - @After ：在方法执行之后执行（方法上）。
@@ -730,7 +729,7 @@ lazy-initialization
   - @Around： 在方法执行之前与之后执行（方法上）。
   - @PointCut： 声明切点 在 java 配置类中使用@EnableAspectJAutoProxy 注解开启 Spring 对 AspectJ 代理的支持（类上）。
 
-**事务**：
+### **事务**：
 
 - @Transactional：在要开启事务的方法上使用@Transactional 注解，即可声明式开启事务。
 
@@ -749,7 +748,7 @@ lazy-initialization
 
 @Resource 注解属于 JDK 扩展包，所以不在 JDK 当中，需要额外引入以下依赖：【**如果是 JDK8 的话不需要额外引入依赖。高于 JDK11 或低于 JDK8 需要引入以下依赖。**】
 
-```
+```xml
 
 <dependency>
     <groupId>jakarta.annotation</groupId>
@@ -757,30 +756,32 @@ lazy-initialization
     <version>2.1.1</version>
 </dependency>
 
-````
+```
 
-# 问题
+## 问题
 
-## 同名 Bean 的处理方式
+### 同名 Bean 的处理方式
 
 - 同一个配置文件内同名的 Bean，以最上面定义的为准
 - 不同配置文件中存在同名 Bean，后解析的配置文件会覆盖先解析的配置文件
 - 同文件中 ComponentScan 和@Bean 出现同名 Bean。同文件下@Bean 的会生效，@ComponentScan 扫描进来不会生效。通过@ComponentScan 扫描进来的优先级是最低的，原因就是它扫描进来的 Bean 定义是最先被注册的~
 
-## 循环依赖
+### 循环依赖
 
-### 什么是循环依赖？
+#### 什么是循环依赖？
 
 ![image.png](./bean/image/1699278637946.png)
+
 Spring 循环依赖：简单说就是自己依赖自己，或者和别的 Bean 相互依赖。
 
-### Spring 可以解决哪些情况的循环依赖？
+#### Spring 可以解决哪些情况的循环依赖？
 
 ![image.png](./bean/image/1699278843898.png)
+
 Spring 不支持基于构造器注入的循环依赖，第四种可以而第五种不可以的原因是 Spring 在创建 Bean 时默认会根据自然排序进行创建，所以 A 会先于 B 进行创建。
 所以简单总结，当循环依赖的实例都采用 setter 方法注入的时候，Spring 可以支持，都采用构造器注入的时候，不支持，构造器注入和 setter 注入同时存在的时候，看天。
 
-### Spring 如何解决循环依赖
+#### Spring 如何解决循环依赖
 
 我们都知道，单例 Bean 初始化完成，要经历三步：
 
@@ -792,10 +793,12 @@ Spring 不支持基于构造器注入的循环依赖，第四种可以而第五�
 3. 三级缓存 : Map<String,ObjectFactory<?>> **singletonFactories**，早期曝光对象工厂，用于保存 bean 创建工厂，以便于后面扩展有机会创建代理对象。
 
 ![](./bean/image/1699278905285.png)
+
 我们来看一下三级缓存解决循环依赖的过程：
 当 A、B 两个类发生循环依赖时：
 
 ![](./bean/image/1699278905303.png)
+
 A 实例的初始化过程：
 
 1. 创建 A 实例，实例化的时候把 A 对象⼯⼚放⼊三级缓存，表示 A 开始实例化了，虽然我这个对象还不完整，但是先曝光出来让大家知道
@@ -807,9 +810,10 @@ A 实例的初始化过程：
 5. 最后，⼀级缓存中保存着实例化、初始化都完成的 A、B 对象
 
 ![](./bean/image/1699278905907.png)
+
 所以，我们就知道为什么 Spring 能解决 setter 注入的循环依赖了，因为实例化和属性赋值是分开的，所以里面有操作的空间。如果都是构造器注入的化，那么都得在实例化这一步完成注入，所以自然是无法支持了。
 
-### 为什么要三级缓存？二级不行吗？
+#### 为什么要三级缓存？二级不行吗？
 
 不行，主要是为了**⽣成代理对象**。如果是没有代理的情况下，使用二级缓存解决循环依赖也是 OK 的。但是如果存在代理，三级没有问题，二级就不行了。
 因为三级缓存中放的是⽣成具体对象的匿名内部类，获取 Object 的时候，它可以⽣成代理对象，也可以返回普通对象。使⽤三级缓存主要是为了保证不管什么时候使⽤的都是⼀个对象。
@@ -817,7 +821,7 @@ A 实例的初始化过程：
 
 ![](./bean/image/1699278921813.png)
 
-## 单例 Bean 的线程同步问题
+### 单例 Bean 的线程同步问题
 
 当多个用户同时请求一个服务时，容器会给每一个请求分配一个线程，这时多个线程会并发执行该请求对应的业务逻辑（成员方法），此时就要注意了，如果该处理逻辑中有对单例状态的修改（体现为该单例的成员属性），则必须考虑线程同步问题。 **线程安全问题都是由全局变量及静态变量引起的。** 若每个线程中对全局变量、静态变量只有读操作，而无写操作，一般来说，这个全局变量是线程安全的；若有多个线程同时执行写操作，一般都需要考虑线程同步，否则就可能影响线程安全.
 **无状态 bean 和有状态 bean**
@@ -850,7 +854,7 @@ A 实例的初始化过程：
 
 参考： [Programming.log - a place to keep my thoughts on programming](https://www.cnblogs.com/weidagang2046/archive/2009/12/10/1620587.html)
 
----
+## TODO
 
 ### 粗略的
 
@@ -957,7 +961,7 @@ public class PersonBean implements InitializingBean, BeanFactoryAware, BeanNameA
 
 }
 
-````
+```
 
 - 定义一个 MyBeanPostProcessor 实现 BeanPostProcessor 接口
 

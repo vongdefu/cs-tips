@@ -89,7 +89,7 @@ spring:
 
 - 测试
 
-浏览器中输入： [http://localhost:15000?green](http://localhost:15000?green) ，点击回车后，浏览器会跳转到百度网站，
+浏览器中输入： `http://localhost:15000?green`，点击回车后，浏览器会跳转到百度网站，
 
 ![](./ch06-gateway/image/1699933274532.png)
 

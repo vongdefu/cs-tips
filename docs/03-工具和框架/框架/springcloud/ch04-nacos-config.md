@@ -50,13 +50,13 @@
 
 ### 4.1. SpringBoot 传统方式获取本地配置项
 
-直接使用 [@Value ](/Value) 注解获取即可。实现的大概过程是：
+直接使用 @Value 注解获取即可。实现的大概过程是：
 
 1. 在配置文件中填写配置内容；
 
 ![](./ch04-nacos-config/image/1699933269664.png)
 
-2. 通过 [@Value ](/Value) 注解获取配置信息；
+2. 通过 @Value 注解获取配置信息；
 
 ![](./ch04-nacos-config/image/1699933269756.png)
 
@@ -186,7 +186,7 @@ public class MyBrotherInfo {
 
 #### 4.2.5. 实时获取配置变更
 
-获取变更后的配置文件，我们只需要在获取的接口上添加 [@RefreshScope ](/RefreshScope) 注解即可。
+获取变更后的配置文件，我们只需要在获取的接口上添加 @RefreshScope 注解即可。
 
 ## 5. Nacos 方式 vs 传统方式
 

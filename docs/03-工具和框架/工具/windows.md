@@ -2,9 +2,9 @@
 
 ## 系统激活
 
-[Windows10企业版LTS激活](https://www.win7zhijia.cn/win10jc/win10_44800.html)
+[Windows10 企业版 LTS 激活](https://www.win7zhijia.cn/win10jc/win10_44800.html)
 
-windows10企业版ltsc激活密钥2021?[Win10](https://www.win7zhijia.cn/win10/)企业版ltsc是一款功能非常强大的win10版本，很多小伙伴们都想在电脑上安装win10企业版ltsc，但是安装了win10企业版ltsc后还需要密钥进行激活，那么今天小编就为大家带来了windows10企业版ltsc激活密钥2021，一起来看看吧。
+windows10 企业版 ltsc 激活密钥 2021?[Win10](https://www.win7zhijia.cn/win10/)企业版 ltsc 是一款功能非常强大的 win10 版本，很多小伙伴们都想在电脑上安装 win10 企业版 ltsc，但是安装了 win10 企业版 ltsc 后还需要密钥进行激活，那么今天小编就为大家带来了 windows10 企业版 ltsc 激活密钥 2021，一起来看看吧。
 
 ```js
 
@@ -41,24 +41,22 @@ MBQRK-FNDW8-B7GF4-V9PCW-6MV77
 
 ```
 
-
 **激活过程**：
 
-1. 首先使用“win+x”来打开“powershell管理员版本”;
+1. 首先使用“win+x”来打开“powershell 管理员版本”;
 2. 然后输入以下代码：
 
-    ```js
-    **slmgr -ipk M7XTQ-FN8P6-TTKYV-9D4CC-J462D**
-    **slmgr -skms kms.03k.org**
-    **slmgr -ato**
-    **slmgr -dlv**
-    ```
+   ```js
+   **slmgr -ipk M7XTQ-FN8P6-TTKYV-9D4CC-J462D**
+   **slmgr -skms kms.03k.org**
+   **slmgr -ato**
+   **slmgr -dlv**
+   ```
 
-3. 然后就可以使用win10企业版ltsc了。
+3. 然后就可以使用 win10 企业版 ltsc 了。
 4. 查看激活信息
 
-    ![1726169112262](./windows/image/1726169112262.png)
-
+   ![1726169112262](./windows/image/1726169112262.png)
 
 ## QTTabBar
 
@@ -74,6 +72,8 @@ MBQRK-FNDW8-B7GF4-V9PCW-6MV77
 
 ## 设备信息
 
-::: details 设备信息  
-@[code log](./windows/include/equipmentinfo.log) 
+::: details 设备信息
+
+<!-- @include: ./windows/include/equipmentinfo.log -->
+
 :::

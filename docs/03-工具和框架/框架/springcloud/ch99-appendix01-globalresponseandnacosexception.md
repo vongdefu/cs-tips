@@ -1,4 +1,4 @@
-# 附录 01 统一响应体+Nacos可配置全局异常
+# 附录 01 统一响应体+Nacos 可配置全局异常
 
 ### 1. 背景
 
@@ -9,7 +9,6 @@
 3. 异常信息千奇百怪，不利于前端处理。
 
 事实上，一个架构优良的系统，是需要前端开发和后端开发相互配合的。前端和后端开发约定好接口的响应格式，然后再根据这个格式完成前后端的公共模块的开发。这个过程中后端对应的业务功能就是`全局统一响应`。
-
 
 ### 2. 全局统一响应
 
@@ -30,7 +29,6 @@
 
 除了这些以外，还会有其他细化的需求。以下是几个常用的场景：
 
-
 ```
 // 遇到业务出现异常时，直接抛出异常信息
 
@@ -44,11 +42,10 @@
 
 根据上面的业务特点，我们明确实现目标：
 
-1. Nacos作为配置中心，但是需要我们自行编写工具类，最终达到的目的是，同一个异常编码对应多国语言的异常信息，并且能够自动刷新（即修改Nacos立即生效）；
-2. 配合Validation使用时，对业务主流程侵入性达到最小，最好是零侵入；
-3. 统一响应体消息格式，并且可以直接使用success和error方法；
-4. 业务代码中抛出异常的方式与jdk抛出异常方式在使用方式上一致，但是业务中抛出的异常信息的响应结果与自定义的响应消息体格式保持一致；
-
+1. Nacos 作为配置中心，但是需要我们自行编写工具类，最终达到的目的是，同一个异常编码对应多国语言的异常信息，并且能够自动刷新（即修改 Nacos 立即生效）；
+2. 配合 Validation 使用时，对业务主流程侵入性达到最小，最好是零侵入；
+3. 统一响应体消息格式，并且可以直接使用 success 和 error 方法；
+4. 业务代码中抛出异常的方式与 jdk 抛出异常方式在使用方式上一致，但是业务中抛出的异常信息的响应结果与自定义的响应消息体格式保持一致；
 
 ### 3. 实战过程
 
@@ -59,9 +56,7 @@
 3. 构建统一响应消息体。这个步骤是格式化接口的响应信息，需要利用到上一步编写的工具类。
 4. 构建统一异常处理。这个步骤是格式化异常信息的响应信息，需要利用到第二步编写的工具类。
 
-
 #### 3.1. 重写语言解析器
-
 
 ```
 public class LanguageResolver implements LocaleResolver {
@@ -102,7 +97,6 @@ public class LanguageResolver implements LocaleResolver {
 
 ```
 
-
 ```
 @Configuration
 public class MessageConfig {
@@ -116,11 +110,9 @@ public class MessageConfig {
 
 ```
 
-
 #### 3.2. 构建配置信息
 
-这里我们选用Alibaba-Nacos组件。
-
+这里我们选用 Alibaba-Nacos 组件。
 
 ```
 <dependency>
@@ -129,7 +121,6 @@ public class MessageConfig {
 </dependency>
 
 ```
-
 
 ```
 server:
@@ -150,7 +141,6 @@ spring:
 ```
 
 配置一个枚举类，枚举出所有的国际化的异常码表。
-
 
 ```
 public enum NacosJson2ObjEnum {
@@ -184,8 +174,7 @@ public enum NacosJson2ObjEnum {
 
 ```
 
-利用Spring初始化Bean机制，把国际化异常码表信息加载本地内存中，并设置监听器监听Nacos上面的配置变化。
-
+利用 Spring 初始化 Bean 机制，把国际化异常码表信息加载本地内存中，并设置监听器监听 Nacos 上面的配置变化。
 
 ```
 @Slf4j
@@ -280,7 +269,6 @@ public class NacosConfig implements InitializingBean {
 
 对外提供一个工具类，获取国际化的异常信息。
 
-
 ```
 @Component
 public class MessageNacosUtil {
@@ -315,9 +303,7 @@ public class MessageNacosUtil {
 
 ```
 
-
 #### 3.3. 构建统一响应消息体
-
 
 ```java
 @Data
@@ -332,7 +318,6 @@ public class BaseResponse{
 }
 
 ```
-
 
 ```java
 @Data
@@ -384,9 +369,7 @@ public class DataResponse<T> extends BaseResponse{
 
 ```
 
-
 #### 3.4. 构建统一异常处理
-
 
 ```java
 public class BaseException extends RuntimeException implements Serializable {
@@ -407,7 +390,6 @@ public class BaseException extends RuntimeException implements Serializable {
 }
 
 ```
-
 
 ```java
 @Data
@@ -448,7 +430,6 @@ public class BizException extends BaseException{
 
 关键一步，重写自定义的异常信息。
 
-
 ```
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -462,14 +443,11 @@ public class GlobalExceptionHandler {
 
 ```
 
-
 ### 4. 使用
 
-开发过程中还涉及到请求参数的校验过程，这里我们选用Validation的工具类。下面是集成过程。
+开发过程中还涉及到请求参数的校验过程，这里我们选用 Validation 的工具类。下面是集成过程。
 
-
-#### 4.1. 集成Validation
-
+#### 4.1. 集成 Validation
 
 ```
 <dependency>
@@ -478,7 +456,6 @@ public class GlobalExceptionHandler {
 </dependency>
 
 ```
-
 
 ```
 @ControllerAdvice
@@ -507,24 +484,19 @@ public class GlobalExceptionHandler {
 
 ```
 
-
 #### 4.2. 测试
 
-我们在nacos上添加配置文件，并填充内容。
-
+我们在 nacos 上添加配置文件，并填充内容。
 
 ![](./ch99-appendix01-globalresponseandnacosexception/image/1699933284574.png)
 
-
 ![](./ch99-appendix01-globalresponseandnacosexception/image/1699933284668.png)
-
 
 ![](./ch99-appendix01-globalresponseandnacosexception/image/1699933284751.png)
 
-我们编写一个controller进行测试：
+我们编写一个 controller 进行测试：
 
 1. 直接抛出业务异常
-
 
 ```
 @GetMapping("/throw2_01")
@@ -538,14 +510,11 @@ public OperationResponse test02_01() {
 
 ```
 
-
 ![](./ch99-appendix01-globalresponseandnacosexception/image/1699933284829.png)
-
 
 ![](./ch99-appendix01-globalresponseandnacosexception/image/1699933284968.png)
 
 2. 抛出校验异常
-
 
 ```
 
@@ -567,7 +536,6 @@ public class UserDTO {
 
 ```
 
-
 ```
 @PostMapping("/throw2_02")
 public DataResponse<UserDTO> test02_02(
@@ -578,21 +546,17 @@ public DataResponse<UserDTO> test02_02(
 
 ```
 
-
 ![](./ch99-appendix01-globalresponseandnacosexception/image/1699933285089.png)
-
 
 ![](./ch99-appendix01-globalresponseandnacosexception/image/1699933285186.png)
 
-
 ![](./ch99-appendix01-globalresponseandnacosexception/image/1699933285280.png)
 
-原理解读： [@NotBlank ](/NotBlank ) 和 [@NotEmpty ](/NotEmpty ) 注解校验不通过时，会抛出 MethodArgumentNotValidException 异常信息，而我们在 GlobalExceptionHandler 中捕获这个异常信息之后做了自定义处理逻辑，大概逻辑就是先获取到抛出异常信息的message信息，拿到异常码，之后利用工具类和语言信息从Nacos中获取异常码的描述信息。 
+原理解读： @NotBlank 和 @NotEmpty 注解校验不通过时，会抛出 MethodArgumentNotValidException 异常信息，而我们在 GlobalExceptionHandler 中捕获这个异常信息之后做了自定义处理逻辑，大概逻辑就是先获取到抛出异常信息的 message 信息，拿到异常码，之后利用工具类和语言信息从 Nacos 中获取异常码的描述信息。
 
-注意： 上面的捕获MethodArgumentNotValidException后的处理逻辑中只处理了所抛出的第一个异常信息，自测多次同一个请求类，由于是多个字段校验，可能会抛出不同的异常信息，这里需要做自定义实现。
+注意： 上面的捕获 MethodArgumentNotValidException 后的处理逻辑中只处理了所抛出的第一个异常信息，自测多次同一个请求类，由于是多个字段校验，可能会抛出不同的异常信息，这里需要做自定义实现。
 
 3. 抛出组合后的异常信息
-
 
 ```
 @PostMapping("/throw2_03")
@@ -607,11 +571,9 @@ public DataResponse<UserDTO> test02_03(
 
 ```
 
-
 ![](./ch99-appendix01-globalresponseandnacosexception/image/1699933285373.png)
 
 4. 抛出多个参数组成的异常信息
-
 
 ```
 @PostMapping("/throw2_04")
@@ -626,14 +588,11 @@ public DataResponse<UserDTO> test02_04(
 
 ```
 
-
 ![](./ch99-appendix01-globalresponseandnacosexception/image/1699933285482.png)
-
 
 ![](./ch99-appendix01-globalresponseandnacosexception/image/1699933285602.png)
 
 5. 返回默认的响应失败消息体
-
 
 ```
 @PostMapping("/throw2_05")
@@ -646,14 +605,10 @@ public DataResponse<UserDTO> test02_05(
 
 ```
 
-
 ![](./ch99-appendix01-globalresponseandnacosexception/image/1699933285711.png)
-
 
 ### 5. 参考
 
-- [Nacos实现SpringBoot国际化的增强](https://blog.csdn.net/qq_15898739/article/details/104680114)
-- [Java统一异常处理(配置文件集中化定义)](https://mp.weixin.qq.com/s/XE4R2wOj08qNivo8Ms5ZRQ)
-- [三种手段：通过Apollo和nacos的能力进行国际化动态配置实现热更新](https://developer.aliyun.com/article/1180037)
-
-
+- [Nacos 实现 SpringBoot 国际化的增强](https://blog.csdn.net/qq_15898739/article/details/104680114)
+- [Java 统一异常处理(配置文件集中化定义)](https://mp.weixin.qq.com/s/XE4R2wOj08qNivo8Ms5ZRQ)
+- [三种手段：通过 Apollo 和 nacos 的能力进行国际化动态配置实现热更新](https://developer.aliyun.com/article/1180037)

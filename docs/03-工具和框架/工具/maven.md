@@ -78,8 +78,6 @@
    5. 依赖排除
 5. 下载 jar 的原理
 
----
-
 ## 1. 配置
 
 1. 修改 jar 文件在本地的位置
@@ -158,16 +156,16 @@
 
    ```xml
    <servers>
-   <server>
-       <id>releases</id>
-       <username>zeanzai</username>
-       <password>root1003</password>
-   </server>
-   <server>
-       <id>snapshots</id>
-       <username>zeanzai</username>
-       <password>root1003</password>
-   </server>
+        <server>
+            <id>releases</id>
+            <username>zeanzai</username>
+            <password>root1003</password>
+        </server>
+        <server>
+            <id>snapshots</id>
+            <username>zeanzai</username>
+            <password>root1003</password>
+        </server>
    </servers>
 
 
@@ -193,7 +191,6 @@
            </pluginRepository>
        </pluginRepositories>
    </profile>
-
    ```
 
 ## 2. 完整的 settings.xml 文件
@@ -284,11 +281,9 @@
 
 ## 4. 一些参考配置文件
 
-<!-- @include: ./maven/include/settings_origin.xml-->
-
-<!-- @include: ./maven/include/settings-aliyun.xml-->
-
-<!-- @include: ./maven/include/settings_nexus2.xml-->
+- settings_origin.xml
+- settings-aliyun.xml
+- settings_nexus2.xml
 
 ## 5. 参考
 
