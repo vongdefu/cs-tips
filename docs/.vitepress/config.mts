@@ -1,6 +1,6 @@
 import { defineConfig } from "vitepress";
-import { nav } from "../nav.ts";
-import { sidebar } from "../sidebar.ts";
+import { nav } from "./nav.ts";
+import { sidebar } from "./sidebar.ts";
 import { fileURLToPath, URL } from "node:url";
 
 // https://vitepress.dev/reference/site-config
