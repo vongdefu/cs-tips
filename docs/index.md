@@ -7,19 +7,19 @@ hero:
   tagline: make it come true
   actions:
     - theme: brand
-      text: Markdown Examples
+      text: 面试提示-开始
       link: /markdown-examples
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: 体系化知识
+      link: /01-CS基础/前端
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: 面试总结
+    details: 面试知识点总结，Java程序员面试宝典，面试要点提示卡片
+  - title: 项目实战
+    details: SpringCloud-alibaba项目实战、常见业务场景解决方案、分布式架构、多种组件、大型互联网应用实战……
+  - title: 体系化
+    details: 知识库成体系化、简介、一库在手，天下我有、
 ---
 
 ## TODO
