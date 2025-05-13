@@ -22,7 +22,7 @@ head:
 
 ![求职的同学靠面渣逆袭吊打面试官，闭环了](https://cdn.tobebetterjavaer.com/stutymore/nixi-20240802112329.png)
 
->下面我将用三弟来代替作者三分恶滴滴，方便行文逻辑。
+> 下面我将用三弟来代替作者三分恶滴滴，方便行文逻辑。
 
 ## 内容体系全面
 
@@ -78,21 +78,21 @@ head:
 
 硬核理解版八股文，包括 Java 基础（JavaSE）、Java 集合框架、Java 并发编程（Java 多线程）、Java 虚拟机（JVM）、Spring、MySQL、Redis、MyBatis、操作系统、计算机网络、RocketMQ、分布式、微服务、设计模式等等，助你拿到心仪 offer！
 
-- [面渣逆袭（Java 基础篇面试题八股文）必看 👍](/sidebar/sanfene/javase.md)
-- [面渣逆袭（Java 集合框架篇面试题八股文）必看 👍](/sidebar/sanfene/collection.md)
-- [面渣逆袭（Java 并发编程篇面试题八股文）必看 👍](/sidebar/sanfene/javathread.md)
-- [面渣逆袭（Java 虚拟机篇面试题八股文）必看 👍](/sidebar/sanfene/jvm.md)
-- [面渣逆袭（Spring 面试题八股文）必看 👍](/sidebar/sanfene/spring.md)
-- [面渣逆袭（MySQL 面试题八股文）必看 👍](/sidebar/sanfene/mysql.md)
-- [面渣逆袭（Redis 面试题八股文）必看 👍](/sidebar/sanfene/redis.md)
-- [面渣逆袭（MyBatis 面试题八股文）必看 👍](/sidebar/sanfene/mybatis.md)
-- [面渣逆袭（操作系统面试题八股文）必看 👍](/sidebar/sanfene/os.md)
-- [面渣逆袭（计算机网络面试题八股文）必看 👍](/sidebar/sanfene/network.md)
-- [面渣逆袭（RocketMQ 面试题八股文）必看 👍](/sidebar/sanfene/rocketmq.md)
-- [面渣逆袭（分布式面试题八股文）必看 👍](/sidebar/sanfene/fenbushi.md)
-- [面渣逆袭（微服务面试题八股文）必看 👍](/sidebar/sanfene/weifuwu.md)
-- [面渣逆袭（设计模式面试题八股文）必看 👍](/sidebar/sanfene/shejimoshi.md)
-- [面渣逆袭（Linux 面试题八股文）必看 👍](/sidebar/sanfene/linux.md)
+- [面渣逆袭（Java 基础篇面试题八股文）必看 👍](./01-javase.md)
+- [面渣逆袭（Java 集合框架篇面试题八股文）必看 👍](./02-collection.md)
+- [面渣逆袭（Java 并发编程篇面试题八股文）必看 👍](./03-javathread.md)
+- [面渣逆袭（Java 虚拟机篇面试题八股文）必看 👍](./jvm.md)
+- [面渣逆袭（Spring 面试题八股文）必看 👍](./spring.md)
+- [面渣逆袭（MySQL 面试题八股文）必看 👍](./mysql.md)
+- [面渣逆袭（Redis 面试题八股文）必看 👍](./redis.md)
+- [面渣逆袭（MyBatis 面试题八股文）必看 👍](./mybatis.md)
+- [面渣逆袭（操作系统面试题八股文）必看 👍](./os.md)
+- [面渣逆袭（计算机网络面试题八股文）必看 👍](./network.md)
+- [面渣逆袭（RocketMQ 面试题八股文）必看 👍](./rocketmq.md)
+- [面渣逆袭（分布式面试题八股文）必看 👍](./fenbushi.md)
+- [面渣逆袭（微服务面试题八股文）必看 👍](./weifuwu.md)
+- [面渣逆袭（设计模式面试题八股文）必看 👍](./shejimoshi.md)
+- [面渣逆袭（Linux 面试题八股文）必看 👍](./linux.md)
 
 ## PDF 介绍
 
@@ -149,7 +149,6 @@ head:
 13、微服务
 
 ![微服务](https://cdn.tobebetterjavaer.com/stutymore/nixi-20230918213033.png)
-
 
 由于 PDF 没办法自我更新，所以需要最新版的小伙伴，可以微信搜【**沉默王二**】，或者扫描/长按识别下面的二维码，关注二哥的公众号，回复【**222**】即可拉取最新版本。
 
