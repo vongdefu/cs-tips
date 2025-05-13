@@ -187,7 +187,7 @@ public String test01(String name, String age) {
 
 ```
 
-- 服务消费者使用 [@RequestParam ](/RequestParam) 标注服务生产者接受的两个参数的参数名，
+- 服务消费者使用 @RequestParam 标注服务生产者接受的两个参数的参数名，
 
 ```java
 @PostMapping("/provider/test01")
@@ -217,7 +217,7 @@ public String test02(@PathVariable("name") String name, @PathVariable("age")Inte
 
 ```
 
-- 服务消费者使用 [@PathVariable ](/PathVariable) 注解进行标注生产者的参数名，
+- 服务消费者使用 @PathVariable 注解进行标注生产者的参数名，
 
 ```java
 @GetMapping("/provider/test02/{name}/{age}")
@@ -278,7 +278,7 @@ public String test04(@RequestPart("file") MultipartFile file) {
 
 ```
 
-- 消费者使用 [@RequestPart ](/RequestPart) 注解进行标注生产者的参数名，特别注意的是需要 [@PostMapping ](/PostMapping) 注解要添加 produces 和 consumes 的值，这两个属性标注了生产者接受的媒体类型和需要处理的媒体类型。
+- 消费者使用 @RequestPart 注解进行标注生产者的参数名，特别注意的是需要 @PostMapping 注解要添加 produces 和 consumes 的值，这两个属性标注了生产者接受的媒体类型和需要处理的媒体类型。
 
 ```java
 @PostMapping(value = "/provider/test04",
@@ -358,7 +358,7 @@ public void test05(@RequestBody MyFiles myFiles, HttpServletResponse response) {
 
 ```
 
-- 消费者使用 [@RequestBody ](/RequestBody) 标注生产者接受的参数的类型
+- 消费者使用 @RequestBody 标注生产者接受的参数的类型
 
 ```java
 @PostMapping(value = "/provider/test05", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -467,7 +467,7 @@ feign:
 
 ## 4. OpenFeign 的原理
 
-1. 由于启动类上添加了 [@EnableFeignClients ](/EnableFeignClients) 注解，并标注了需要扫描@FeignClients 客户端所在的包路径，程序启动时会扫描包路径，并把这些信息注入到 Spring 的容器中；
+1. 由于启动类上添加了 @EnableFeignClients 注解，并标注了需要扫描@FeignClients 客户端所在的包路径，程序启动时会扫描包路径，并把这些信息注入到 Spring 的容器中；
 2. 当发生调用时，Spring 会通过 JDK 代理的方式，为客户端生成具体的 RestTemplate；
 3. 在把 RestTemplate 生成的 Request 交给具体的 Client，最后 Client 被封装到 LoadBalanceClient 类，这个类会结合 Ribbon 负载均衡发起服务的调用；
 

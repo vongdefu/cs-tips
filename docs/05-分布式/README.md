@@ -61,15 +61,15 @@ dir:
 1. 我们自己写的代码，应该怎么实现我们的需求：应用层面（锁、缓存、事务、 消息、 ID、Job、会话）
 2. 我们用的中间件是怎么实现我们的需求的：治理层面（负载均衡、限流与熔断、注册与发现、RPC、监控和报警、链路追踪）
 
-- [基础理论](./05-distribution/distribution/theory.md)
-- [分布式锁](./05-distribution/distribution/lock.md)
-- [分布式事务](./05-distribution/distribution/transaction.md)
-- [分布式 ID](./05-distribution/distribution/id.md)
-- [分布式缓存](./05-distribution/distribution/cache.md)
-- [分布式消息](./05-distribution/distribution/message.md)
-- [分布式存储（分库分表）](./05-distribution/distribution/duration.md)
-- [布式会话](./05-distribution/distribution/session.md)
-- [分布式 Job](./05-distribution/distribution/job.md)
+- [基础理论](./distribution/theory.md)
+- 分布式锁 lock.md
+- [分布式事务](./distribution/transaction.md)
+- [分布式 ID](./distribution/id.md)
+- [分布式缓存](./distribution/cache.md)
+- [分布式消息](./distribution/message.md)
+- [分布式存储（分库分表）](./distribution/duration.md)
+- [布式会话](./distribution/session.md)
+- [分布式 Job](./distribution/job.md)
 
 ## 10. 参考
 
@@ -191,10 +191,10 @@ BS 模式发展过程中并不是立刻就有理论支撑的，人们为了快�
 
 ## 分布式系统的『三座大山』
 
-![](../../defu/05-distribution/distribution/README/image/1690806124190.jpeg)
+![](./README/image/1690806124190.jpeg)
 
 P90、P95、P99、P99.9 等
 
 ---
 
-![基于Redis实现接口限流](../../defu/05-distribution/distribution/README/image/1682262599408.jpeg)
+![基于Redis实现接口限流](./README/image/1682262599408.jpeg)
