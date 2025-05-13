@@ -1,23 +1,6 @@
----
-title: 分布式面试题，12道分布式八股文（8千字25张手绘图），面渣逆袭必看👍
-shortTitle: 面渣逆袭-分布式
-author: 三分恶
-category:
-  - 面渣逆袭
-tag:
-  - 面渣逆袭
-description: 下载次数超 1 万次，8800 字 25 张手绘图，详解 12 道分布式面试高频题（让天下没有难背的八股），面渣背会这些八股文，这次吊打面试官，我觉得稳了（手动 dog）。
-head:
-  - - meta
-    - name: keywords
-      content: Java,分布式,Java面试题,分布式面试题,面试题,八股文,java
----
-
-8800 字 25 张手绘图，详解 12 道分布式面试高频题（让天下没有难背的八股），面渣背会这些八股文，这次吊打面试官，我觉得稳了（手动 dog）。整理：沉默王二，戳[转载链接](https://mp.weixin.qq.com/s/nLwHEmVGtl-2FDugMqYs3A)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/d84tWIjbcGKhwUptzkO2hQ)。
-
 ## 分布式理论
 
-### 1\. 说说 CAP 原则？
+### 1. 说说 CAP 原则？
 
 CAP 原则又称 CAP 定理，指的是在一个分布式系统中，Consistency（一致性）、 Availability（可用性）、Partition tolerance（分区容错性）这 3 个基本需求，最多只能同时满足其中的 2 个。
 
@@ -29,7 +12,7 @@ CAP 原则又称 CAP 定理，指的是在一个分布式系统中，Consistency
 | Availability（可用性）            | 指系统提供的服务必须一直处于可用的状态，每次请求都能获取到非错的响应（不保证获取的数据为最新数据）             |
 | Partition tolerance（分区容错性） | 分布式系统在遇到任何网络分区故障的时候，仍然能够对外提供满足一致性和可用性的服务，除非整个网络环境都发生了故障 |
 
-### 2\. 为什么 CAP 不可兼得呢？
+### 2. 为什么 CAP 不可兼得呢？
 
 首先对于分布式系统，分区是必然存在的，所谓分区指的是分布式系统可能出现的字区域网络不通，成为孤立区域的的情况。
 
@@ -58,7 +41,7 @@ CAP 原则又称 CAP 定理，指的是在一个分布式系统中，Consistency
 
 所以，可以看出，分区容错的前提下，`一致性`和`可用性`是矛盾的。
 
-### 3\. CAP 对应的模型和应用？
+### 3. CAP 对应的模型和应用？
 
 **CA without P**
 
@@ -93,7 +76,7 @@ AP 模型常见应用：
 - Eureka 保证的则是 AP
 - Nacos 不仅支持 CP 也支持 AP
 
-### 4\. BASE 理论了解吗？
+### 4. BASE 理论了解吗？
 
 BASE（Basically Available、Soft state、Eventual consistency）是基于 CAP 理论逐步演化而来的，核心思想是即便不能达到强一致性（Strong consistency），也可以根据应用特点采用适当的方式来达到最终一致性（Eventual consistency）的效果。
 
@@ -115,17 +98,11 @@ BASE 的主要含义：
 
 上面说了软状态，但是不应该一直都是软状态。在一定时间后，应该到达一个最终的状态，保证所有副本保持数据一致性，从而达到数据的最终一致性。这个时间取决于网络延时、系统负载、数据复制方案设计等等因素。
 
-GitHub 上标星 10000+ 的开源知识库《[二哥的 Java 进阶之路](https://github.com/itwanger/toBeBetterJavaer)》第一版 PDF 终于来了！包括 Java 基础语法、数组&字符串、OOP、集合框架、Java IO、异常处理、Java 新特性、网络编程、NIO、并发编程、JVM 等等，共计 32 万余字，500+张手绘图，可以说是通俗易懂、风趣幽默……详情戳：[太赞了，GitHub 上标星 10000+ 的 Java 教程](https://javabetter.cn/overview/)
-
-微信搜 **沉默王二** 或扫描下方二维码关注二哥的原创公众号沉默王二，回复 **222** 即可免费领取。
-
-![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)
-
 ## 分布式锁
 
 单体时代，可以直接用本地锁来实现对竞争资源的加锁，分布式环境下就要用到分布式锁了。
 
-### 5\. 有哪些分布式锁的实现方案呢？
+### 5. 有哪些分布式锁的实现方案呢？
 
 常见的分布式锁实现方案有三种：`MySQL分布式锁`、`ZooKepper分布式锁`、`Redis分布式锁`。
 
@@ -174,12 +151,6 @@ set resourceName value ex 5 nx
 - **Redission**
 
 当然，一般生产中都是使用 Redission 客户端，非常良好地封装了分布式锁的 api，而且支持 RedLock。
-
-GitHub 上标星 10000+ 的开源知识库《[二哥的 Java 进阶之路](https://github.com/itwanger/toBeBetterJavaer)》第一版 PDF 终于来了！包括 Java 基础语法、数组&字符串、OOP、集合框架、Java IO、异常处理、Java 新特性、网络编程、NIO、并发编程、JVM 等等，共计 32 万余字，500+张手绘图，可以说是通俗易懂、风趣幽默……详情戳：[太赞了，GitHub 上标星 10000+ 的 Java 教程](https://javabetter.cn/overview/)
-
-微信搜 **沉默王二** 或扫描下方二维码关注二哥的原创公众号沉默王二，回复 **222** 即可免费领取。
-
-![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)
 
 ## 分布式事务
 
@@ -344,12 +315,6 @@ Seata 整体执行流程：
 
 > 1. [Java 面试指南（付费）](https://javabetter.cn/zhishixingqiu/mianshi.html)收录的字节跳动同学 17 后端技术面试原题：分布式事务怎么实现 为什么要用延迟队列
 
-GitHub 上标星 10000+ 的开源知识库《[二哥的 Java 进阶之路](https://github.com/itwanger/toBeBetterJavaer)》第一版 PDF 终于来了！包括 Java 基础语法、数组&字符串、OOP、集合框架、Java IO、异常处理、Java 新特性、网络编程、NIO、并发编程、JVM 等等，共计 32 万余字，500+张手绘图，可以说是通俗易懂、风趣幽默……详情戳：[太赞了，GitHub 上标星 10000+ 的 Java 教程](https://javabetter.cn/overview/)
-
-微信搜 **沉默王二** 或扫描下方二维码关注二哥的原创公众号沉默王二，回复 **222** 即可免费领取。
-
-![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)
-
 ## 分布式一致性算法
 
 ### 9.分布式算法 paxos 了解么 ？
@@ -457,12 +422,6 @@ Follower 将其当前 term 加一然后转换为 Candidate。它首先给自己�
 
 选出 `Leader` 后，`Leader` 通过 **定期** 向所有 `Follower` 发送 **心跳信息** 维持其统治。若 `Follower` 一段时间未收到 `Leader` 的 **心跳**，则认为 `Leader` 可能已经挂了，然后再次发起 **选举** 过程。
 
-GitHub 上标星 10000+ 的开源知识库《[二哥的 Java 进阶之路](https://github.com/itwanger/toBeBetterJavaer)》第一版 PDF 终于来了！包括 Java 基础语法、数组&字符串、OOP、集合框架、Java IO、异常处理、Java 新特性、网络编程、NIO、并发编程、JVM 等等，共计 32 万余字，500+张手绘图，可以说是通俗易懂、风趣幽默……详情戳：[太赞了，GitHub 上标星 10000+ 的 Java 教程](https://javabetter.cn/overview/)
-
-微信搜 **沉默王二** 或扫描下方二维码关注二哥的原创公众号沉默王二，回复 **222** 即可免费领取。
-
-![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)
-
 ## 分布式设计
 
 ### 11.说说什么是幂等性？
@@ -541,12 +500,6 @@ update user set amount=amount+100,version=version+1 where id=123 and vers
 
 请求接口之前，需要先获取一个唯一的 token，再带着这个 token 去完成业务操作，服务端根据这个 token 是否存在，来判断是否是重复的请求。
 
-GitHub 上标星 10000+ 的开源知识库《[二哥的 Java 进阶之路](https://github.com/itwanger/toBeBetterJavaer)》第一版 PDF 终于来了！包括 Java 基础语法、数组&字符串、OOP、集合框架、Java IO、异常处理、Java 新特性、网络编程、NIO、并发编程、JVM 等等，共计 32 万余字，500+张手绘图，可以说是通俗易懂、风趣幽默……详情戳：[太赞了，GitHub 上标星 10000+ 的 Java 教程](https://javabetter.cn/overview/)
-
-微信搜 **沉默王二** 或扫描下方二维码关注二哥的原创公众号沉默王二，回复 **222** 即可免费领取。
-
-![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)
-
 ## 分布式限流
 
 ### 12.你了解哪些限流算法？
@@ -604,9 +557,3 @@ _没有什么使我停留——除了目的，纵然岸旁有玫瑰、有绿荫�
 - [面渣逆袭 Linux 篇 👍](https://javabetter.cn/sidebar/sanfene/linux.html)
 
 ---
-
-GitHub 上标星 10000+ 的开源知识库《[二哥的 Java 进阶之路](https://github.com/itwanger/toBeBetterJavaer)》第一版 PDF 终于来了！包括 Java 基础语法、数组&字符串、OOP、集合框架、Java IO、异常处理、Java 新特性、网络编程、NIO、并发编程、JVM 等等，共计 32 万余字，500+张手绘图，可以说是通俗易懂、风趣幽默……详情戳：[太赞了，GitHub 上标星 10000+ 的 Java 教程](https://javabetter.cn/overview/)
-
-微信搜 **沉默王二** 或扫描下方二维码关注二哥的原创公众号沉默王二，回复 **222** 即可免费领取。
-
-![](https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)
